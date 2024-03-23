@@ -90,7 +90,8 @@
         test_files = runCommandLocal "ans_test_files"
           {
             passthru = {
-              simple = test_file;
+              simple = test_file_simple;
+              background = test_file_background;
               large = test_file_large;
               meta = test_file_meta;
               comments = test_file_comments;
@@ -99,6 +100,7 @@
           ''
             mkdir $out
             ln -sf ${test_file_simple} $out/simple.ans
+            ln -sf ${test_file_background} $out/background.ans
             ln -sf ${test_file_large} $out/large.ans
             ln -sf ${test_file_meta} $out/meta.ans
             ln -sf ${test_file_comments} $out/comments.ans
@@ -126,6 +128,30 @@
                 printf "\\\\x%02x" "''${@:17:16}" 13 10; \
               ' _ \
               && printf '\x1B[0m' \
+            )" >$out
+          ''
+        ;
+
+        test_file_background = runCommandLocal "background.ans"
+          {
+            meta = with lib; {
+              description = "Test CP437 file with background colours";
+              license = licenses.cc0;
+              maintainers = with maintainers; [ kip93 ];
+              platforms = platforms.all;
+            };
+          }
+          ''
+            printf "$( \
+              printf '%s\n' $(seq 0 255) \
+              | sed -E 's/^(10|13|26|27)$/32/g' \
+              | xargs -n32 bash -c ' \
+                printf "\x1B[0;10%d;3%dm" $(( $1 / 32 % 8)) $(( $1 / 32 % 8)); \
+                printf "\\\\x%02x" "''${@:1:16}"; \
+                printf "\x1B[0;4%d;1;9%dm" $(( $1 / 32 % 8)) $(( $1 / 32 % 8)); \
+                printf "\\\\x%02x" "''${@:17:16}"; \
+                printf '\\\\x1B[0m\\\\x0D\\\\x0A'; \
+              ' _ \
             )" >$out
           ''
         ;
