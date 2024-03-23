@@ -34,6 +34,8 @@
             rust-bin.stable.${cargo.package.rust-version}.default
           ];
           shellHook = ''
+            export CARGO_HOME="$PWD/.cargo"
+
             update() { cargo update; }
             fmt()    { cargo fmt; }
             lint()   { cargo clippy; }

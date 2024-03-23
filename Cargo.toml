@@ -10,7 +10,7 @@ keywords = ["ansi", "art", "ascii", "cp437"]
 
 rust-version = "1.77.0"
 edition = "2021"
-publish = false
+publish = true
 
 [[bin]]
 name = "cp437-help"
