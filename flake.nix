@@ -7,13 +7,17 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+    };
     # See <https://github.com/nix-systems/nix-systems>.
     systems = {
       url = "github:nix-systems/default";
     };
   };
 
-  outputs = { self, nixpkgs, rust, systems }:
+  outputs = { self, nixpkgs, rust, systems, ... }:
     let
       systems' = import systems;
       pkgs = system:
