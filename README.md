@@ -20,25 +20,10 @@ but if not given it allows piping to other programs such as imagemagick.
 <img src="example-png.png" width="256" alt="PNG output"/>
 
 
-## Lib
+## lib
 
 While not intended for use as a library, it may still prove useful. Be warned
 though that no guarantees are made about the stability of the API.
-
-### cp437_tools::cp437::CP437
-
-An array of 256 elements, mapping most of the CP437 values to UTF-8. I say most
-because some have ambigous meanings and so I've taken the liberty to restrict
-their use to make rendering easier.
-
-### cp437_tools::colour::COLOURS
-
-A list of 16 RGB values corresponding to the 4-bit colours used by CP437 files.
-
-### cp437_tools::meta::*
-
-A set of functions used to handle the metadata of CP437 files (aka
-[SAUCE](https://www.acid.org/info/sauce/sauce.htm)).
 
 
 ## Development

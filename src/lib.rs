@@ -1,7 +1,26 @@
+//! A small collection of tools to handle CP437 files.
+//!
+//! <div class="warning">
+//!
+//! This crate is primary written to supply CLI commands, not as a reusable
+//! library.
+//!
+//! While I'll try and avoid making changes to the API, be warned that (at
+//! least, at the moment) no guarantees are made about its stability.
+//!
+//! </div>
+//!
+
+#![deny(missing_docs)]
+
 pub mod colour;
 pub mod cp437;
+pub mod fonts;
+#[doc(hidden)]
 pub mod help;
 pub mod meta;
+
+pub use self::{colour::COLOURS, cp437::CP437, meta::Meta};
 
 use std::{
     fs::File,
@@ -9,15 +28,11 @@ use std::{
     process::ExitCode,
 };
 
+#[doc(hidden)]
 #[inline]
-pub fn _process<
+pub fn process<
     'a,
-    F: for<'b> FnOnce(
-            &'b mut File,
-            &'b mut Box<dyn Write>,
-            Option<meta::Meta>,
-        ) -> Result<(), String>
-        + 'a,
+    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), String> + 'a,
 >(
     input: &String,
     output: &Option<String>,
@@ -37,12 +52,7 @@ pub fn _process<
 #[inline]
 fn wrapped_process<
     'a,
-    F: for<'b> FnOnce(
-            &'b mut File,
-            &'b mut Box<dyn Write>,
-            Option<meta::Meta>,
-        ) -> Result<(), String>
-        + 'a,
+    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), String> + 'a,
 >(
     input: &String,
     output: &Option<String>,

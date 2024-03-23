@@ -1,3 +1,5 @@
+//! Print help text and exit
+
 use std::{env::args, process::ExitCode};
 
 use cp437_tools::help;

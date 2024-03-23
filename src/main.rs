@@ -1,3 +1,5 @@
+//! Wrapper for all available subcommands in one single convinient place
+
 use std::{env::args, process::ExitCode};
 
 use cp437_tools::help;

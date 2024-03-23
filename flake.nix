@@ -57,6 +57,12 @@
             run_debug() {
               RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
             }
+            doc() {
+              cargo doc --message-format short --no-deps
+            }
+            doc_open() {
+              firefox "file://$PWD/target/doc"/${lib.escapeShellArg cargo.package.name}/index.html
+            }
           '';
         };
       });
@@ -73,12 +79,12 @@
           in
           rustPlatform.buildRustPackage {
             pname = cargo.package.name;
-            version = cargo.package.version;
+            inherit (cargo.package) version;
             src = self;
             cargoLock.lockFile = self + "/Cargo.lock";
 
             meta = with lib; {
-              description = cargo.package.description;
+              inherit (cargo.package) description;
               mainProgram = cargo.package.name;
               homepage = cargo.package.homepage or cargo.package.repository;
               license = with licenses; [ gpl3Plus cc-by-sa-40 ];

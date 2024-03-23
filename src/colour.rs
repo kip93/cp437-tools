@@ -1,3 +1,32 @@
+//! ANSI colours
+
+/// A list of 16 RGB values corresponding to the 4-bit colours used by CP437
+/// files
+///
+/// List of colours:
+///
+///   * Dark
+///
+///     0.  Black
+///     1.  Red
+///     2.  Green
+///     3.  Yellow
+///     4.  Blue
+///     5.  Magenta
+///     6.  Cyan
+///     7.  White
+///
+///   * Light
+///
+///     8.  Black
+///     9.  Red
+///     10. Green
+///     11. Yellow
+///     12. Blue
+///     13. Magenta
+///     14. Cyan
+///     15. White
+///
 #[rustfmt::skip]
 pub static COLOURS: &[[u8; 3]] = &[
   // DARK

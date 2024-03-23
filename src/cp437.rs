@@ -1,13 +1,18 @@
-// https://en.wikipedia.org/wiki/Code_page_437#Character_set
-// Mostly follows CP437, except for:
-//  * 0x00 is replaced by 0x20, for rendering purposes.
-//  * 0x0A & 0x0D are kept for use as line endings.
-//  * 0x1A is used for SAUCE.
-//  * 0x1B is used for ANSI escape sequences.
-//
-// These exclusions should be fine since most programs can't even use them
-// without issues.
+//! CP437 to UTF-8
 
+/// An array of 256 elements, mapping most of the CP437 values to UTF-8
+///
+/// Mostly follows CP437, except for:
+///  * 0x00 is replaced by 0x20, for rendering purposes.
+///  * 0x0A & 0x0D are kept for use as line endings.
+///  * 0x1A is used for SAUCE.
+///  * 0x1B is used for ANSI escape sequences.
+///
+/// These exclusions should be fine since most programs can't even use them
+/// without issues. And this makes rendering simpler too.
+///
+/// See <https://en.wikipedia.org/wiki/Code_page_437#Character_set>
+///
 #[rustfmt::skip]
 pub static CP437: &[char] = &[
     /* XX    X0   X1   X2   X3   X4   X5   X6   X7    X8   X9   XA    XB   XC    XD    XE   XF */

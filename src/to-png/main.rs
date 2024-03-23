@@ -1,3 +1,5 @@
+//! Render files as PNG
+
 use atty::{self, Stream::Stdout};
 use png::{text_metadata::ITXtChunk, BitDepth, ColorType, Encoder, PixelDimensions, Unit};
 use std::{
@@ -9,9 +11,7 @@ use std::{
 };
 use ttf_parser::Face;
 
-use cp437_tools::{_process, colour::COLOURS, cp437::CP437, help, meta::Meta};
-
-mod fonts;
+use cp437_tools::{fonts, help, process, Meta, COLOURS, CP437};
 
 struct XY {
     x: usize,
@@ -39,7 +39,7 @@ pub fn run(args: Vec<String>) -> ExitCode {
         return ExitCode::from(1);
     }
 
-    return _process(&args[1], &args.get(2).map(|x| return x.to_string()), draw);
+    return process(&args[1], &args.get(2).map(|x| return x.to_string()), draw);
 }
 
 fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), String> {

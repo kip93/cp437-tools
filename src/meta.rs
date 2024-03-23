@@ -1,4 +1,7 @@
-// https://www.acid.org/info/sauce/sauce.htm
+//! Handling of file's metadata
+//!
+//! See <https://www.acid.org/info/sauce/sauce.htm>
+//!
 
 use endianness::{read_u16, read_u32, ByteOrder::LittleEndian};
 use std::{
@@ -7,25 +10,69 @@ use std::{
     str,
 };
 
-#[derive(Debug)]
+/// A structure representing a file's metadata
+#[doc(alias = "Sauce")]
 pub struct Meta {
+    /// The image's title
     pub title: String,
+    /// The image's author
     pub author: String,
+    /// The image author's team or group
+    #[doc(alias = "team")]
     pub group: String,
+    /// The image creation date, in the YYYYMMDD format
     pub date: String,
+    /// The size of the file, sans this metadata
     pub size: u32,
+    /// The type of this file
+    ///
+    /// Only supported values are
+    /// * `(1, 0)` → `Character/ASCII`
+    /// * `(1, 1)` → `Character/ANSI`
+    ///
+    /// See <https://www.acid.org/info/sauce/sauce.htm#FileType>
+    ///
     pub r#type: (u8, u8),
+    /// Width of the image
     pub width: u16,
+    /// Height of the image
     pub height: u16,
+    /// A list of comments on this image
+    #[doc(alias = "comments")]
     pub notes: Vec<String>,
+    /// A bitfield of flags that define how to process an image
+    ///
+    /// See <https://www.acid.org/info/sauce/sauce.htm#ANSiFlags>
+    ///
+    #[doc(alias = "AR")]
+    #[doc(alias = "aspect ratio")]
+    #[doc(alias = "LS")]
+    #[doc(alias = "letter spacing")]
+    #[doc(alias = "B")]
+    #[doc(alias = "ice colour")]
+    #[doc(alias = "non-blink mode")]
     pub flags: u8,
+    /// The name of the font this image uses
+    ///
+    /// Only IBM VGA is supported.
+    ///
     pub font: String,
 }
 
+/// Get a file's metadata via its path
+///
+/// Arguments:
+/// * `path`: Path pointing to file. Can be relative to cwd.
+///
 pub fn get(path: &str) -> Result<Option<Meta>, String> {
     return read(&mut File::open(path).map_err(|x| return x.to_string())?);
 }
 
+/// Get a file's metadata via a file reference
+///
+/// Arguments:
+/// * `file`: File to read
+///
 pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
     return read_raw(file).map(|x| {
         return x.map(|meta| {
@@ -62,6 +109,11 @@ pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
     });
 }
 
+/// Check that a given file's metadata is valid and supported
+///
+/// Arguments:
+/// * `meta`: The metadata to check
+///
 pub fn check(meta: &Option<Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if m.r#type.0 != 1 {

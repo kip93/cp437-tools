@@ -1,3 +1,5 @@
+//! Transpile CP437 to UTF-8 while also stripping metadata
+
 use std::{
     cmp::min,
     env::args,
@@ -6,7 +8,7 @@ use std::{
     process::ExitCode,
 };
 
-use cp437_tools::{_process, cp437::CP437, help, meta::Meta};
+use cp437_tools::{help, process, Meta, CP437};
 
 #[allow(dead_code)]
 pub fn main() -> ExitCode {
@@ -25,7 +27,7 @@ pub fn run(args: Vec<String>) -> ExitCode {
         return ExitCode::from(1);
     }
 
-    return _process(&args[1], &args.get(2).map(|x| return x.to_string()), print);
+    return process(&args[1], &args.get(2).map(|x| return x.to_string()), print);
 }
 
 fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), String> {
