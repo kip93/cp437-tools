@@ -1,0 +1,38 @@
+[package]
+name = "cp437-tools"
+description = "Small collection of tools to handle CP437 files"
+version = "0.1.0"
+repository = "https://github.com/kip93/cp437-tools"
+license = "GPL-3.0-or-later AND CC-BY-SA-4.0"
+authors = ["kip93 <leandro@kip93.net>"]
+categories = ["command-line-utilities", "multimedia::images"]
+keywords = ["ansi", "art", "ascii", "cp437"]
+
+rust-version = "1.77.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "cp437-help"
+path = "src/help/main.rs"
+
+[[bin]]
+name = "cp437-to-png"
+path = "src/to-png/main.rs"
+
+[[bin]]
+name = "cp437-to-txt"
+path = "src/to-txt/main.rs"
+
+[dependencies]
+atty = "0.2"
+endianness = "0.2"
+indoc = "2"
+lazy_static = "1"
+png = "0.17"
+rust-embed = { version = "8", features = [ "include-exclude", "interpolate-folder-path" ] }
+ttf-parser = "0.20"
+
+[lints]
+clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
+rust = { unused_imports = "deny" }
