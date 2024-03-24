@@ -192,8 +192,13 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
             for (i, note) in meta.notes.iter().enumerate() {
                 output
                     .write_all(
-                        format!("* \x1B[1mNotes[{:0width$}]\x1B[0m: \x1B[3m{}\x1B[0m\n", i, note, width = (meta.notes.len() as f32).log10().ceil() as usize)
-                            .as_bytes(),
+                        format!(
+                            "* \x1B[1mNotes[{:0width$}]\x1B[0m: \x1B[3m{}\x1B[0m\n",
+                            i,
+                            note,
+                            width = (meta.notes.len() as f32).log10().ceil() as usize
+                        )
+                        .as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
             }
