@@ -212,10 +212,16 @@ fn insert<'a>(
             }
             control.clear();
         } else if byte == b'B' {
-            *index = *index + size.x;
+            *index += size.x;
             control.clear();
         } else if byte == b'C' {
-            *index = min(*index + String::from_utf8_lossy(&control[2..]).parse::<usize>().unwrap(), ((*index - 1) / size.x + 1) * size.x - 1);
+            *index = min(
+                *index
+                    + String::from_utf8_lossy(&control[2..])
+                        .parse::<usize>()
+                        .unwrap(),
+                ((*index - 1) / size.x + 1) * size.x - 1,
+            );
             control.clear();
         } else if control.len() > 1 && (0x40..=0x7E).contains(&byte) {
             eprintln!(
@@ -228,9 +234,7 @@ fn insert<'a>(
         }
     } else if byte == 0x1B {
         control.push(byte);
-    } else if byte == 0x0A {
-        *index = ((*index - 1) / size.x + 1) * size.x;
-    } else if byte == 0x0D {
+    } else if byte == 0x0A || byte == 0x0D {
         *index = ((*index - 1) / size.x + 1) * size.x;
     } else {
         let bitmap = face
