@@ -10,14 +10,14 @@ A small collection of tools to handle CP437 files.
 Simply strips metadata and maps CP437 to UTF-8. Takes an optional argument to
 the output file, but defaults to showing the result in the terminal.
 
-<img src="example-txt.png" width="256" alt="TXT output"/>
+<img src="screenshots/to-txt.png" width="256" alt="TXT output"/>
 
 ### cp437-to-png
 
 Renders the CP437 as a PNG image. Takes an optional argument to the output file,
 but if not given it allows piping to other programs such as imagemagick.
 
-<img src="example-png.png" width="256" alt="PNG output"/>
+<img src="screenshots/to-png.png" width="256" alt="PNG output"/>
 
 
 ## lib
