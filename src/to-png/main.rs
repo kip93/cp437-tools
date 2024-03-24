@@ -44,8 +44,8 @@ pub fn run(args: Vec<String>) -> ExitCode {
 fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), String> {
     let (bytes, size, font, ratio, face) = get_params(&meta);
     let bytes = match bytes {
-        Some(b) => b,
-        None => input.metadata().map_err(|x| return x.to_string())?.len() as u32,
+        Some(b) => b as usize,
+        None => input.metadata().map_err(|x| return x.to_string())?.len() as usize,
     };
 
     let mut canvas = vec![0; size.x * size.y * 3 * font.x * font.y * ratio.x * ratio.y];
@@ -58,8 +58,8 @@ fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Re
     input
         .seek(SeekFrom::Start(0))
         .map_err(|x| return x.to_string())?;
-    for i in 0..(bytes as usize).div_ceil(chunk.len()) {
-        let end = min(chunk.len(), bytes as usize - (i * chunk.len()));
+    for i in 0..bytes.div_ceil(chunk.len()) {
+        let end = min(chunk.len(), bytes - (i * chunk.len()));
         input
             .read_exact(&mut chunk[..end])
             .map_err(|x| return x.to_string())?;
@@ -277,8 +277,8 @@ fn write(
 ) -> Result<(), String> {
     let mut encoder = Encoder::new(
         BufWriter::new(file),
-        size.x as u32 * ratio.x as u32,
-        size.y as u32 * ratio.y as u32,
+        (size.x * ratio.x) as u32,
+        (size.y * ratio.y) as u32,
     );
     encoder.set_color(ColorType::Rgb);
     encoder.set_depth(BitDepth::Eight);
