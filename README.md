@@ -1,6 +1,6 @@
 <div align="center">
   <!-- nix run nixpkgs#imagemagick -- logo.png -resize 5% logo.small.png -->
-  <img src="logo.small.png" width="256" alt="logo"/>
+  <a href="logo.png"><img src="logo.small.png" width="256" alt="logo"/></a>
 </div><div align="center">
   <b>CP437 tools</b>
 
