@@ -20,11 +20,11 @@
   outputs = { self, nixpkgs, rust, systems, ... }:
     let
       systems' = import systems;
-      pkgs = system:
+      pkgs_fun = system:
         import nixpkgs ({
           localSystem = system;
           crossSystem = system;
-          overlays = [ rust.overlays.default ];
+          overlays = [ rust.overlays.default self.overlays.default ];
         } // (self.packages.${system} or { }))
       ;
 
@@ -32,7 +32,7 @@
 
     in
     {
-      devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs system; {
+      devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; {
         default = mkShell {
           nativeBuildInputs = [
             rust-bin.stable.${cargo.package.rust-version}.default
@@ -67,8 +67,7 @@
         };
       });
 
-      packages = nixpkgs.lib.genAttrs systems' (system: with pkgs system; rec {
-        default = cp437-tools;
+      overlays.default = final: _: with final; {
         cp437-tools =
           let
             rustPlatform = makeRustPlatform {
@@ -92,6 +91,11 @@
             };
           }
         ;
+      };
+
+      packages = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; rec {
+        default = cp437-tools;
+        inherit (pkgs) cp437-tools;
 
         test_files = runCommandLocal "ans_test_files"
           {
