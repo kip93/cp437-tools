@@ -46,22 +46,24 @@
             check()  { cargo fmt --check && cargo clippy; }
 
             build() {
-              cargo build --all-targets --message-format short --release;
+              cargo build --all-targets --message-format human --release;
             }
             build_debug() {
               cargo build --all-targets --message-format human;
             }
-            run() {
-              cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
-            }
-            run_debug() {
-              RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
-            }
-            doc() {
+
+            build_doc() {
               cargo doc --message-format short --no-deps
             }
-            doc_open() {
+            open_doc() {
               firefox "file://$PWD/target/doc"/${lib.escapeShellArg cargo.package.name}/index.html
+            }
+
+            run() {
+              RUSTFLAGS='--cap-lints warn' cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
+            }
+            run_debug() {
+              RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
             }
           '';
         };
