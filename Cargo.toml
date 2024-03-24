@@ -17,6 +17,10 @@ name = "cp437-help"
 path = "src/help/main.rs"
 
 [[bin]]
+name = "cp437-read-meta"
+path = "src/read-meta/main.rs"
+
+[[bin]]
 name = "cp437-to-png"
 path = "src/to-png/main.rs"
 
@@ -27,6 +31,7 @@ path = "src/to-txt/main.rs"
 [dependencies]
 atty = "0.2"
 endianness = "0.2"
+humansize = "2"
 indoc = "2"
 lazy_static = "1"
 png = "0.17"
@@ -35,4 +40,4 @@ ttf-parser = "0.20"
 
 [lints]
 clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
-rust = { unused_imports = "deny" }
+rust = { unused_imports = "deny", unused_variables = "deny" }

@@ -7,6 +7,8 @@ use cp437_tools::help;
 mod help_cmd;
 #[path = "to-png/main.rs"]
 mod png_cmd;
+#[path = "read-meta/main.rs"]
+mod read_cmd;
 #[path = "to-txt/main.rs"]
 mod txt_cmd;
 
@@ -26,6 +28,9 @@ fn run(args: Vec<String>) -> ExitCode {
     match command {
         "help" => {
             return help_cmd::run(without_command(args));
+        }
+        "read-meta" => {
+            return read_cmd::run(without_command(args));
         }
         "to-png" => {
             return png_cmd::run(without_command(args));

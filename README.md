@@ -5,6 +5,15 @@ A small collection of tools to handle CP437 files.
 
 ## Commands
 
+### cp437-read-meta
+
+Prints the metadata of a file to stdout. Useful for finding issues, since it
+will highlight potential problems, marking assumptions or default values with
+yellow, problems in red, and successes in green. Inconsequential fields are just
+shown in the default foreground colour.
+
+<img src="screenshots/read-meta.png" width="256" alt="meta output"/>
+
 ### cp437-to-txt
 
 Simply strips metadata and maps CP437 to UTF-8. Takes an optional argument to
