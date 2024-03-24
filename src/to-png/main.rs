@@ -211,9 +211,15 @@ fn insert<'a>(
                 }
             }
             control.clear();
+        } else if byte == b'B' {
+            *index = *index + size.x;
+            control.clear();
+        } else if byte == b'C' {
+            *index = min(*index + String::from_utf8_lossy(&control[2..]).parse::<usize>().unwrap(), ((*index - 1) / size.x + 1) * size.x - 1);
+            control.clear();
         } else if control.len() > 1 && (0x40..=0x7E).contains(&byte) {
             eprintln!(
-                "\x1B[33mWARN: Invalid control sequence argument: {}\x1B[0m",
+                "\x1B[33mWARN: Invalid control sequence argument: 0x{:02X}\x1B[0m",
                 byte
             );
             control.clear();
@@ -225,7 +231,7 @@ fn insert<'a>(
     } else if byte == 0x0A {
         *index = ((*index - 1) / size.x + 1) * size.x;
     } else if byte == 0x0D {
-        // Do nothing
+        *index = ((*index - 1) / size.x + 1) * size.x;
     } else {
         let bitmap = face
             .glyph_raster_image(
