@@ -37,9 +37,6 @@ pub struct Meta {
     pub width: u16,
     /// Height of the image
     pub height: u16,
-    /// A list of comments on this image
-    #[doc(alias = "comments")]
-    pub notes: Vec<String>,
     /// A bitfield of flags that define how to process an image
     ///
     /// See <https://www.acid.org/info/sauce/sauce.htm#ANSiFlags>
@@ -57,6 +54,9 @@ pub struct Meta {
     /// Only IBM VGA is supported.
     ///
     pub font: String,
+    /// A list of comments on this image
+    #[doc(alias = "comments")]
+    pub notes: Vec<String>,
 }
 
 /// Get a file's metadata via its path
@@ -86,11 +86,17 @@ pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
                 group: String::from_utf8_lossy(&meta[meta.len() - 66..meta.len() - 46])
                     .trim_end_matches('\x20')
                     .to_string(),
-                date: String::from_utf8_lossy(&meta[meta.len() - 46..meta.len() - 38]).to_string(),
+                date: String::from_utf8_lossy(&meta[meta.len() - 46..meta.len() - 38])
+                    .trim()
+                    .to_string(),
                 size: read_u32(&meta[meta.len() - 38..meta.len() - 34], LittleEndian).unwrap(),
                 r#type: (meta[meta.len() - 34], meta[meta.len() - 33]),
                 width: read_u16(&meta[meta.len() - 32..meta.len() - 30], LittleEndian).unwrap(),
                 height: read_u16(&meta[meta.len() - 30..meta.len() - 28], LittleEndian).unwrap(),
+                flags: meta[meta.len() - 23],
+                font: String::from_utf8_lossy(&meta[meta.len() - 22..])
+                    .trim_end_matches('\x00')
+                    .to_string(),
                 notes: (0..meta[meta.len() - 24] as usize)
                     .rev()
                     .map(|i| {
@@ -100,10 +106,6 @@ pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
                             .to_string();
                     })
                     .collect(),
-                flags: meta[meta.len() - 23],
-                font: String::from_utf8_lossy(&meta[meta.len() - 22..])
-                    .trim_end_matches('\x00')
-                    .to_string(),
             };
         });
     });
@@ -120,7 +122,7 @@ pub fn check(meta: &Option<Meta>) -> Result<(), String> {
             return Err(format!(
                 "Can't handle type: {}",
                 match m.r#type.0 {
-                    0 => String::from("None"),
+                    // 0 => String::from("None"),
                     // 1 => String::from("Character"),
                     2 => String::from("Bitmap"),
                     3 => String::from("Vector"),

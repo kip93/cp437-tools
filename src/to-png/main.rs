@@ -297,7 +297,7 @@ fn write(
             group.compress_text().map_err(|x| return x.to_string())?;
             writer.write_text_chunk(&group).unwrap();
         }
-        if !meta.date.trim().is_empty() {
+        if !meta.date.is_empty() {
             let mut date = ITXtChunk::new(String::from("Date"), meta.date);
             date.compress_text().map_err(|x| return x.to_string())?;
             writer.write_text_chunk(&date).unwrap();
