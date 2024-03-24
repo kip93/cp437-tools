@@ -30,6 +30,10 @@ shown in the default foreground colour.
 
 <img src="screenshots/read-meta.png" width="256" alt="meta output"/>
 
+### cp437-remove-meta
+
+Takes a file and creates a copy without its metadata.
+
 ### cp437-to-txt
 
 Simply strips metadata and maps CP437 to UTF-8. Takes an optional argument to

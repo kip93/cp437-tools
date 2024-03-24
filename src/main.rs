@@ -3,6 +3,8 @@
 use std::{env::args, process::ExitCode};
 
 use cp437_tools::help;
+#[path = "remove-meta/main.rs"]
+mod del_cmd;
 #[path = "help/main.rs"]
 mod help_cmd;
 #[path = "to-png/main.rs"]
@@ -31,6 +33,9 @@ fn run(args: Vec<String>) -> ExitCode {
         }
         "read-meta" => {
             return read_cmd::run(without_command(args));
+        }
+        "remove-meta" => {
+            return del_cmd::run(without_command(args));
         }
         "to-png" => {
             return png_cmd::run(without_command(args));
