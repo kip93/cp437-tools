@@ -1,12 +1,11 @@
 //! Render files as PNG
 
-use atty::{self, Stream::Stdout};
 use png::{text_metadata::ITXtChunk, BitDepth, ColorType, Encoder, PixelDimensions, Unit};
 use std::{
     cmp::min,
     env::args,
     fs::File,
-    io::{BufWriter, Read, Seek, SeekFrom, Write},
+    io::{stdout, BufWriter, IsTerminal, Read, Seek, SeekFrom, Write},
     process::ExitCode,
 };
 use ttf_parser::Face;
@@ -33,7 +32,7 @@ pub fn run(args: Vec<String>) -> ExitCode {
         eprintln!("\x1B[31mERROR: Too many arguments\x1B[0m");
         help::print();
         return ExitCode::from(1);
-    } else if args.len() == 2 && atty::is(Stdout) {
+    } else if args.len() == 2 && stdout().is_terminal() {
         eprintln!("\x1B[31mERROR: Refusing to write to terminal\x1B[0m");
         help::print();
         return ExitCode::from(1);

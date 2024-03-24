@@ -29,7 +29,6 @@ name = "cp437-to-txt"
 path = "src/to-txt/main.rs"
 
 [dependencies]
-atty = "0.2"
 endianness = "0.2"
 humansize = "2"
 indoc = "2"
