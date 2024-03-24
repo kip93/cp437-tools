@@ -1,7 +1,7 @@
 [package]
 name = "cp437-tools"
 description = "Small collection of tools to handle CP437 files"
-version = "0.2.0"
+version = "0.3.0"
 repository = "https://github.com/kip93/cp437-tools"
 license = "GPL-3.0-or-later AND CC-BY-SA-4.0"
 authors = ["kip93 <leandro@kip93.net>"]
