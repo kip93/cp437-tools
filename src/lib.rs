@@ -20,7 +20,7 @@ pub mod fonts;
 pub mod help;
 pub mod meta;
 
-pub use self::{colour::COLOURS, cp437::CP437, meta::Meta};
+pub use self::{colour::COLOURS, cp437::*, meta::Meta};
 
 use std::{
     fs::File,

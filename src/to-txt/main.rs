@@ -8,7 +8,7 @@ use std::{
     process::ExitCode,
 };
 
-use cp437_tools::{help, process, Meta, CP437};
+use cp437_tools::{help, process, Meta, CP437_TO_UTF8};
 
 #[allow(dead_code)]
 pub fn main() -> ExitCode {
@@ -49,7 +49,7 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
             .write_all(
                 chunk[..end]
                     .iter()
-                    .map(|x| return CP437[*x as usize])
+                    .map(|x| return CP437_TO_UTF8[*x as usize])
                     .collect::<String>()
                     .as_bytes(),
             )

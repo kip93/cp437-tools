@@ -31,6 +31,7 @@ path = "src/to-txt/main.rs"
 [dependencies]
 endianness = "0.2"
 humansize = "2"
+indexmap = "2.2"
 indoc = "2"
 lazy_static = "1"
 png = "0.17"

@@ -10,7 +10,7 @@ use std::{
 };
 use ttf_parser::Face;
 
-use cp437_tools::{fonts, help, process, Meta, COLOURS, CP437};
+use cp437_tools::{fonts, help, process, Meta, COLOURS, CP437_TO_UTF8};
 
 struct XY {
     x: usize,
@@ -239,7 +239,7 @@ fn insert<'a>(
     } else {
         let bitmap = face
             .glyph_raster_image(
-                face.glyph_index(CP437[byte as usize])
+                face.glyph_index(CP437_TO_UTF8[byte as usize])
                     .expect("Failed to fetch glyph"),
                 font.y as u16,
             )
