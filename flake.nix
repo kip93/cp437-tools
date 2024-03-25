@@ -56,7 +56,7 @@
               cargo doc --message-format short --no-deps
             }
             open_doc() {
-              firefox "file://$PWD/target/doc"/${lib.escapeShellArg cargo.package.name}/index.html
+              firefox "file://$PWD/target/doc"/${lib.escapeShellArg (builtins.replaceStrings ["-"] ["_"] cargo.package.name)}/index.html
             }
 
             run() {
