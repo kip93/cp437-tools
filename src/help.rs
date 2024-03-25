@@ -19,7 +19,7 @@ pub fn print() {
           - read-meta \x1B[4mINPUT\x1B[0m
               \x1B[3mShows the file's metadata.\x1B[0m
           - remove-meta \x1B[4mINPUT\x1B[0m [ \x1B[4mOUTPUT\x1B[0m ]
-              \x1B[3mShows the file's metadata.\x1B[0m
+              \x1B[3mRemoves the file's metadata.\x1B[0m
           - to-png \x1B[4mINPUT\x1B[0m [ \x1B[4mOUTPUT\x1B[0m ]
               \x1B[3mRender file as PNG.\x1B[0m
           - to-txt \x1B[4mINPUT\x1B[0m [ \x1B[4mOUTPUT\x1B[0m ]
