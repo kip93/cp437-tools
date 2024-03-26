@@ -29,7 +29,7 @@ name = "cp437-to-txt"
 path = "src/to-txt/main.rs"
 
 [dependencies]
-endianness = "0.2"
+chrono = { version = "0.4", default-features = false, features = [ "std" ] }
 humansize = "2"
 indexmap = "2.2"
 indoc = "2"
@@ -40,4 +40,4 @@ ttf-parser = "0.20"
 
 [lints]
 clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
-rust = { unused_imports = "deny", unused_variables = "deny" }
+rust = { dead_code = "deny", unused_imports = "deny", unused_variables = "deny" }

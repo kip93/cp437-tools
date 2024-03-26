@@ -42,21 +42,21 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
             if !meta.title.is_empty() {
                 output
                     .write_all(
-                        format!("* \x1B[1mTitle\x1B[0m: \x1B[3m{}\x1B[0m\n", meta.title).as_bytes(),
+                        format!("* \x1B[1mTitle\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.title).as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
             }
             if !meta.group.is_empty() {
                 output
                     .write_all(
-                        format!("* \x1B[1mGroup\x1B[0m: \x1B[3m{}\x1B[0m\n", meta.group).as_bytes(),
+                        format!("* \x1B[1mGroup\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.group).as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
             }
             if !meta.author.is_empty() {
                 output
                     .write_all(
-                        format!("* \x1B[1mAuthor\x1B[0m: \x1B[3m{}\x1B[0m\n", meta.author)
+                        format!("* \x1B[1mAuthor\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.author)
                             .as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
@@ -108,7 +108,7 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
                             (7, _) => String::from("\x1B[1;3;31mArchive\x1B[0m"),
                             (8, _) => String::from("\x1B[1;3;31mExecutable\x1B[0m"),
                             _ => format!(
-                                "\x1B[1;3;31mUnknown {}/{}\x1B[0m",
+                                "\x1B[1;3;31mUnknown {}/Unknown {}\x1B[0m",
                                 meta.r#type.0, meta.r#type.1
                             ),
                         }
@@ -181,9 +181,9 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
                         if meta.font.is_empty() {
                             String::from("\x1B[1;3;33m<N/A> (IBM VGA)\x1B[0m")
                         } else if ["IBM VGA", "IBM VGA 437"].contains(&meta.font.as_str()) {
-                            format!("\x1B[3;32m{}\x1B[0m", meta.font)
+                            format!("\x1B[3;32m{:?}\x1B[0m", meta.font)
                         } else {
-                            format!("\x1B[1;3;31m{}\x1B[0m", meta.font)
+                            format!("\x1B[1;3;31m{:?}\x1B[0m", meta.font)
                         }
                     )
                     .as_bytes(),
@@ -193,7 +193,7 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
                 output
                     .write_all(
                         format!(
-                            "* \x1B[1mNotes[{:0width$}]\x1B[0m: \x1B[3m{}\x1B[0m\n",
+                            "* \x1B[1mNotes[{:0width$}]\x1B[0m: \x1B[3m{:?}\x1B[0m\n",
                             i,
                             note,
                             width = (meta.notes.len() as f32).log10().ceil() as usize
@@ -234,7 +234,7 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
                 .write_all(b"* \x1B[1mFlags\x1B[0m: \x1B[3;33m0Dh\x1B[0m\n")
                 .map_err(|x| return x.to_string())?;
             output
-                .write_all(b"* \x1B[1mFont\x1B[0m: \x1B[3;33mIBM VGA\x1B[0m\n")
+                .write_all(b"* \x1B[1mFont\x1B[0m: \x1B[3;33m\"IBM VGA\"\x1B[0m\n")
                 .map_err(|x| return x.to_string())?;
             return Ok(());
         }
