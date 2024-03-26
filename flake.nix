@@ -46,10 +46,10 @@
             check()  { cargo fmt --check && cargo clippy; }
 
             build() {
-              cargo build --all-targets --message-format human --release;
+              cargo build --all-targets --keep-going --message-format human --release;
             }
             build_debug() {
-              cargo build --all-targets --message-format human;
+              cargo build --all-targets --keep-going --message-format human;
             }
 
             build_doc() {
