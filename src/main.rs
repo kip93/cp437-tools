@@ -11,6 +11,8 @@ mod help_cmd;
 mod png_cmd;
 #[path = "read-meta/main.rs"]
 mod read_cmd;
+#[path = "set-meta/main.rs"]
+mod set_cmd;
 #[path = "to-txt/main.rs"]
 mod txt_cmd;
 
@@ -36,6 +38,9 @@ fn run(args: Vec<String>) -> ExitCode {
         }
         "remove-meta" => {
             return del_cmd::run(without_command(args));
+        }
+        "set-meta" => {
+            return set_cmd::run(without_command(args));
         }
         "to-png" => {
             return png_cmd::run(without_command(args));
