@@ -56,3 +56,24 @@ lazy_static! {
                 )
         );
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn cp437_to_utf8() {
+        assert_eq!(UTF8_TO_CP437.get(&'\0'), Some(0).as_ref());
+        for i in 0x01..=0xFF {
+            assert_eq!(UTF8_TO_CP437.get(&CP437_TO_UTF8[i]), Some(i as u8).as_ref());
+        }
+    }
+
+    #[test]
+    fn utf8_to_cp437() {
+        assert_eq!(CP437_TO_UTF8[0], ' ');
+        for c in &CP437_TO_UTF8[0x01..=0xFF] {
+            assert_eq!(CP437_TO_UTF8[*UTF8_TO_CP437.get(c).unwrap() as usize], *c);
+        }
+    }
+}

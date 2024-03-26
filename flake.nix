@@ -43,7 +43,10 @@
             update() { cargo update; }
             fmt()    { cargo fmt; }
             lint()   { cargo clippy; }
-            check()  { cargo fmt --check && cargo clippy; }
+            check()  {
+              cargo fmt --check && cargo clippy;
+              cargo test --all-targets --no-fail-fast --message-format human --future-incompat-report;
+            }
 
             build() {
               cargo build --all-targets --keep-going --message-format human --release;
