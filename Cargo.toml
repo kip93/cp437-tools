@@ -29,14 +29,14 @@ name = "cp437-to-txt"
 path = "src/to-txt/main.rs"
 
 [dependencies]
-chrono = { version = "0.4", default-features = false, features = [ "std" ] }
-humansize = "2"
-indexmap = "2.2"
-indoc = "2"
-lazy_static = "1"
-png = "0.17"
-rust-embed = { version = "8", features = [ "include-exclude", "interpolate-folder-path" ] }
-ttf-parser = "0.20"
+chrono = { version = "0.4.10", default-features = false, features = [ "std" ] }
+humansize = "2.0.0"
+indexmap = "2.0.0"
+indoc = "2.0.0"
+lazy_static = "1.1.0"
+png = "0.17.10"
+rust-embed = { version = "8.0.0", features = [ "include-exclude", "interpolate-folder-path" ] }
+ttf-parser = "0.20.0"
 
 [lints]
 clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
