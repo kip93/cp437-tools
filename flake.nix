@@ -65,6 +65,10 @@
             run_debug() {
               RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
             }
+
+            publish() {
+              check && cargo publish --locked
+            }
           '';
         };
       });
