@@ -80,51 +80,57 @@ pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
     return read_raw(file).map(|x| {
         return x.map(|meta| {
             return Meta {
-                title: String::from_utf8_lossy(&meta[meta.len() - 121..meta.len() - 86])
-                    .trim_end_matches('\x20')
-                    .as_bytes()
+                title: meta[meta.len() - 121..meta.len() - 86]
                     .iter()
                     .map(|x| return CP437_TO_UTF8[*x as usize])
-                    .collect::<String>(),
-                author: String::from_utf8_lossy(&meta[meta.len() - 86..meta.len() - 66])
-                    .trim_end_matches('\x20')
-                    .as_bytes()
+                    .collect::<String>()
+                    .trim()
+                    .to_string(),
+                author: meta[meta.len() - 86..meta.len() - 66]
                     .iter()
                     .map(|x| return CP437_TO_UTF8[*x as usize])
-                    .collect::<String>(),
-                group: String::from_utf8_lossy(&meta[meta.len() - 66..meta.len() - 46])
-                    .trim_end_matches('\x20')
-                    .as_bytes()
+                    .collect::<String>()
+                    .trim()
+                    .to_string(),
+                group: meta[meta.len() - 66..meta.len() - 46]
                     .iter()
                     .map(|x| return CP437_TO_UTF8[*x as usize])
-                    .collect::<String>(),
-                date: String::from_utf8_lossy(&meta[meta.len() - 46..meta.len() - 38])
-                    .trim_end_matches('\x20')
-                    .as_bytes()
+                    .collect::<String>()
+                    .trim()
+                    .to_string(),
+                date: meta[meta.len() - 46..meta.len() - 38]
                     .iter()
                     .map(|x| return CP437_TO_UTF8[*x as usize])
-                    .collect::<String>(),
-                size: u32::from_le_bytes(meta[meta.len() - 38..meta.len() - 34].try_into().unwrap()),
+                    .collect::<String>()
+                    .trim()
+                    .to_string(),
+                size: u32::from_le_bytes(
+                    meta[meta.len() - 38..meta.len() - 34].try_into().unwrap(),
+                ),
                 r#type: (meta[meta.len() - 34], meta[meta.len() - 33]),
-                width: u16::from_le_bytes(meta[meta.len() - 32..meta.len() - 30].try_into().unwrap()),
-                height: u16::from_le_bytes(meta[meta.len() - 30..meta.len() - 28].try_into().unwrap()),
+                width: u16::from_le_bytes(
+                    meta[meta.len() - 32..meta.len() - 30].try_into().unwrap(),
+                ),
+                height: u16::from_le_bytes(
+                    meta[meta.len() - 30..meta.len() - 28].try_into().unwrap(),
+                ),
                 flags: meta[meta.len() - 23],
-                font: String::from_utf8_lossy(&meta[meta.len() - 22..])
-                    .trim_end_matches('\x00')
-                    .as_bytes()
+                font: meta[meta.len() - 22..]
                     .iter()
                     .map(|x| return CP437_TO_UTF8[*x as usize])
-                    .collect::<String>(),
+                    .collect::<String>()
+                    .trim()
+                    .to_string(),
                 notes: (0..meta[meta.len() - 24] as usize)
                     .rev()
                     .map(|i| {
                         let offset = meta.len() - (i + 3) * 64;
-                        return String::from_utf8_lossy(&meta[offset..offset + 64])
-                            .trim_end_matches('\x20')
-                            .as_bytes()
+                        return meta[offset..offset + 64]
                             .iter()
                             .map(|x| return CP437_TO_UTF8[*x as usize])
-                            .collect::<String>();
+                            .collect::<String>()
+                            .trim()
+                            .to_string();
                     })
                     .collect(),
             };
