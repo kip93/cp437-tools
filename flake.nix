@@ -62,6 +62,9 @@
             run() {
               RUSTFLAGS='--cap-lints warn' cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
             }
+            run_verbose() {
+              RUSTFLAGS='--cap-lints warn' cargo run --message-format human --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
+            }
             run_debug() {
               RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
             }
