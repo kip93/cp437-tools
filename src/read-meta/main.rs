@@ -42,14 +42,16 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
             if !meta.title.is_empty() {
                 output
                     .write_all(
-                        format!("* \x1B[1mTitle\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.title).as_bytes(),
+                        format!("* \x1B[1mTitle\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.title)
+                            .as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
             }
             if !meta.group.is_empty() {
                 output
                     .write_all(
-                        format!("* \x1B[1mGroup\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.group).as_bytes(),
+                        format!("* \x1B[1mGroup\x1B[0m: \x1B[3m{:?}\x1B[0m\n", meta.group)
+                            .as_bytes(),
                     )
                     .map_err(|x| return x.to_string())?;
             }
