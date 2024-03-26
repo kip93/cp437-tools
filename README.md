@@ -34,6 +34,10 @@ shown in the default foreground colour.
 
 Takes a file and creates a copy without its metadata.
 
+### cp437-set-meta
+
+Change a single field of metadata in a file.
+
 ### cp437-to-txt
 
 Simply strips metadata and maps CP437 to UTF-8. Takes an optional argument to
