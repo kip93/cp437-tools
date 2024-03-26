@@ -4,7 +4,7 @@ use indexmap::IndexMap;
 use lazy_static::lazy_static;
 
 lazy_static! {
-    /// An array of 256 elements, mapping most of the CP437 values to UTF-8
+    /// An array of 256 elements, mapping most of the CP437 values to UTF-8 characters
     ///
     /// Mostly follows CP437, except for:
     ///  * 0x00 is replaced by 0x20, for rendering purposes.
@@ -43,5 +43,16 @@ lazy_static! {
     /// Effectively the inverse of [`CP437_TO_UTF8`]
     ///
     pub static ref UTF8_TO_CP437: IndexMap<char, u8> =
-        IndexMap::from_iter([('\0', 0x00u8)].iter().cloned().chain(CP437_TO_UTF8.iter().enumerate().map(|(a, b)| return (*b, a as u8))));
+        IndexMap::from_iter(
+            [('\0', 0x00u8)]
+                .iter()
+                .cloned()
+                .chain(
+                    CP437_TO_UTF8
+                        .iter()
+                        .skip(1)
+                        .enumerate()
+                        .map(|(a, b)| return (*b, a as u8 + 1))
+                )
+        );
 }
