@@ -61,17 +61,13 @@ fn print(
     let mut meta = match meta {
         Some(meta) => meta,
         None => Meta {
-            title: String::from(""),
-            author: String::from(""),
-            group: String::from(""),
-            date: String::from(""),
             size: input.metadata().map_err(|x| return x.to_string())?.len() as u32,
             r#type: (1, 1),
             width: 80,
             height: 25,
             flags: 0x0D,
             font: String::from("IBM VGA"),
-            notes: Vec::new(),
+            ..Default::default()
         },
     };
     let value =
