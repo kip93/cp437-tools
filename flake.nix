@@ -28,25 +28,74 @@
         } // (self.packages.${system} or { }))
       ;
 
-      cargo = nixpkgs.lib.importTOML ./Cargo.toml;
+      cargo_toml = nixpkgs.lib.importTOML ./Cargo.toml;
 
     in
     {
       devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; {
-        default = mkShell {
+        default = let rust = rust-bin.stable.${cargo_toml.package.rust-version}; in mkShell {
           nativeBuildInputs = [
-            rust-bin.stable.${cargo.package.rust-version}.default
+            gawk
+            grcov
+            rust.default
+            rust.llvm-tools-preview
           ];
           shellHook = ''
+            export LLVM_TOOLS=${rust.llvm-tools-preview}/lib/rustlib/${hostPlatform.config}
             export CARGO_HOME="$PWD/.cargo"
+            export PATH="$PATH:$LLVM_TOOLS/bin"
 
             update() { cargo update; }
             fmt()    { cargo fmt; }
             lint()   { cargo clippy; }
-            check()  {
-              cargo fmt --check && cargo clippy;
-              cargo test --all-targets --no-fail-fast --message-format human --future-incompat-report;
-            }
+            check()  (
+              set -euo pipefail
+
+              export CARGO_INCREMENTAL=0
+              export LLVM_PROFILE_FILE="$PWD/target/coverage/cargo-test-%p-%m.profraw"
+              export RUSTFLAGS='-C instrument-coverage'
+
+              # Check
+              cargo fmt --check
+              cargo clippy
+              rm -rf "$PWD/target/coverage" 2>/dev/null ||:
+              mkdir -p "$PWD/target/coverage"
+              cargo test --all-targets --no-fail-fast
+
+              # Terminal report
+              grcov "$PWD" --llvm-path "$LLVM_TOOLS/bin" -b "$PWD/target/debug/deps" \
+                --ignore-not-existing --ignore '../*' --ignore '/*' --ignore '.cargo/registry/*' \
+                -s "$PWD/src" -t markdown --branch \
+              | awk -F '|' '
+                length {
+                  if ($3 ~ /%/) {
+                    match($3, /(\S+)%/, x)
+                    if (x[1] > 90) {
+                      printf "\x1B[32m"
+                    } else if (x[1] > 50) {
+                      printf "\x1B[33m"
+                    } else {
+                      printf "\x1B[31m"
+                    }
+                  }
+                  print $3 "\x1B[0m" $2
+                } END {
+                  match($0, /(\S+)%/, x)
+                  if (x[1] > 90) {
+                    print gensub(/(\S+%)/, "\x1B[32m\\1\x1B[0m", 1)
+                  } else if (x[1] > 50) {
+                    print gensub(/(\S+%)/, "\x1B[33m\\1\x1B[0m", 1)
+                  } else {
+                    print gensub(/(\S+%)/, "\x1B[31m\\1\x1B[0m", 1)
+                  }
+                }
+              '
+
+              # IDE parsable report
+              grcov "$PWD" --llvm-path "$LLVM_TOOLS/bin" -b "$PWD/target/debug/deps" \
+                --ignore-not-existing --ignore '../*' --ignore '/*' --ignore '.cargo/registry/*' \
+                -s "$PWD" -t lcov --branch -o "$PWD/target/coverage/tests.lcov"
+            )
 
             build() {
               cargo build --all-targets --keep-going --message-format human --release;
@@ -59,17 +108,17 @@
               cargo doc --message-format short --no-deps
             }
             open_doc() {
-              firefox "file://$PWD/target/doc"/${lib.escapeShellArg (builtins.replaceStrings ["-"] ["_"] cargo.package.name)}/index.html
+              firefox "file://$PWD/target/doc"/${lib.escapeShellArg (builtins.replaceStrings ["-"] ["_"] cargo_toml.package.name)}/index.html
             }
 
             run() {
-              RUSTFLAGS='--cap-lints warn' cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
+              RUSTFLAGS='--cap-lints warn' cargo run --message-format short --bin ${lib.escapeShellArg cargo_toml.package.name} --release -- "$@";
             }
             run_verbose() {
-              RUSTFLAGS='--cap-lints warn' cargo run --message-format human --bin ${lib.escapeShellArg cargo.package.name} --release -- "$@";
+              RUSTFLAGS='--cap-lints warn' cargo run --message-format human --bin ${lib.escapeShellArg cargo_toml.package.name} --release -- "$@";
             }
             run_debug() {
-              RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo.package.name} -- "$@";
+              RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run --message-format short --bin ${lib.escapeShellArg cargo_toml.package.name} -- "$@";
             }
 
             publish() {
@@ -83,21 +132,21 @@
         cp437-tools =
           let
             rustPlatform = makeRustPlatform {
-              cargo = rust-bin.stable.${cargo.package.rust-version}.minimal;
-              rustc = rust-bin.stable.${cargo.package.rust-version}.minimal;
+              cargo = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
+              rustc = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
             };
 
           in
           rustPlatform.buildRustPackage {
-            pname = cargo.package.name;
-            inherit (cargo.package) version;
+            pname = cargo_toml.package.name;
+            inherit (cargo_toml.package) version;
             src = self;
             cargoLock.lockFile = self + "/Cargo.lock";
 
             meta = with lib; {
-              inherit (cargo.package) description;
-              mainProgram = cargo.package.name;
-              homepage = cargo.package.homepage or cargo.package.repository;
+              inherit (cargo_toml.package) description;
+              mainProgram = cargo_toml.package.name;
+              homepage = cargo_toml.package.homepage or cargo_toml.package.repository;
               license = with licenses; [ gpl3Plus cc-by-sa-40 ];
               maintainers = with maintainers; [ kip93 ];
             };
