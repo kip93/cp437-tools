@@ -62,6 +62,29 @@ pub struct Meta {
     pub notes: Vec<String>,
 }
 
+/// An empty meta
+///
+/// Only field set is the iCE colours flag, since blinking mode is not
+/// supported.
+///
+impl Default for Meta {
+    fn default() -> Meta {
+        return Meta {
+            title: String::from(""),
+            author: String::from(""),
+            group: String::from(""),
+            date: String::from(""),
+            size: 0,
+            r#type: (0, 0),
+            width: 0,
+            height: 0,
+            flags: 1,
+            font: String::from(""),
+            notes: vec![],
+        };
+    }
+}
+
 /// Get a file's metadata via its path
 ///
 /// Arguments:
