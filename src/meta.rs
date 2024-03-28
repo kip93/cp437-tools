@@ -244,7 +244,7 @@ pub fn check_date(meta: &Option<Meta>) -> Result<(), String> {
 ///
 pub fn check_type(meta: &Option<Meta>) -> Result<(), String> {
     if let Some(m) = meta {
-        if m.r#type.0 != 1 {
+        if ![0, 1].contains(&m.r#type.0) {
             return Err(format!(
                 "Type is unsupported ({})",
                 match m.r#type.0 {
@@ -263,12 +263,12 @@ pub fn check_type(meta: &Option<Meta>) -> Result<(), String> {
         } else if ![0, 1].contains(&m.r#type.1) {
             return Err(format!(
                 "Type is unsupported ({})",
-                match m.r#type.0 {
+                match m.r#type.1 {
                     // 0 => String::from("Character/ASCII"),
                     // 1 => String::from("Character/ANSi"),
                     2 => String::from("Character/ANSiMation"),
                     3 => String::from("Character/RIPScript"),
-                    4 => String::from("Character/PCBoardt"),
+                    4 => String::from("Character/PCBoard"),
                     5 => String::from("Character/Avatar"),
                     6 => String::from("Character/HTML"),
                     7 => String::from("Character/Source"),
