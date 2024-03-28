@@ -222,13 +222,15 @@ pub fn check_group(meta: &Option<Meta>) -> Result<(), String> {
 ///
 pub fn check_date(meta: &Option<Meta>) -> Result<(), String> {
     if let Some(m) = meta {
-        if ![0, 8].contains(&m.date.len()) {
-            return Err(format!(
-                "Date length is wrong (expected =8, got {})",
-                m.date.len()
-            ));
-        } else if let Err(e) = NaiveDate::parse_from_str(&m.date, "%Y%m%d") {
-            return Err(format!("Date is wrong ({})", e));
+        if !m.date.is_empty() {
+            if m.date.len() != 8 {
+                return Err(format!(
+                    "Date length is wrong (expected =8, got {})",
+                    m.date.len()
+                ));
+            } else if let Err(e) = NaiveDate::parse_from_str(&m.date, "%Y%m%d") {
+                return Err(format!("Date is wrong ({})", e));
+            }
         }
     }
 
