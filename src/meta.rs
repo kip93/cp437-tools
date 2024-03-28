@@ -389,3 +389,483 @@ fn read_raw(file: &mut File) -> Result<Option<Vec<u8>>, String> {
         return Ok(Some(raw));
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn none() -> Result<(), String> {
+        let meta = get("res/test/simple.ans")?;
+        assert!(meta.is_none());
+
+        return Ok(());
+    }
+
+    #[test]
+    fn some() -> Result<(), String> {
+        let meta = get("res/test/meta.ans")?;
+        assert!(meta.is_some());
+        let meta = meta.unwrap();
+        assert_eq!(meta.title, "TITLE");
+        assert_eq!(meta.author, "AUTHOR");
+        assert_eq!(meta.group, "GROUP");
+        assert_eq!(meta.date, "19700101");
+        assert_eq!(meta.size, 404);
+        assert_eq!(meta.r#type, (1, 1));
+        assert_eq!(meta.width, 32);
+        assert_eq!(meta.height, 8);
+        assert_eq!(meta.flags, 0x01);
+        assert_eq!(meta.font, "IBM VGA");
+        assert_eq!(meta.notes, Vec::<String>::new());
+
+        return Ok(());
+    }
+
+    #[test]
+    fn comments() -> Result<(), String> {
+        let meta = get("res/test/comments.ans")?;
+        assert!(meta.is_some());
+        let meta = meta.unwrap();
+        assert_eq!(meta.title, "TITLE");
+        assert_eq!(meta.author, "AUTHOR");
+        assert_eq!(meta.group, "GROUP");
+        assert_eq!(meta.date, "19700101");
+        assert_eq!(meta.size, 404);
+        assert_eq!(meta.r#type, (1, 1));
+        assert_eq!(meta.width, 32);
+        assert_eq!(meta.height, 8);
+        assert_eq!(meta.flags, 0x01);
+        assert_eq!(meta.font, "IBM VGA");
+        assert_eq!(meta.notes, vec!["Lorem", "ipsum", "dolor", "sit", "amet",]);
+
+        return Ok(());
+    }
+
+    mod raw {
+        use super::*;
+
+        #[test]
+        fn none() -> Result<(), String> {
+            let meta = read_raw(
+                &mut File::open("res/test/simple.ans").map_err(|x| return x.to_string())?,
+            )?;
+            assert!(meta.is_none());
+
+            return Ok(());
+        }
+
+        #[test]
+        fn some() -> Result<(), String> {
+            let meta =
+                read_raw(&mut File::open("res/test/meta.ans").map_err(|x| return x.to_string())?)?;
+            assert!(meta.is_some());
+            assert_eq!(
+                meta.unwrap(),
+                b"\x1ASAUCE00"
+                    .iter()
+                    .cloned()
+                    .chain(format!("{:<35}", "TITLE").bytes()) // Title
+                    .chain(format!("{:<20}", "AUTHOR").bytes()) // Author
+                    .chain(format!("{:<20}", "GROUP").bytes()) // Group
+                    .chain(b"19700101".iter().cloned()) // Date
+                    .chain(404u32.to_le_bytes()) // Size
+                    .chain([1u8, 1u8]) // Type
+                    .chain(32u16.to_le_bytes()) // Width
+                    .chain(8u16.to_le_bytes()) // Height
+                    .chain(0u32.to_le_bytes())
+                    .chain([0u8]) // Notes
+                    .chain([0x01u8]) // Flags
+                    .chain(format!("{:\0<22}", "IBM VGA").bytes()) // Font
+                    .collect::<Vec<u8>>(),
+            );
+
+            return Ok(());
+        }
+
+        #[test]
+        fn comments() -> Result<(), String> {
+            let meta = read_raw(
+                &mut File::open("res/test/comments.ans").map_err(|x| return x.to_string())?,
+            )?;
+            assert!(meta.is_some());
+            assert_eq!(
+                meta.unwrap(),
+                b"\x1ACOMNT"
+                    .iter()
+                    .cloned()
+                    .chain(format!("{:<64}", "Lorem").bytes()) // Comment
+                    .chain(format!("{:<64}", "ipsum").bytes()) // Comment
+                    .chain(format!("{:<64}", "dolor").bytes()) // Comment
+                    .chain(format!("{:<64}", "sit").bytes()) // Comment
+                    .chain(format!("{:<64}", "amet").bytes()) // Comment
+                    .chain(b"SAUCE00".iter().cloned())
+                    .chain(format!("{:<35}", "TITLE").bytes()) // Title
+                    .chain(format!("{:<20}", "AUTHOR").bytes()) // Author
+                    .chain(format!("{:<20}", "GROUP").bytes()) // Group
+                    .chain(b"19700101".iter().cloned()) // Date
+                    .chain(404u32.to_le_bytes()) // Size
+                    .chain([1u8, 1u8]) // Type
+                    .chain(32u16.to_le_bytes()) // Width
+                    .chain(8u16.to_le_bytes()) // Height
+                    .chain(0u32.to_le_bytes())
+                    .chain([5u8]) // Notes
+                    .chain([0x01u8]) // Flags
+                    .chain(format!("{:\0<22}", "IBM VGA").bytes()) // Font
+                    .collect::<Vec<u8>>(),
+            );
+
+            return Ok(());
+        }
+    }
+
+    mod check {
+        use super::*;
+
+        mod meta {
+            use super::*;
+
+            #[test]
+            fn none() -> Result<(), String> {
+                return check(&None);
+            }
+
+            #[test]
+            fn some() -> Result<(), String> {
+                return check(&Some(Meta::default()));
+            }
+        }
+
+        mod date {
+            use super::*;
+
+            #[test]
+            fn valid() -> Result<(), String> {
+                return check_date(&Some(Meta {
+                    date: String::from("19700101"),
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn invalid() {
+                assert!(check_date(&Some(Meta {
+                    date: String::from("X"),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn illegal() {
+                assert!(check_date(&Some(Meta {
+                    date: String::from("19700230"),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+        }
+
+        mod flags {
+            use super::*;
+
+            #[test]
+            fn b_0() {
+                assert!(check_flags(&Some(Meta {
+                    flags: 0x00,
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn ls_00() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x01,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ls_01() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x03,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ls_10() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x05,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ls_11() {
+                assert!(check_flags(&Some(Meta {
+                    flags: 0x07,
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn ar_00() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x01,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ar_01() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x09,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ar_10() -> Result<(), String> {
+                return check_flags(&Some(Meta {
+                    flags: 0x11,
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ar_11() {
+                assert!(check_flags(&Some(Meta {
+                    flags: 0x19,
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn invalid() {
+                assert!(check_flags(&Some(Meta {
+                    flags: 0x21,
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+        }
+
+        mod font {
+            use super::*;
+
+            #[test]
+            fn valid() -> Result<(), String> {
+                return check_font(&Some(Meta {
+                    font: String::from("IBM VGA"),
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn invalid() {
+                assert!(check_font(&Some(Meta {
+                    font: String::from("X"),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+        }
+
+        mod notes {
+            use super::*;
+
+            #[test]
+            fn empty() -> Result<(), String> {
+                return check_notes(&Some(Meta {
+                    notes: vec![],
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn not_empty() -> Result<(), String> {
+                return check_notes(&Some(Meta {
+                    notes: vec![String::from("")],
+                    ..Default::default()
+                }));
+            }
+        }
+
+        mod str {
+            use super::*;
+
+            #[test]
+            fn ok() -> Result<(), String> {
+                return check_str(&String::from("string"), "name", 99);
+            }
+
+            #[test]
+            fn long() {
+                assert!(check_str(&String::from("string"), "name", 0).is_err())
+            }
+
+            #[test]
+            fn invalid() {
+                assert!(check_str(&String::from("\0"), "name", 99).is_err())
+            }
+        }
+
+        mod r#type {
+            use super::*;
+
+            #[test]
+            fn none() -> Result<(), String> {
+                return check_type(&Some(Meta {
+                    r#type: (0, 0),
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ascii() -> Result<(), String> {
+                return check_type(&Some(Meta {
+                    r#type: (1, 0),
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn ansi() -> Result<(), String> {
+                return check_type(&Some(Meta {
+                    r#type: (1, 1),
+                    ..Default::default()
+                }));
+            }
+
+            #[test]
+            fn bitmap() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (2, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn vector() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (3, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn audio() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (4, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn binary_test() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (5, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn xbin() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (6, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn archive() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (7, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn executable() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (8, 0),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn ansimation() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 2),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn rip_script() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 3),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn pcboard() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 4),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn avatar() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 5),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn html() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 6),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn source() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 7),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+
+            #[test]
+            fn tundra_draw() {
+                assert!(check_type(&Some(Meta {
+                    r#type: (1, 8),
+                    ..Default::default()
+                }))
+                .is_err())
+            }
+        }
+    }
+}
