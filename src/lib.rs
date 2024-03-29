@@ -16,9 +16,14 @@
 pub mod colour;
 pub mod cp437;
 pub mod fonts;
-#[doc(hidden)]
-pub mod help;
 pub mod meta;
 
-mod process;
-pub use self::{colour::COLOURS, cp437::*, meta::Meta, process::*};
+// Internal impl details
+#[doc(hidden)]
+pub mod exit;
+#[doc(hidden)]
+pub mod help;
+#[doc(hidden)]
+pub mod process;
+
+pub use self::{colour::COLOURS, cp437::*, exit::*, meta::Meta, process::*};

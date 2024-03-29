@@ -1,8 +1,8 @@
 //! Wrapper for all available subcommands in one single convinient place
 
-use std::{env::args, process::ExitCode};
+use std::env::args;
 
-use cp437_tools::help;
+use cp437_tools::{help, ExitCode};
 #[path = "remove-meta/main.rs"]
 mod del_cmd;
 #[path = "help/main.rs"]
@@ -23,9 +23,10 @@ pub fn main() -> ExitCode {
 #[inline]
 fn run(args: Vec<String>) -> ExitCode {
     if args.len() < 2 {
-        eprintln!("\x1B[31mERROR: Missing command\x1B[0m");
+        let msg = String::from("Missing command");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     }
 
     let command = args[1].as_str();
@@ -49,9 +50,10 @@ fn run(args: Vec<String>) -> ExitCode {
             return txt_cmd::run(without_command(args));
         }
         _ => {
-            eprintln!("\x1B[31mERROR: Unknown command: {}\x1B[0m", command);
+            let msg = format!("Unknown command: {}", command);
+            eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
             help::print();
-            return ExitCode::from(1);
+            return ExitCode::USAGE(msg);
         }
     }
 }

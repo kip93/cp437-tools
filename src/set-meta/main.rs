@@ -6,13 +6,12 @@ use std::{
     env::args,
     fs::File,
     io::{stdout, IsTerminal, Read, Seek, SeekFrom, Write},
-    process::ExitCode,
 };
 
 use cp437_tools::{
     help,
     meta::{self, Meta},
-    process, UTF8_TO_CP437,
+    process, ExitCode, UTF8_TO_CP437,
 };
 
 #[allow(dead_code)]
@@ -23,25 +22,30 @@ pub fn main() -> ExitCode {
 #[inline]
 pub fn run(args: Vec<String>) -> ExitCode {
     if args.len() < 2 {
-        eprintln!("\x1B[31mERROR: Missing input file\x1B[0m");
+        let msg = String::from("Missing input file");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() < 3 {
-        eprintln!("\x1B[31mERROR: Missing key\x1B[0m");
+        let msg = String::from("Missing key");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() < 4 {
-        eprintln!("\x1B[31mERROR: Missing value\x1B[0m");
+        let msg = String::from("Missing value");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() > 5 {
-        eprintln!("\x1B[31mERROR: Too many arguments\x1B[0m");
+        let msg = String::from("Too many arguments");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() == 4 && stdout().is_terminal() {
-        eprintln!("\x1B[31mERROR: Refusing to write to terminal\x1B[0m");
+        let msg = String::from("Refusing to write to terminal");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     }
 
     return process(
@@ -57,11 +61,14 @@ fn print(
     meta: Option<Meta>,
     key: &String,
     value: &String,
-) -> Result<(), String> {
+) -> Result<(), ExitCode> {
     let mut meta = match meta {
         Some(meta) => meta,
         None => Meta {
-            size: input.metadata().map_err(|x| return x.to_string())?.len() as u32,
+            size: input
+                .metadata()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?
+                .len() as u32,
             r#type: (1, 1),
             width: 80,
             height: 25,
@@ -114,18 +121,18 @@ fn print(
                 meta.r#type = (1, 1);
             }
             _ => {
-                return Err(format!("Type is unsupported ({})", value));
+                return Err(ExitCode::USAGE(format!("Type is unsupported ({})", value)));
             }
         },
         "width" => {
             meta.width = value
                 .parse::<u16>()
-                .map_err(|e| format!("Invalid width ({})", e))?;
+                .map_err(|x| return ExitCode::USAGE(format!("Invalid width ({})", x)))?;
         }
         "height" => {
             meta.height = value
                 .parse::<u16>()
-                .map_err(|e| format!("Invalid height ({})", e))?;
+                .map_err(|x| return ExitCode::USAGE(format!("Invalid height ({})", x)))?;
         }
         "flags" => {
             meta.flags = (if let Some(hex) = value.strip_prefix("0x") {
@@ -135,7 +142,7 @@ fn print(
             } else {
                 value.parse::<u8>()
             })
-            .map_err(|e| format!("Invalid flags ({})", e))?;
+            .map_err(|x| return ExitCode::USAGE(format!("Invalid flags ({})", x)))?;
         }
         "font" => {
             meta.font = value.trim().to_string();
@@ -147,32 +154,32 @@ fn print(
                 .collect();
         }
         _ => {
-            return Err(format!("Unknown key: {}", key));
+            return Err(ExitCode::USAGE(format!("Unknown key: {}", key)));
         }
     }
 
-    meta::check(&Some(meta.clone()))?;
+    meta::check(&Some(meta.clone())).map_err(|x| return ExitCode::FAIL(x))?;
 
     let mut chunk = vec![0; 1 << 12]; // 4k chunks
     input
         .seek(SeekFrom::Start(0))
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     for i in 0..(meta.size as usize).div_ceil(chunk.len()) {
         let end = min(chunk.len(), (meta.size as usize) - (i * chunk.len()));
         input
             .read_exact(&mut chunk[..end])
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
         output
             .write_all(&chunk[..end])
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     }
     output
         .write_all(b"\x1A")
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     if !meta.notes.is_empty() {
         output
             .write_all(b"COMNT")
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
         for note in &meta.notes {
             output
                 .write_all(
@@ -182,12 +189,12 @@ fn print(
                         .cloned()
                         .collect::<Vec<u8>>(),
                 )
-                .map_err(|x| return x.to_string())?;
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
         }
     }
     output
         .write_all(b"SAUCE00")
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(
             &format!("{:<35}", meta.title)
@@ -196,7 +203,7 @@ fn print(
                 .cloned()
                 .collect::<Vec<u8>>(),
         )
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(
             &format!("{:<20}", meta.author)
@@ -205,7 +212,7 @@ fn print(
                 .cloned()
                 .collect::<Vec<u8>>(),
         )
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(
             &format!("{:<20}", meta.group)
@@ -214,7 +221,7 @@ fn print(
                 .cloned()
                 .collect::<Vec<u8>>(),
         )
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(
             &format!("{:<8}", meta.date)
@@ -223,28 +230,28 @@ fn print(
                 .cloned()
                 .collect::<Vec<u8>>(),
         )
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&meta.size.to_le_bytes())
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&[meta.r#type.0, meta.r#type.1])
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&meta.width.to_le_bytes())
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&meta.height.to_le_bytes())
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&(0u32).to_le_bytes())
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&[meta.notes.len() as u8])
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(&[meta.flags])
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     output
         .write_all(
             &format!("{:\0<22}", meta.font)
@@ -253,7 +260,7 @@ fn print(
                 .cloned()
                 .collect::<Vec<u8>>(),
         )
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
 
     return Ok(());
 }

@@ -228,8 +228,8 @@ pub fn check_date(meta: &Option<Meta>) -> Result<(), String> {
                     "Date length is wrong (expected =8, got {})",
                     m.date.len()
                 ));
-            } else if let Err(e) = NaiveDate::parse_from_str(&m.date, "%Y%m%d") {
-                return Err(format!("Date is wrong ({})", e));
+            } else if let Err(x) = NaiveDate::parse_from_str(&m.date, "%Y%m%d") {
+                return Err(format!("Date is wrong ({})", x));
             }
         }
     }

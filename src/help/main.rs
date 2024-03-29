@@ -1,8 +1,8 @@
 //! Print help text and exit
 
-use std::{env::args, process::ExitCode};
+use std::env::args;
 
-use cp437_tools::help;
+use cp437_tools::{help, ExitCode};
 
 #[allow(dead_code)]
 pub fn main() -> ExitCode {
@@ -12,5 +12,5 @@ pub fn main() -> ExitCode {
 #[inline]
 pub fn run(_args: Vec<String>) -> ExitCode {
     help::print();
-    return ExitCode::from(0);
+    return ExitCode::OK;
 }

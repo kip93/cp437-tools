@@ -5,10 +5,9 @@ use std::{
     env::args,
     fs::File,
     io::{Read, Seek, SeekFrom, Write},
-    process::ExitCode,
 };
 
-use cp437_tools::{help, process, Meta, CP437_TO_UTF8};
+use cp437_tools::{help, process, ExitCode, Meta, CP437_TO_UTF8};
 
 #[allow(dead_code)]
 pub fn main() -> ExitCode {
@@ -18,33 +17,42 @@ pub fn main() -> ExitCode {
 #[inline]
 pub fn run(args: Vec<String>) -> ExitCode {
     if args.len() < 2 {
-        eprintln!("\x1B[31mERROR: Missing input file\x1B[0m");
+        let msg = String::from("Missing input file");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() > 3 {
-        eprintln!("\x1B[31mERROR: Too many arguments\x1B[0m");
+        let msg = String::from("Too many arguments");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     }
 
     return process(&args[1], &args.get(2).map(|x| return x.to_string()), print);
 }
 
-fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), String> {
+fn print(
+    input: &mut File,
+    output: &mut Box<dyn Write>,
+    meta: Option<Meta>,
+) -> Result<(), ExitCode> {
     let size = match meta {
         Some(meta) => meta.size as usize,
-        None => input.metadata().map_err(|x| return x.to_string())?.len() as usize,
+        None => input
+            .metadata()
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?
+            .len() as usize,
     };
 
     let mut chunk = vec![0; 1 << 12]; // 4k chunks
     input
         .seek(SeekFrom::Start(0))
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     for i in 0..size.div_ceil(chunk.len()) {
         let end = min(chunk.len(), size - (i * chunk.len()));
         input
             .read_exact(&mut chunk[..end])
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
         output
             .write_all(
                 chunk[..end]
@@ -53,11 +61,11 @@ fn print(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> R
                     .collect::<String>()
                     .as_bytes(),
             )
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     }
     output
         .write_all(b"\x1B[0m")
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
 
     return Ok(());
 }

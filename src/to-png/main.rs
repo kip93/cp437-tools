@@ -6,11 +6,10 @@ use std::{
     env::args,
     fs::File,
     io::{stdout, BufWriter, IsTerminal, Read, Seek, SeekFrom, Write},
-    process::ExitCode,
 };
 use ttf_parser::Face;
 
-use cp437_tools::{fonts, help, process, Meta, COLOURS, CP437_TO_UTF8};
+use cp437_tools::{fonts, help, process, ExitCode, Meta, COLOURS, CP437_TO_UTF8};
 
 struct XY {
     x: usize,
@@ -25,27 +24,33 @@ pub fn main() -> ExitCode {
 #[inline]
 pub fn run(args: Vec<String>) -> ExitCode {
     if args.len() < 2 {
-        eprintln!("\x1B[31mERROR: Missing input file\x1B[0m");
+        let msg = String::from("Missing input file");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() > 3 {
-        eprintln!("\x1B[31mERROR: Too many arguments\x1B[0m");
+        let msg = String::from("Too many arguments");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     } else if args.len() == 2 && stdout().is_terminal() {
-        eprintln!("\x1B[31mERROR: Refusing to write to terminal\x1B[0m");
+        let msg = String::from("Refusing to write to terminal");
+        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
         help::print();
-        return ExitCode::from(1);
+        return ExitCode::USAGE(msg);
     }
 
     return process(&args[1], &args.get(2).map(|x| return x.to_string()), draw);
 }
 
-fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), String> {
+fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Result<(), ExitCode> {
     let (bytes, size, font, ratio, face) = get_params(&meta);
     let bytes = match bytes {
         Some(b) => b as usize,
-        None => input.metadata().map_err(|x| return x.to_string())?.len() as usize,
+        None => input
+            .metadata()
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?
+            .len() as usize,
     };
 
     let mut canvas = vec![0; size.x * size.y * 3 * font.x * font.y * ratio.x * ratio.y];
@@ -57,12 +62,12 @@ fn draw(input: &mut File, output: &mut Box<dyn Write>, meta: Option<Meta>) -> Re
     let mut chunk = vec![0; 1 << 12]; // 4k chunks
     input
         .seek(SeekFrom::Start(0))
-        .map_err(|x| return x.to_string())?;
+        .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
     for i in 0..bytes.div_ceil(chunk.len()) {
         let end = min(chunk.len(), bytes - (i * chunk.len()));
         input
             .read_exact(&mut chunk[..end])
-            .map_err(|x| return x.to_string())?;
+            .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
 
         for item in chunk.iter().take(end) {
             insert(
@@ -274,7 +279,7 @@ fn write(
     size: XY,
     ratio: XY,
     meta: Option<Meta>,
-) -> Result<(), String> {
+) -> Result<(), ExitCode> {
     let mut encoder = Encoder::new(
         BufWriter::new(file),
         (size.x * ratio.x) as u32,
@@ -293,22 +298,29 @@ fn write(
     if let Some(meta) = meta {
         if !meta.title.is_empty() {
             let mut title = ITXtChunk::new(String::from("Title"), meta.title);
-            title.compress_text().map_err(|x| return x.to_string())?;
+            title
+                .compress_text()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
             writer.write_text_chunk(&title).unwrap();
         }
         if !meta.author.is_empty() {
             let mut author = ITXtChunk::new(String::from("Author"), meta.author);
-            author.compress_text().map_err(|x| return x.to_string())?;
+            author
+                .compress_text()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
             writer.write_text_chunk(&author).unwrap();
         }
         if !meta.group.is_empty() {
             let mut group = ITXtChunk::new(String::from("Group"), meta.group);
-            group.compress_text().map_err(|x| return x.to_string())?;
+            group
+                .compress_text()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
             writer.write_text_chunk(&group).unwrap();
         }
         if !meta.date.is_empty() {
             let mut date = ITXtChunk::new(String::from("Date"), meta.date);
-            date.compress_text().map_err(|x| return x.to_string())?;
+            date.compress_text()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
             writer.write_text_chunk(&date).unwrap();
         }
 
@@ -321,7 +333,8 @@ fn write(
                 ),
                 note,
             );
-            note.compress_text().map_err(|x| return x.to_string())?;
+            note.compress_text()
+                .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
             writer.write_text_chunk(&note).unwrap();
         }
     }

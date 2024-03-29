@@ -1,16 +1,18 @@
 use std::{
     fs::File,
     io::{stdout, Write},
-    process::ExitCode,
 };
 
-use crate::meta::{self, Meta};
+use crate::{
+    meta::{self, Meta},
+    ExitCode,
+};
 
-#[doc(hidden)]
+#[doc(hidden)] // Internal impl detail
 #[inline]
 pub fn process<
     'a,
-    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), String> + 'a,
+    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), ExitCode> + 'a,
 >(
     input: &String,
     output: &Option<String>,
@@ -18,11 +20,11 @@ pub fn process<
 ) -> ExitCode {
     match wrapped_process(input, output, callback) {
         Ok(_) => {
-            return ExitCode::from(0);
+            return ExitCode::OK;
         }
-        Err(msg) => {
-            eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
-            return ExitCode::from(2);
+        Err(x) => {
+            eprintln!("\x1B[31mERROR: {}\x1B[0m", x);
+            return x;
         }
     }
 }
@@ -30,18 +32,20 @@ pub fn process<
 #[inline]
 fn wrapped_process<
     'a,
-    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), String> + 'a,
+    F: for<'b> FnOnce(&'b mut File, &'b mut Box<dyn Write>, Option<Meta>) -> Result<(), ExitCode> + 'a,
 >(
     input: &String,
     output: &Option<String>,
     callback: F,
-) -> Result<(), String> {
-    let mut input = File::open(input).map_err(|x| return x.to_string())?;
-    let meta = meta::read(&mut input)?;
-    meta::check(&meta)?;
+) -> Result<(), ExitCode> {
+    let mut input = File::open(input).map_err(|x| return ExitCode::ERROR(x.to_string()))?;
+    let meta = meta::read(&mut input).map_err(|x| return ExitCode::FAIL(x))?;
+    meta::check(&meta).map_err(|x| return ExitCode::FAIL(x))?;
     let mut output = match output {
-        Some(filename) => Box::new(File::create_new(filename).map_err(|x| return x.to_string())?)
-            as Box<dyn Write>,
+        Some(filename) => {
+            Box::new(File::create_new(filename).map_err(|x| return ExitCode::ERROR(x.to_string()))?)
+                as Box<dyn Write>
+        }
         None => Box::new(stdout()) as Box<dyn Write>,
     };
 
