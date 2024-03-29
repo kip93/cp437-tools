@@ -16,6 +16,9 @@
   <a href="https://github.com/kip93/cp437-tools/commits/main">
     <img src="https://img.shields.io/github/last-commit/kip93/cp437-tools?style=flat&label=Last%20commit&color=067CC1&cacheSeconds=300" alt="Last commit badge"/>
   </a>
+  <a href="https://crates.io/crates/cp437-tools">
+    <img src="https://img.shields.io/crates/v/cp437-tools.svg?style=flat&label=crates.io&color=067CC1&cacheSeconds=3600" alt="crates.io badge"/>
+  </a>
 </div>
 
 
