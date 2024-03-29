@@ -67,3 +67,29 @@ fn without_command(args: Vec<String>) -> Vec<String> {
         .map(|(_, v)| return v.to_string())
         .collect();
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn help() -> ExitCode {
+        return run(vec![String::from("cp437-tools"), String::from("help")]);
+    }
+
+    #[test]
+    fn no_command() {
+        assert_eq!(
+            run(vec![String::from("cp437-tools")]),
+            ExitCode::USAGE(String::from("Missing command"))
+        );
+    }
+
+    #[test]
+    fn unknown_command() {
+        assert_eq!(
+            run(vec![String::from("cp437-tools"), String::from("foo")]),
+            ExitCode::USAGE(String::from("Unknown command: foo"))
+        );
+    }
+}
