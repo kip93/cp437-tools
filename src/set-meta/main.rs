@@ -110,6 +110,9 @@ fn print(
         "date" => {
             meta.date = value.trim().to_string();
         }
+        "size" => {
+            return Err(ExitCode::USAGE(String::from("Size can't be changed")));
+        }
         "type" => match value.to_lowercase().as_str() {
             "none" => {
                 meta.r#type = (0, 0);
@@ -148,10 +151,15 @@ fn print(
             meta.font = value.trim().to_string();
         }
         "notes" => {
-            meta.notes = value
-                .split('\n')
-                .map(|x| return x.trim().to_string())
-                .collect();
+            if !value.is_empty() {
+                meta.notes = value
+                    .split('\n')
+                    .map(|x| return x.trim().to_string())
+                    .filter(|x| return !x.is_empty())
+                    .collect();
+            } else {
+                meta.notes = vec![];
+            }
         }
         _ => {
             return Err(ExitCode::USAGE(format!("Unknown key: {}", key)));
@@ -263,4 +271,400 @@ fn print(
         .map_err(|x| return ExitCode::ERROR(x.to_string()))?;
 
     return Ok(());
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use tempfile::tempdir;
+
+    #[test]
+    fn no_input() {
+        assert_eq!(
+            run(vec![String::from("cp437-set-meta")]),
+            ExitCode::USAGE(String::from("Missing input file"))
+        );
+    }
+
+    #[test]
+    fn no_key() {
+        assert_eq!(
+            run(vec![String::from("cp437-set-meta"), String::from("a")]),
+            ExitCode::USAGE(String::from("Missing key"))
+        );
+    }
+
+    #[test]
+    fn unknown_key() -> Result<(), String> {
+        return test_err("res/test/simple.ans", "foo", "bar", &|m: String| {
+            return m == "Unknown key: foo";
+        });
+    }
+
+    #[test]
+    fn no_value() {
+        assert_eq!(
+            run(vec![
+                String::from("cp437-set-meta"),
+                String::from("a"),
+                String::from("b")
+            ]),
+            ExitCode::USAGE(String::from("Missing value"))
+        );
+    }
+
+    #[test]
+    fn too_many_args() {
+        assert_eq!(
+            run(vec![
+                String::from("cp437-set-meta"),
+                String::from("a"),
+                String::from("b"),
+                String::from("c"),
+                String::from("d"),
+                String::from("e")
+            ]),
+            ExitCode::USAGE(String::from("Too many arguments"))
+        );
+    }
+
+    #[test]
+    fn stdout() {
+        assert_eq!(
+            run(vec![
+                String::from("cp437-set-meta"),
+                String::from("a"),
+                String::from("b"),
+                String::from("c")
+            ]),
+            ExitCode::USAGE(String::from("Refusing to write to terminal"))
+        );
+    }
+
+    #[test]
+    fn hex() -> Result<(), String> {
+        return test("res/test/simple.ans", "title", "\\x40", &|m: Meta| {
+            return m.title == "@";
+        });
+    }
+
+    #[test]
+    fn unicode() -> Result<(), String> {
+        return test("res/test/simple.ans", "title", "\\u3B1", &|m: Meta| {
+            return m.title == "α";
+        });
+    }
+
+    #[test]
+    fn title() -> Result<(), String> {
+        return test("res/test/simple.ans", "title", "TITLE", &|m: Meta| {
+            return m.title == "TITLE";
+        });
+    }
+
+    #[test]
+    fn author() -> Result<(), String> {
+        return test("res/test/simple.ans", "author", "AUTHOR", &|m: Meta| {
+            return m.author == "AUTHOR";
+        });
+    }
+
+    #[test]
+    fn group() -> Result<(), String> {
+        return test("res/test/simple.ans", "group", "GROUP", &|m: Meta| {
+            return m.group == "GROUP";
+        });
+    }
+
+    #[test]
+    fn date() -> Result<(), String> {
+        return test("res/test/simple.ans", "date", "19700101", &|m: Meta| {
+            return m.date == "19700101";
+        });
+    }
+
+    #[test]
+    fn size() -> Result<(), String> {
+        return test_err("res/test/simple.ans", "size", "foo", &|m: String| {
+            return m == "Size can't be changed";
+        });
+    }
+
+    mod r#type {
+        use super::*;
+
+        #[test]
+        fn none() -> Result<(), String> {
+            return test("res/test/simple.ans", "type", "None", &|m: Meta| {
+                return m.r#type == (0, 0);
+            });
+        }
+
+        #[test]
+        fn ascii() -> Result<(), String> {
+            return test(
+                "res/test/simple.ans",
+                "type",
+                "Character/ASCII",
+                &|m: Meta| {
+                    return m.r#type == (1, 0);
+                },
+            );
+        }
+
+        #[test]
+        fn ansi() -> Result<(), String> {
+            return test(
+                "res/test/simple.ans",
+                "type",
+                "Character/ANSI",
+                &|m: Meta| {
+                    return m.r#type == (1, 1);
+                },
+            );
+        }
+
+        #[test]
+        fn unsupported() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "type", "foo", &|m: String| {
+                return m == "Type is unsupported (foo)";
+            });
+        }
+    }
+
+    #[test]
+    fn width() -> Result<(), String> {
+        return test("res/test/simple.ans", "width", "1", &|m: Meta| {
+            return m.width == 1;
+        });
+    }
+
+    #[test]
+    fn height() -> Result<(), String> {
+        return test("res/test/simple.ans", "height", "1", &|m: Meta| {
+            return m.height == 1;
+        });
+    }
+
+    mod flags {
+        use super::*;
+
+        #[test]
+        fn b_0() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "flags", "0x00", &|m: String| {
+                return m == "Blink mode is unsupported";
+            });
+        }
+
+        #[test]
+        fn b_1() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x01", &|m: Meta| {
+                return m.flags == 0x01;
+            });
+        }
+
+        #[test]
+        fn ls_00() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x01", &|m: Meta| {
+                return m.flags == 0x01;
+            });
+        }
+
+        #[test]
+        fn ls_01() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x03", &|m: Meta| {
+                return m.flags == 0x03;
+            });
+        }
+
+        #[test]
+        fn ls_10() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x05", &|m: Meta| {
+                return m.flags == 0x05;
+            });
+        }
+
+        #[test]
+        fn ls_11() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "flags", "0x07", &|m: String| {
+                return m == "Invalid letter spacing";
+            });
+        }
+
+        #[test]
+        fn ar_00() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x01", &|m: Meta| {
+                return m.flags == 0x01;
+            });
+        }
+
+        #[test]
+        fn ar_01() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x09", &|m: Meta| {
+                return m.flags == 0x09;
+            });
+        }
+
+        #[test]
+        fn ar_10() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0x11", &|m: Meta| {
+                return m.flags == 0x11;
+            });
+        }
+
+        #[test]
+        fn ar_11() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "flags", "0x19", &|m: String| {
+                return m == "Invalid aspect ratio";
+            });
+        }
+
+        #[test]
+        fn binary() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "0b00001", &|m: Meta| {
+                return m.flags == 0x01;
+            });
+        }
+
+        #[test]
+        fn decimal() -> Result<(), String> {
+            return test("res/test/simple.ans", "flags", "1", &|m: Meta| {
+                return m.flags == 0x01;
+            });
+        }
+
+        #[test]
+        fn invalid() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "flags", "0x21", &|m: String| {
+                return m == "Invalid flags";
+            });
+        }
+
+        #[test]
+        fn illegal() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "flags", "foo", &|m: String| {
+                return m == "Invalid flags (invalid digit found in string)";
+            });
+        }
+    }
+
+    mod font {
+        use super::*;
+
+        #[test]
+        fn valid() -> Result<(), String> {
+            return test("res/test/simple.ans", "font", "IBM VGA 437", &|m: Meta| {
+                return m.font == "IBM VGA 437";
+            });
+        }
+
+        #[test]
+        fn invalid() -> Result<(), String> {
+            return test_err("res/test/simple.ans", "font", "foo", &|m: String| {
+                return m == "Font is unsupported (foo)";
+            });
+        }
+    }
+
+    mod notes {
+        use super::*;
+
+        #[test]
+        fn empty() -> Result<(), String> {
+            return test("res/test/simple.ans", "notes", "", &|m: Meta| {
+                return m.notes.is_empty();
+            });
+        }
+
+        #[test]
+        fn single() -> Result<(), String> {
+            return test("res/test/simple.ans", "notes", "foo", &|m: Meta| {
+                return m.notes == vec!["foo"];
+            });
+        }
+
+        #[test]
+        fn multiple() -> Result<(), String> {
+            return test("res/test/simple.ans", "notes", "foo\\nbar", &|m: Meta| {
+                return m.notes == vec!["foo", "bar"];
+            });
+        }
+
+        #[test]
+        fn trailing() -> Result<(), String> {
+            return test("res/test/simple.ans", "notes", "foo\\n", &|m: Meta| {
+                return m.notes == vec!["foo"];
+            });
+        }
+
+        #[test]
+        fn mixed() -> Result<(), String> {
+            return test(
+                "res/test/simple.ans",
+                "notes",
+                "foo\\n\\nbar",
+                &|m: Meta| {
+                    return m.notes == vec!["foo", "bar"];
+                },
+            );
+        }
+    }
+
+    fn test<F: FnOnce(Meta) -> bool>(
+        input: &str,
+        key: &str,
+        value: &str,
+        check: F,
+    ) -> Result<(), String> {
+        let tmp_dir = tempdir().map_err(|x| return x.to_string())?;
+        let target = tmp_dir
+            .path()
+            .join("output.txt")
+            .to_string_lossy()
+            .to_string();
+        assert_eq!(
+            run(vec![
+                String::from("cp437-to-txt"),
+                String::from(input),
+                String::from(key),
+                String::from(value),
+                target.clone(),
+            ]),
+            ExitCode::OK
+        );
+        assert!(tmp_dir.path().join("output.txt").exists());
+        let meta = meta::get(&target)?;
+        assert!(meta.is_some());
+        assert!(check(meta.unwrap()));
+
+        tmp_dir.close().map_err(|x| return x.to_string())?;
+
+        return Ok(());
+    }
+
+    fn test_err<F: FnOnce(String) -> bool>(
+        input: &str,
+        key: &str,
+        value: &str,
+        check: F,
+    ) -> Result<(), String> {
+        let tmp_dir = tempdir().map_err(|x| return x.to_string())?;
+        let target = tmp_dir
+            .path()
+            .join("output.txt")
+            .to_string_lossy()
+            .to_string();
+        assert!(check(String::from(run(vec![
+            String::from("cp437-to-txt"),
+            String::from(input),
+            String::from(key),
+            String::from(value),
+            target.clone(),
+        ]))));
+
+        tmp_dir.close().map_err(|x| return x.to_string())?;
+
+        return Ok(());
+    }
 }

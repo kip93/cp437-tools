@@ -39,6 +39,10 @@ regex = "1.0.0"
 rust-embed = { version = "8.0.0", features = [ "include-exclude", "interpolate-folder-path" ] }
 ttf-parser = "0.20.0"
 
+[dev-dependencies]
+file_diff = "1.0.0"
+tempfile = "3.1.0"
+
 [lints]
 clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
 rust = { dead_code = "deny", unused_imports = "deny", unused_variables = "deny" }

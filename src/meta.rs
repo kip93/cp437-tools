@@ -328,6 +328,12 @@ pub fn check_font(meta: &Option<Meta>) -> Result<(), String> {
 ///
 pub fn check_notes(meta: &Option<Meta>) -> Result<(), String> {
     if let Some(m) = meta {
+        if m.notes.len() > 255 {
+            return Err(format!(
+                "Too many notes (expected <= 255, got {})",
+                m.notes.len()
+            ));
+        }
         for (i, note) in m.notes.iter().enumerate() {
             check_str(
                 &note,
@@ -692,6 +698,15 @@ mod tests {
                     notes: vec![String::from("")],
                     ..Default::default()
                 }));
+            }
+
+            #[test]
+            fn too_many() {
+                assert!(check_notes(&Some(Meta {
+                    notes: vec![String::from(""); 256],
+                    ..Default::default()
+                }))
+                .is_err())
             }
         }
 

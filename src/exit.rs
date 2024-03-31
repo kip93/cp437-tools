@@ -56,3 +56,23 @@ impl Termination for ExitCode {
         return StdExitCode::from(u8::from(self));
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn error_code() {
+        assert_eq!(u8::from(ExitCode::ERROR(String::default())), 0x7F);
+    }
+
+    #[test]
+    fn error_message() {
+        assert_eq!(String::from(ExitCode::ERROR(String::from("foo"))), "foo");
+    }
+
+    #[test]
+    fn display_message() {
+        assert_eq!(format!("{}", ExitCode::ERROR(String::from("foo"))), "foo");
+    }
+}

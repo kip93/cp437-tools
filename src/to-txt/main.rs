@@ -69,3 +69,65 @@ fn print(
 
     return Ok(());
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use file_diff::diff;
+    use tempfile::tempdir;
+
+    #[test]
+    fn no_input() {
+        assert_eq!(
+            run(vec![String::from("cp437-to-txt")]),
+            ExitCode::USAGE(String::from("Missing input file"))
+        );
+    }
+
+    #[test]
+    fn too_many_args() {
+        assert_eq!(
+            run(vec![
+                String::from("cp437-to-txt"),
+                String::from("a"),
+                String::from("b"),
+                String::from("c")
+            ]),
+            ExitCode::USAGE(String::from("Too many arguments"))
+        );
+    }
+
+    #[test]
+    fn simple() -> Result<(), String> {
+        return test("res/test/simple.ans", "res/test/simple.txt");
+    }
+
+    #[test]
+    fn meta() -> Result<(), String> {
+        return test("res/test/meta.ans", "res/test/meta.txt");
+    }
+
+    fn test(input: &str, output: &str) -> Result<(), String> {
+        let tmp_dir = tempdir().map_err(|x| return x.to_string())?;
+        let target = tmp_dir
+            .path()
+            .join("output.txt")
+            .to_string_lossy()
+            .to_string();
+        assert_eq!(
+            run(vec![
+                String::from("cp437-to-txt"),
+                String::from(input),
+                target.clone(),
+            ]),
+            ExitCode::OK
+        );
+        assert!(tmp_dir.path().join("output.txt").exists());
+        assert!(diff(&target, output));
+
+        tmp_dir.close().map_err(|x| return x.to_string())?;
+
+        return Ok(());
+    }
+}
