@@ -1,0 +1,108 @@
+.TH cp437-tools 1
+." -----------------------------------------------------------------------------
+.SH NAME
+.B cp437-tools
+- Tools for managing code page 437 files
+." -----------------------------------------------------------------------------
+.SH SYNOPSIS
+.B cp437-tools
+.I COMMAND
+[
+.IR OPTIONS "... ]"
+." -----------------------------------------------------------------------------
+.SH DESCRIPTION
+.B cp437-tools
+is a small collection of tools for working with CP437 (code page 437) files,
+often found in ANSI & ASCII art.
+." -------------------------------------
+.PP
+This binary act as a wrapper for all the rest of the binaries provided by this
+software bundle, and for any one command
+.BR "cp437-tools <COMMAND>" ,
+there's also an equivalent
+.BR "cp437-<COMMAND>" .
+." -----------------------------------------------------------------------------
+.SH COMMANDS
+.B check-meta
+.I FILE
+.RS .5i
+Check a file's metadata.
+.RE
+." -------------------------------------
+.PP
+.B help
+[
+.I COMMAND
+]
+.RS .5i
+Show a command's help text and exit.
+.RE
+." -------------------------------------
+.PP
+.B read-meta
+.I FILE
+.RS .5i
+Show a file's metadata.
+.RE
+." -------------------------------------
+.PP
+.B remove-meta
+.I FILE
+.RS .5i
+Remove a file's metadata.
+.nf
+.fi
+(pipes the output to stdout)
+.RE
+." -------------------------------------
+.PP
+.B set-meta
+.I FILE KEY VALUE
+.RS .5i
+Set one field of a file's metadata.
+.nf
+.fi
+(pipes the output to stdout)
+.RE
+." -------------------------------------
+.PP
+.B to-png
+.I FILE
+.RS .5i
+Render a file as a PNG.
+.nf
+.fi
+(pipes the output to stdout)
+.RE
+." -------------------------------------
+.PP
+.B to-svg
+.I FILE
+.RS .5i
+Render a file as an SVG.
+.nf
+.fi
+(pipes the output to stdout)
+.RE
+." -------------------------------------
+.PP
+.B to-txt
+.I FILE
+.RS .5i
+Transpile a file to UTF-8.
+.nf
+.fi
+(pipes the output to stdout)
+.RE
+." -----------------------------------------------------------------------------
+.SH EXIT CODES
+0x00 - Success
+." -------------------------------------
+.PP
+0x01 - Failure (e.g., a check failed)
+." -------------------------------------
+.PP
+0x7E - Usage error (e.g., missing argument)
+." -------------------------------------
+.PP
+0x7F - Internal error (e.g., IO error)

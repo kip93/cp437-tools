@@ -2,19 +2,24 @@
 
 use std::env::args;
 
-use cp437_tools::{help, ExitCode};
-#[path = "remove-meta/main.rs"]
-mod del_cmd;
-#[path = "help/main.rs"]
-mod help_cmd;
-#[path = "to-png/main.rs"]
-mod png_cmd;
-#[path = "read-meta/main.rs"]
-mod read_cmd;
-#[path = "set-meta/main.rs"]
-mod set_cmd;
-#[path = "to-txt/main.rs"]
-mod txt_cmd;
+use cp437_tools::internal::ExitCode;
+
+#[path = "bins/check-meta/main.rs"]
+mod cmd_check_meta;
+#[path = "bins/help/main.rs"]
+mod cmd_help;
+#[path = "bins/read-meta/main.rs"]
+mod cmd_read_meta;
+#[path = "bins/remove-meta/main.rs"]
+mod cmd_remove_meta;
+#[path = "bins/set-meta/main.rs"]
+mod cmd_set_meta;
+#[path = "bins/to-png/main.rs"]
+mod cmd_to_png;
+#[path = "bins/to-svg/main.rs"]
+mod cmd_to_svg;
+#[path = "bins/to-txt/main.rs"]
+mod cmd_to_txt;
 
 pub fn main() -> ExitCode {
     return run(args().collect());
@@ -22,55 +27,38 @@ pub fn main() -> ExitCode {
 
 #[inline]
 fn run(args: Vec<String>) -> ExitCode {
-    if args.len() < 2 {
-        let msg = String::from("Missing command");
-        eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
-        help::print();
-        return ExitCode::USAGE(msg);
-    }
-
-    let command = args[1].as_str();
-    match command {
-        "help" => {
-            return help_cmd::run(without_command(args));
+    return if args.len() < 2 {
+        ExitCode::USAGE(String::from("Missing command"))
+    } else {
+        let command = args[1].as_str();
+        match command {
+            "check-meta" => cmd_check_meta::run(without_command(args)),
+            "help" => cmd_help::run(without_command(args)),
+            "read-meta" => cmd_read_meta::run(without_command(args)),
+            "remove-meta" => cmd_remove_meta::run(without_command(args)),
+            "set-meta" => cmd_set_meta::run(without_command(args)),
+            "to-png" => cmd_to_png::run(without_command(args)),
+            "to-svg" => cmd_to_svg::run(without_command(args)),
+            "to-txt" => cmd_to_txt::run(without_command(args)),
+            _ => ExitCode::USAGE(format!("Unknown command: {}", command)),
         }
-        "read-meta" => {
-            return read_cmd::run(without_command(args));
-        }
-        "remove-meta" => {
-            return del_cmd::run(without_command(args));
-        }
-        "set-meta" => {
-            return set_cmd::run(without_command(args));
-        }
-        "to-png" => {
-            return png_cmd::run(without_command(args));
-        }
-        "to-txt" => {
-            return txt_cmd::run(without_command(args));
-        }
-        _ => {
-            let msg = format!("Unknown command: {}", command);
-            eprintln!("\x1B[31mERROR: {}\x1B[0m", msg);
-            help::print();
-            return ExitCode::USAGE(msg);
-        }
-    }
+    };
 }
 
 #[inline]
 fn without_command(args: Vec<String>) -> Vec<String> {
-    return args
+    return [format!("cp437-{}", args[1])]
         .iter()
-        .enumerate()
-        .filter(|&(i, _)| return i != 1)
-        .map(|(_, v)| return v.to_string())
+        .chain(args.iter().skip(2))
+        .cloned()
         .collect();
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn help() -> ExitCode {

@@ -1,48 +1,103 @@
 [package]
 name = "cp437-tools"
 description = "Small collection of tools to handle CP437 files"
-version = "0.4.1"
+version = "0.5.0"
 repository = "https://github.com/kip93/cp437-tools"
 license = "GPL-3.0-or-later AND CC-BY-SA-4.0"
-authors = ["kip93 <leandro@kip93.net>"]
-categories = ["command-line-utilities", "multimedia::images"]
-keywords = ["ansi", "art", "ascii", "cli", "cp437"]
+authors = [ "kip93 <leandro@kip93.net>" ]
+categories = [ "command-line-utilities", "multimedia::images" ]
+keywords = [ "ansi", "art", "ascii", "cli", "cp437" ]
+autobins = false
 
-rust-version = "1.77.0"
+rust-version = "1.77.0" # Increasing this is a breaking change!
 edition = "2021"
 publish = true
 
 [[bin]]
+name = "cp437-tools"
+path = "src/main.rs"
+required-features = ["binaries"]
+test = false
+
+[[bin]]
+name = "cp437-check-meta"
+path = "src/bins/check-meta/main.rs"
+required-features = ["binaries"]
+
+[[bin]]
 name = "cp437-help"
-path = "src/help/main.rs"
+path = "src/bins/help/main.rs"
+required-features = ["binaries"]
 
 [[bin]]
 name = "cp437-read-meta"
-path = "src/read-meta/main.rs"
+path = "src/bins/read-meta/main.rs"
+required-features = ["binaries"]
+
+[[bin]]
+name = "cp437-remove-meta"
+path = "src/bins/remove-meta/main.rs"
+required-features = ["binaries"]
+
+[[bin]]
+name = "cp437-set-meta"
+path = "src/bins/set-meta/main.rs"
+required-features = ["binaries"]
 
 [[bin]]
 name = "cp437-to-png"
-path = "src/to-png/main.rs"
+path = "src/bins/to-png/main.rs"
+required-features = ["binaries"]
+
+[[bin]]
+name = "cp437-to-svg"
+path = "src/bins/to-svg/main.rs"
+required-features = ["binaries"]
 
 [[bin]]
 name = "cp437-to-txt"
-path = "src/to-txt/main.rs"
+path = "src/bins/to-txt/main.rs"
+required-features = ["binaries"]
 
 [dependencies]
 chrono = { version = "0.4.10", default-features = false, features = [ "std" ] }
-humansize = "2.0.0"
+embed-doc-image = "0.1.0"
 indexmap = "2.0.0"
 indoc = "2.0.0"
 lazy_static = "1.1.0"
-png = "0.17.10"
-regex = "1.0.0"
 rust-embed = { version = "8.0.0", features = [ "include-exclude", "interpolate-folder-path" ] }
 ttf-parser = "0.20.0"
 
+# TODO https://github.com/rust-lang/cargo/issues/1982
+base64 = { version = "0.22.0", optional = true }
+humansize = { version = "2.0.0", optional = true }
+png = { version = "0.17.10", optional = true }
+regex = { version = "1.0.0", optional = true }
+svg = { version = "0.16.0", optional = true }
+
+[build-dependencies]
+indoc = "2.0.0"
+
 [dev-dependencies]
 file_diff = "1.0.0"
+pretty_assertions = "1.0.0"
 tempfile = "3.1.0"
 
-[lints]
-clippy = { implicit_return = "deny", needless_borrow = "allow", needless_return = "allow", ptr_arg = "allow" }
-rust = { dead_code = "deny", unused_imports = "deny", unused_variables = "deny" }
+[features]
+# TODO https://github.com/rust-lang/cargo/issues/1982
+default = ["binaries"]
+binaries = ["base64", "humansize", "png", "regex", "svg"]
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+needless_borrow = "allow"
+needless_return = "allow"
+ptr_arg = "allow"
+
+[lints.rust]
+dead_code = "deny"
+unreachable_code = "deny"
+unused_imports = "deny"
+unused_macros = "deny"
+unused_mut = "deny"
+unused_variables = "deny"

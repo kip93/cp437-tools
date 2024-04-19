@@ -1,3 +1,9 @@
+# Build outputs
 /target
 /result*
 /.cargo
+
+# Test outputs
+/*.png
+/*.svg
+/*.txt

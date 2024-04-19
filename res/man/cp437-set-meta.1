@@ -1,0 +1,190 @@
+.TH cp437-set-meta 1
+." -----------------------------------------------------------------------------
+.SH NAME
+.B cp437-set-meta
+- Set one field of a file's metadata.
+." -----------------------------------------------------------------------------
+.SH SYNOPSIS
+.B cp437-set-meta
+.I FILE KEY VALUE
+." -----------------------------------------------------------------------------
+.SH DESCRIPTION
+.B cp437-set-meta
+takes a file and modifies its metadata, piping the resulting file to stdout.
+.PP
+If the file has no metadata, it will add one filled with default values, and
+then proceed to add set the given field.
+." -----------------------------------------------------------------------------
+.SH ARGUMENTS
+.I FILE
+.RS .5i
+File's meta to be modified.
+.RE
+." -------------------------------------
+.PP
+.I KEY
+.RS .5i
+Metadata field name.
+.nf
+.fi
+See the
+.B KEYS & VALUES
+section for valid keys.
+.RE
+." -------------------------------------
+.PP
+.I VALUE
+.RS .5i
+Metadata field value.
+.nf
+.fi
+See the
+.B KEYS & VALUES
+section for valid values.
+.RE
+." -----------------------------------------------------------------------------
+.SH KEYS & VALUES
+.B title
+.I STRING
+.RS .5i
+(length <= 35 chars)
+.nf
+.fi
+The title of the file
+.RE
+." -------------------------------------
+.PP
+.B author
+.I STRING
+.RS .5i
+(length <= 20 chars)
+.nf
+.fi
+The (nick)name or handle of the creator of the file.
+.RE
+." -------------------------------------
+.PP
+.B group
+.I STRING
+.RS .5i
+(length <= 20 chars)
+.nf
+.fi
+The name of the group the creator belongs to or company they are employed by.
+.RE
+." -------------------------------------
+.PP
+.B date
+.I STRING
+.RS .5i
+(YYYYMMDD format)
+.nf
+.fi
+The date when the file was created.
+.RE
+." -------------------------------------
+.PP
+.B type
+.I STRING
+.RS .5i
+The type of data in this file.
+.nf
+Valid options:
+.fi
+.RS .2i
+.nf
+- Character/ASCII
+- Character/ANSi
+.fi
+.RE
+Both values are effectively the same.
+.RE
+." -------------------------------------
+.PP
+.B width
+.I INTEGER
+.RS .5i
+(<= 65535)
+.nf
+.fi
+The width of the image, in characters.
+.RE
+." -------------------------------------
+.PP
+.B height
+.I INTEGER
+.RS .5i
+(<= 65535)
+.nf
+.fi
+The height of the image, in characters.
+.RE
+." -------------------------------------
+.PP
+.B flags
+.I BINARY
+.RS .5i
+(000ARLSB format)
+.nf
+.fi
+Define how to render the file.
+.nf
+Bit fields:
+.fi
+.RS .2i
+.nf
+- AR: Aspect ratio.
+.RS .6i
+- 00: Use default (01).
+- 01: 1:1.35 for 9x16 font, 1:1.2 for 8x16 font.
+- 10: 1:1 aspect ratio.
+- 11: Invalid aspect ratio.
+.RE
+- LS: Letter spacing.
+.RS .6i
+- 00: Use default (10).
+- 01: 8x16 font.
+- 10: 9x16 font.
+- 11: Invalid letter spacing.
+.RE
+- B:  Blink mode / iCE colour.
+.RS .6i
+- 0: Use blink mode (unsupported).
+- 1: Enable iCE colours.
+.RE
+.fi
+.RE
+.RE
+." -------------------------------------
+.PP
+.B font
+.I STRING
+.nf
+.fi
+(length <= 22 chars)
+.RS .5i
+The font used to render this file.
+.nf
+Valid options:
+.fi
+.RS .2i
+.nf
+- IBM VGA
+- IBM VGA 437
+.fi
+.RE
+Both values are effectively the same.
+.RE
+." -------------------------------------
+.PP
+.B notes
+.I STRING
+.RS .5i
+(line length <= 64, lines <= 255)
+.nf
+.fi
+A '\\n' separated string, where every line is a different note to be set.
+.nf
+.fi
+Leading and trailing whitespace is stripped, and empty lines are ignored.
+.RE

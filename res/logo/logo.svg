@@ -1,0 +1,4820 @@
+<svg height="10800" viewBox="0 0 14400 10800" width="14400" xmlns="http://www.w3.org/2000/svg">
+<!-- Embedded IBM VGA font, provided under CC-BY-SA-4.0 -->
+<!-- https://int10h.org/oldschool-pc-fonts -->
+<style>
+@font-face { font-family: "IBM VGA"; src: url("data:application/font-woff;charset=utf-8;base64,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"); }
+</style>
+<!-- Metadata -->
+<title>CP437 tools logo</title>
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF>
+<rdf:Description about="">
+<dc:title>CP437 tools logo</dc:title>
+<dc:creator dc:identifier="author">kip93</dc:creator>
+<dc:date>2024-03-24</dc:date>
+<dc:format dc:identifier="size">
+<rdf:Bag>
+<rdf:li dc:identifier="width">80</rdf:li>
+<rdf:li dc:identifier="height">25</rdf:li>
+</rdf:Bag>
+</dc:format>
+<rdf:Seq dc:identifier="notes">
+<rdf:li>Copyright: CC BY-NC-SA 4.0</rdf:li>
+</rdf:Seq>
+<dc:type>http://purl.org/dc/dcmitype/StillImage</dc:type>
+</rdf:Description>
+</rdf:RDF>
+</metadata>
+<!-- Drawing -->
+<g font-family="IBM VGA" transform="scale(20, 27)">
+<rect fill="#000" height="400" width="720" x="0" y="0"/>
+<rect fill="#000000" height="16" width="9" x="0" y="16"/>
+<text fill="#ABABAB" font-size="16" x="0" y="28">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="16"/>
+<text fill="#ABABAB" font-size="16" x="9" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="16"/>
+<text fill="#ABABAB" font-size="16" x="18" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="16"/>
+<text fill="#ABABAB" font-size="16" x="27" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="16"/>
+<text fill="#ABABAB" font-size="16" x="36" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="16"/>
+<text fill="#ABABAB" font-size="16" x="45" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="16"/>
+<text fill="#ABABAB" font-size="16" x="54" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="63" y="16"/>
+<text fill="#AB0000" font-size="16" x="63" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="72" y="16"/>
+<text fill="#AB0000" font-size="16" x="72" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="16"/>
+<text fill="#ABABAB" font-size="16" x="81" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="90" y="16"/>
+<text fill="#00AB00" font-size="16" x="90" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="99" y="16"/>
+<text fill="#00AB00" font-size="16" x="99" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="108" y="16"/>
+<text fill="#ABABAB" font-size="16" x="108" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="117" y="16"/>
+<text fill="#0000AB" font-size="16" x="117" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="126" y="16"/>
+<text fill="#0000AB" font-size="16" x="126" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="16"/>
+<text fill="#ABABAB" font-size="16" x="135" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="144" y="16"/>
+<text fill="#575757" font-size="16" x="144" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="16"/>
+<text fill="#ABABAB" font-size="16" x="153" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="162" y="16"/>
+<text fill="#575757" font-size="16" x="162" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="16"/>
+<text fill="#ABABAB" font-size="16" x="171" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="180" y="16"/>
+<text fill="#575757" font-size="16" x="180" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="189" y="16"/>
+<text fill="#575757" font-size="16" x="189" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="16"/>
+<text fill="#ABABAB" font-size="16" x="198" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="207" y="16"/>
+<text fill="#575757" font-size="16" x="207" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="216" y="16"/>
+<text fill="#575757" font-size="16" x="216" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="16"/>
+<text fill="#ABABAB" font-size="16" x="225" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="234" y="16"/>
+<text fill="#575757" font-size="16" x="234" y="28">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="243" y="16"/>
+<text fill="#575757" font-size="16" x="243" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="16"/>
+<text fill="#ABABAB" font-size="16" x="252" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="16"/>
+<text fill="#ABABAB" font-size="16" x="261" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="16"/>
+<text fill="#ABABAB" font-size="16" x="270" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="16"/>
+<text fill="#ABABAB" font-size="16" x="279" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="16"/>
+<text fill="#ABABAB" font-size="16" x="288" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="16"/>
+<text fill="#ABABAB" font-size="16" x="297" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="16"/>
+<text fill="#ABABAB" font-size="16" x="306" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="16"/>
+<text fill="#ABABAB" font-size="16" x="315" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="16"/>
+<text fill="#ABABAB" font-size="16" x="324" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="16"/>
+<text fill="#ABABAB" font-size="16" x="333" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="16"/>
+<text fill="#ABABAB" font-size="16" x="342" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="16"/>
+<text fill="#ABABAB" font-size="16" x="351" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="16"/>
+<text fill="#ABABAB" font-size="16" x="360" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="16"/>
+<text fill="#ABABAB" font-size="16" x="369" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="16"/>
+<text fill="#ABABAB" font-size="16" x="378" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="16"/>
+<text fill="#ABABAB" font-size="16" x="387" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="16"/>
+<text fill="#ABABAB" font-size="16" x="396" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="16"/>
+<text fill="#ABABAB" font-size="16" x="405" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="16"/>
+<text fill="#ABABAB" font-size="16" x="414" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="16"/>
+<text fill="#ABABAB" font-size="16" x="423" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="16"/>
+<text fill="#ABABAB" font-size="16" x="432" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="16"/>
+<text fill="#ABABAB" font-size="16" x="441" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="16"/>
+<text fill="#ABABAB" font-size="16" x="450" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="16"/>
+<text fill="#ABABAB" font-size="16" x="459" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="16"/>
+<text fill="#ABABAB" font-size="16" x="468" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="16"/>
+<text fill="#ABABAB" font-size="16" x="477" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="16"/>
+<text fill="#ABABAB" font-size="16" x="486" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="16"/>
+<text fill="#ABABAB" font-size="16" x="495" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="504" y="16"/>
+<text fill="#ABABAB" font-size="16" x="504" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="16"/>
+<text fill="#ABABAB" font-size="16" x="513" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="16"/>
+<text fill="#ABABAB" font-size="16" x="522" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="16"/>
+<text fill="#ABABAB" font-size="16" x="531" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="16"/>
+<text fill="#ABABAB" font-size="16" x="540" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="16"/>
+<text fill="#ABABAB" font-size="16" x="549" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="16"/>
+<text fill="#ABABAB" font-size="16" x="558" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="16"/>
+<text fill="#ABABAB" font-size="16" x="567" y="28">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="576" y="16"/>
+<text fill="#575757" font-size="16" x="576" y="28">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="16"/>
+<text fill="#575757" font-size="16" x="585" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="16"/>
+<text fill="#575757" font-size="16" x="594" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="16"/>
+<text fill="#575757" font-size="16" x="603" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="16"/>
+<text fill="#575757" font-size="16" x="612" y="28">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="16"/>
+<text fill="#575757" font-size="16" x="621" y="28">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="32"/>
+<text fill="#ABABAB" font-size="16" x="0" y="44">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="32"/>
+<text fill="#ABABAB" font-size="16" x="9" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="32"/>
+<text fill="#ABABAB" font-size="16" x="18" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="32"/>
+<text fill="#ABABAB" font-size="16" x="27" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="32"/>
+<text fill="#ABABAB" font-size="16" x="36" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="32"/>
+<text fill="#ABABAB" font-size="16" x="45" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="32"/>
+<text fill="#ABABAB" font-size="16" x="54" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="63" y="32"/>
+<text fill="#AB0000" font-size="16" x="63" y="44">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="72" y="32"/>
+<text fill="#AB0000" font-size="16" x="72" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="32"/>
+<text fill="#ABABAB" font-size="16" x="81" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="90" y="32"/>
+<text fill="#00AB00" font-size="16" x="90" y="44">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="99" y="32"/>
+<text fill="#00AB00" font-size="16" x="99" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="108" y="32"/>
+<text fill="#ABABAB" font-size="16" x="108" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="117" y="32"/>
+<text fill="#0000AB" font-size="16" x="117" y="44">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="126" y="32"/>
+<text fill="#0000AB" font-size="16" x="126" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="32"/>
+<text fill="#ABABAB" font-size="16" x="135" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="32"/>
+<text fill="#ABABAB" font-size="16" x="144" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="153" y="32"/>
+<text fill="#575757" font-size="16" x="153" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="32"/>
+<text fill="#ABABAB" font-size="16" x="162" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="32"/>
+<text fill="#ABABAB" font-size="16" x="171" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="180" y="32"/>
+<text fill="#575757" font-size="16" x="180" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="32"/>
+<text fill="#ABABAB" font-size="16" x="189" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="32"/>
+<text fill="#ABABAB" font-size="16" x="198" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="207" y="32"/>
+<text fill="#575757" font-size="16" x="207" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="32"/>
+<text fill="#ABABAB" font-size="16" x="216" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="225" y="32"/>
+<text fill="#575757" font-size="16" x="225" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="32"/>
+<text fill="#ABABAB" font-size="16" x="234" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="32"/>
+<text fill="#ABABAB" font-size="16" x="243" y="44">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="252" y="32"/>
+<text fill="#575757" font-size="16" x="252" y="44">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="32"/>
+<text fill="#ABABAB" font-size="16" x="261" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="32"/>
+<text fill="#ABABAB" font-size="16" x="270" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="32"/>
+<text fill="#ABABAB" font-size="16" x="279" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="32"/>
+<text fill="#ABABAB" font-size="16" x="288" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="32"/>
+<text fill="#ABABAB" font-size="16" x="297" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="32"/>
+<text fill="#ABABAB" font-size="16" x="306" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="32"/>
+<text fill="#ABABAB" font-size="16" x="315" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="32"/>
+<text fill="#ABABAB" font-size="16" x="324" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="32"/>
+<text fill="#ABABAB" font-size="16" x="333" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="32"/>
+<text fill="#ABABAB" font-size="16" x="342" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="32"/>
+<text fill="#ABABAB" font-size="16" x="351" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="32"/>
+<text fill="#ABABAB" font-size="16" x="360" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="32"/>
+<text fill="#ABABAB" font-size="16" x="369" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="32"/>
+<text fill="#ABABAB" font-size="16" x="378" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="32"/>
+<text fill="#ABABAB" font-size="16" x="387" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="32"/>
+<text fill="#ABABAB" font-size="16" x="396" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="32"/>
+<text fill="#ABABAB" font-size="16" x="405" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="32"/>
+<text fill="#ABABAB" font-size="16" x="414" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="32"/>
+<text fill="#ABABAB" font-size="16" x="423" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="32"/>
+<text fill="#ABABAB" font-size="16" x="432" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="32"/>
+<text fill="#ABABAB" font-size="16" x="441" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="32"/>
+<text fill="#ABABAB" font-size="16" x="450" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="32"/>
+<text fill="#ABABAB" font-size="16" x="459" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="32"/>
+<text fill="#ABABAB" font-size="16" x="468" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="32"/>
+<text fill="#ABABAB" font-size="16" x="477" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="32"/>
+<text fill="#ABABAB" font-size="16" x="486" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="32"/>
+<text fill="#ABABAB" font-size="16" x="495" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="504" y="32"/>
+<text fill="#ABABAB" font-size="16" x="504" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="32"/>
+<text fill="#ABABAB" font-size="16" x="513" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="32"/>
+<text fill="#ABABAB" font-size="16" x="522" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="32"/>
+<text fill="#ABABAB" font-size="16" x="531" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="32"/>
+<text fill="#ABABAB" font-size="16" x="540" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="32"/>
+<text fill="#ABABAB" font-size="16" x="549" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="32"/>
+<text fill="#ABABAB" font-size="16" x="558" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="32"/>
+<text fill="#ABABAB" font-size="16" x="567" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="32"/>
+<text fill="#ABABAB" font-size="16" x="576" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="32"/>
+<text fill="#575757" font-size="16" x="585" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="32"/>
+<text fill="#575757" font-size="16" x="594" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="32"/>
+<text fill="#575757" font-size="16" x="603" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="32"/>
+<text fill="#575757" font-size="16" x="612" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="32"/>
+<text fill="#575757" font-size="16" x="621" y="44">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="48"/>
+<text fill="#ABABAB" font-size="16" x="0" y="60">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="48"/>
+<text fill="#ABABAB" font-size="16" x="9" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="48"/>
+<text fill="#ABABAB" font-size="16" x="18" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="48"/>
+<text fill="#ABABAB" font-size="16" x="27" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="48"/>
+<text fill="#ABABAB" font-size="16" x="36" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="48"/>
+<text fill="#ABABAB" font-size="16" x="45" y="60">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="48"/>
+<text fill="#ABABAB" font-size="16" x="540" y="60">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="48"/>
+<text fill="#ABABAB" font-size="16" x="549" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="48"/>
+<text fill="#ABABAB" font-size="16" x="558" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="48"/>
+<text fill="#ABABAB" font-size="16" x="567" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="48"/>
+<text fill="#ABABAB" font-size="16" x="576" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="48"/>
+<text fill="#575757" font-size="16" x="585" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="48"/>
+<text fill="#575757" font-size="16" x="594" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="48"/>
+<text fill="#575757" font-size="16" x="603" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="48"/>
+<text fill="#575757" font-size="16" x="612" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="48"/>
+<text fill="#575757" font-size="16" x="621" y="60">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="64"/>
+<text fill="#ABABAB" font-size="16" x="0" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="64"/>
+<text fill="#ABABAB" font-size="16" x="9" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="64"/>
+<text fill="#ABABAB" font-size="16" x="18" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="64"/>
+<text fill="#ABABAB" font-size="16" x="27" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="64"/>
+<text fill="#ABABAB" font-size="16" x="36" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="64"/>
+<text fill="#ABABAB" font-size="16" x="45" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="64"/>
+<text fill="#ABABAB" font-size="16" x="54" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="72" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="81" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="90" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="90" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="99" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="99" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="108" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="108" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="117" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="117" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="126" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="64"/>
+<text fill="#ABABAB" font-size="16" x="135" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="64"/>
+<text fill="#575757" font-size="16" x="144" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="171" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="180" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="189" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="198" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="207" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="64"/>
+<text fill="#FFFFFF" font-size="16" x="216" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="64"/>
+<text fill="#ABABAB" font-size="16" x="225" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="64"/>
+<text fill="#575757" font-size="16" x="234" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="64"/>
+<text fill="#575757" font-size="16" x="243" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="64"/>
+<text fill="#FF5757" font-size="16" x="252" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="64"/>
+<text fill="#FF5757" font-size="16" x="261" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="64"/>
+<text fill="#AB0000" font-size="16" x="270" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="64"/>
+<text fill="#AB0000" font-size="16" x="279" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="64"/>
+<text fill="#AB0000" font-size="16" x="288" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="64"/>
+<text fill="#AB0000" font-size="16" x="297" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="64"/>
+<text fill="#AB0000" font-size="16" x="306" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="64"/>
+<text fill="#FF5757" font-size="16" x="315" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="64"/>
+<text fill="#FF5757" font-size="16" x="324" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="64"/>
+<text fill="#AB0000" font-size="16" x="333" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="64"/>
+<text fill="#AB0000" font-size="16" x="342" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="64"/>
+<text fill="#57FF57" font-size="16" x="351" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="64"/>
+<text fill="#57FF57" font-size="16" x="360" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="64"/>
+<text fill="#57FF57" font-size="16" x="369" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="64"/>
+<text fill="#57FF57" font-size="16" x="378" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="64"/>
+<text fill="#57FF57" font-size="16" x="387" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="64"/>
+<text fill="#57FF57" font-size="16" x="396" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="64"/>
+<text fill="#57FF57" font-size="16" x="405" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="64"/>
+<text fill="#57FF57" font-size="16" x="414" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="64"/>
+<text fill="#00AB00" font-size="16" x="423" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="64"/>
+<text fill="#00AB00" font-size="16" x="432" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="64"/>
+<text fill="#00AB00" font-size="16" x="441" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="64"/>
+<text fill="#5757FF" font-size="16" x="450" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="64"/>
+<text fill="#5757FF" font-size="16" x="459" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="64"/>
+<text fill="#5757FF" font-size="16" x="468" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="64"/>
+<text fill="#5757FF" font-size="16" x="477" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="64"/>
+<text fill="#5757FF" font-size="16" x="486" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="64"/>
+<text fill="#5757FF" font-size="16" x="495" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="504" y="64"/>
+<text fill="#5757FF" font-size="16" x="504" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="64"/>
+<text fill="#5757FF" font-size="16" x="513" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="64"/>
+<text fill="#5757FF" font-size="16" x="522" y="76">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="64"/>
+<text fill="#0000AB" font-size="16" x="531" y="76">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="64"/>
+<text fill="#0000AB" font-size="16" x="540" y="76">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="64"/>
+<text fill="#ABABAB" font-size="16" x="549" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="64"/>
+<text fill="#ABABAB" font-size="16" x="558" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="64"/>
+<text fill="#ABABAB" font-size="16" x="567" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="64"/>
+<text fill="#ABABAB" font-size="16" x="576" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="64"/>
+<text fill="#575757" font-size="16" x="585" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="64"/>
+<text fill="#575757" font-size="16" x="594" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="64"/>
+<text fill="#575757" font-size="16" x="603" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="64"/>
+<text fill="#575757" font-size="16" x="612" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="64"/>
+<text fill="#575757" font-size="16" x="621" y="76">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="80"/>
+<text fill="#ABABAB" font-size="16" x="0" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="80"/>
+<text fill="#ABABAB" font-size="16" x="9" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="80"/>
+<text fill="#ABABAB" font-size="16" x="18" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="80"/>
+<text fill="#ABABAB" font-size="16" x="27" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="80"/>
+<text fill="#ABABAB" font-size="16" x="36" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="80"/>
+<text fill="#ABABAB" font-size="16" x="45" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="72" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="80"/>
+<text fill="#ABABAB" font-size="16" x="81" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="80"/>
+<text fill="#ABABAB" font-size="16" x="171" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="80"/>
+<text fill="#575757" font-size="16" x="180" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="80"/>
+<text fill="#575757" font-size="16" x="189" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="80"/>
+<text fill="#575757" font-size="16" x="198" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="80"/>
+<text fill="#575757" font-size="16" x="207" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="216" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="80"/>
+<text fill="#FFFFFF" font-size="16" x="225" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="80"/>
+<text fill="#ABABAB" font-size="16" x="234" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="80"/>
+<text fill="#575757" font-size="16" x="243" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="80"/>
+<text fill="#FF5757" font-size="16" x="252" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="80"/>
+<text fill="#FF5757" font-size="16" x="261" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="80"/>
+<text fill="#AB0000" font-size="16" x="270" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="80"/>
+<text fill="#AB0000" font-size="16" x="279" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="80"/>
+<text fill="#AB0000" font-size="16" x="288" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="80"/>
+<text fill="#AB0000" font-size="16" x="297" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="80"/>
+<text fill="#AB0000" font-size="16" x="306" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="80"/>
+<text fill="#FF5757" font-size="16" x="315" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="80"/>
+<text fill="#FF5757" font-size="16" x="324" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="80"/>
+<text fill="#AB0000" font-size="16" x="333" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="80"/>
+<text fill="#57FF57" font-size="16" x="414" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="80"/>
+<text fill="#57FF57" font-size="16" x="423" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="80"/>
+<text fill="#00AB00" font-size="16" x="432" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="80"/>
+<text fill="#5757FF" font-size="16" x="513" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="80"/>
+<text fill="#5757FF" font-size="16" x="522" y="92">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="80"/>
+<text fill="#0000AB" font-size="16" x="531" y="92">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="80"/>
+<text fill="#0000AB" font-size="16" x="540" y="92">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="80"/>
+<text fill="#ABABAB" font-size="16" x="549" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="80"/>
+<text fill="#ABABAB" font-size="16" x="558" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="80"/>
+<text fill="#ABABAB" font-size="16" x="567" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="80"/>
+<text fill="#ABABAB" font-size="16" x="576" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="80"/>
+<text fill="#575757" font-size="16" x="585" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="80"/>
+<text fill="#575757" font-size="16" x="594" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="80"/>
+<text fill="#575757" font-size="16" x="603" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="80"/>
+<text fill="#575757" font-size="16" x="612" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="80"/>
+<text fill="#575757" font-size="16" x="621" y="92">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="96"/>
+<text fill="#ABABAB" font-size="16" x="0" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="96"/>
+<text fill="#ABABAB" font-size="16" x="9" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="96"/>
+<text fill="#ABABAB" font-size="16" x="18" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="96"/>
+<text fill="#ABABAB" font-size="16" x="27" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="96"/>
+<text fill="#ABABAB" font-size="16" x="36" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="96"/>
+<text fill="#ABABAB" font-size="16" x="45" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="96"/>
+<text fill="#ABABAB" font-size="16" x="72" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="96"/>
+<text fill="#ABABAB" font-size="16" x="171" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="96"/>
+<text fill="#575757" font-size="16" x="180" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="96"/>
+<text fill="#575757" font-size="16" x="189" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="96"/>
+<text fill="#575757" font-size="16" x="198" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="96"/>
+<text fill="#575757" font-size="16" x="207" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="216" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="96"/>
+<text fill="#FFFFFF" font-size="16" x="225" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="96"/>
+<text fill="#ABABAB" font-size="16" x="234" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="96"/>
+<text fill="#575757" font-size="16" x="243" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="96"/>
+<text fill="#FF5757" font-size="16" x="252" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="96"/>
+<text fill="#FF5757" font-size="16" x="261" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="96"/>
+<text fill="#AB0000" font-size="16" x="270" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="96"/>
+<text fill="#AB0000" font-size="16" x="279" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="96"/>
+<text fill="#AB0000" font-size="16" x="288" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="96"/>
+<text fill="#AB0000" font-size="16" x="297" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="96"/>
+<text fill="#AB0000" font-size="16" x="306" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="96"/>
+<text fill="#FF5757" font-size="16" x="315" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="96"/>
+<text fill="#FF5757" font-size="16" x="324" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="96"/>
+<text fill="#AB0000" font-size="16" x="333" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="96"/>
+<text fill="#57FF57" font-size="16" x="414" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="96"/>
+<text fill="#57FF57" font-size="16" x="423" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="96"/>
+<text fill="#00AB00" font-size="16" x="432" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="96"/>
+<text fill="#5757FF" font-size="16" x="513" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="96"/>
+<text fill="#5757FF" font-size="16" x="522" y="108">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="96"/>
+<text fill="#0000AB" font-size="16" x="531" y="108">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="96"/>
+<text fill="#0000AB" font-size="16" x="540" y="108">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="96"/>
+<text fill="#ABABAB" font-size="16" x="549" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="96"/>
+<text fill="#ABABAB" font-size="16" x="558" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="96"/>
+<text fill="#ABABAB" font-size="16" x="567" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="96"/>
+<text fill="#ABABAB" font-size="16" x="576" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="96"/>
+<text fill="#575757" font-size="16" x="585" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="96"/>
+<text fill="#575757" font-size="16" x="594" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="96"/>
+<text fill="#575757" font-size="16" x="603" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="96"/>
+<text fill="#575757" font-size="16" x="612" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="96"/>
+<text fill="#575757" font-size="16" x="621" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="96"/>
+<text fill="#575757" font-size="16" x="630" y="108">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="96"/>
+<text fill="#575757" font-size="16" x="639" y="108">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="96"/>
+<text fill="#575757" font-size="16" x="648" y="108">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="96"/>
+<text fill="#575757" font-size="16" x="657" y="108">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="96"/>
+<text fill="#575757" font-size="16" x="666" y="108">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="112"/>
+<text fill="#ABABAB" font-size="16" x="0" y="124">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="112"/>
+<text fill="#ABABAB" font-size="16" x="9" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="112"/>
+<text fill="#ABABAB" font-size="16" x="18" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="112"/>
+<text fill="#ABABAB" font-size="16" x="27" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="112"/>
+<text fill="#ABABAB" font-size="16" x="36" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="112"/>
+<text fill="#ABABAB" font-size="16" x="45" y="124">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="112"/>
+<text fill="#ABABAB" font-size="16" x="72" y="124">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="171" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="180" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="189" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="198" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="207" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="112"/>
+<text fill="#FFFFFF" font-size="16" x="216" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="112"/>
+<text fill="#ABABAB" font-size="16" x="225" y="124">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="112"/>
+<text fill="#575757" font-size="16" x="234" y="124">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="112"/>
+<text fill="#575757" font-size="16" x="243" y="124">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="112"/>
+<text fill="#FF5757" font-size="16" x="252" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="112"/>
+<text fill="#FF5757" font-size="16" x="261" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="112"/>
+<text fill="#FF5757" font-size="16" x="270" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="112"/>
+<text fill="#FF5757" font-size="16" x="279" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="112"/>
+<text fill="#FF5757" font-size="16" x="288" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="112"/>
+<text fill="#FF5757" font-size="16" x="297" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="112"/>
+<text fill="#FF5757" font-size="16" x="306" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="112"/>
+<text fill="#FF5757" font-size="16" x="315" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="112"/>
+<text fill="#FF5757" font-size="16" x="324" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="112"/>
+<text fill="#AB0000" font-size="16" x="333" y="124">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="112"/>
+<text fill="#57FF57" font-size="16" x="387" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="112"/>
+<text fill="#57FF57" font-size="16" x="396" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="112"/>
+<text fill="#57FF57" font-size="16" x="405" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="112"/>
+<text fill="#57FF57" font-size="16" x="414" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="112"/>
+<text fill="#00AB00" font-size="16" x="423" y="124">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="112"/>
+<text fill="#5757FF" font-size="16" x="513" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="112"/>
+<text fill="#5757FF" font-size="16" x="522" y="124">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="112"/>
+<text fill="#0000AB" font-size="16" x="531" y="124">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="112"/>
+<text fill="#0000AB" font-size="16" x="540" y="124">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="112"/>
+<text fill="#ABABAB" font-size="16" x="549" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="112"/>
+<text fill="#ABABAB" font-size="16" x="558" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="112"/>
+<text fill="#ABABAB" font-size="16" x="567" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="112"/>
+<text fill="#ABABAB" font-size="16" x="576" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="112"/>
+<text fill="#575757" font-size="16" x="585" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="112"/>
+<text fill="#575757" font-size="16" x="594" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="112"/>
+<text fill="#575757" font-size="16" x="603" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="112"/>
+<text fill="#575757" font-size="16" x="612" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="112"/>
+<text fill="#575757" font-size="16" x="621" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="112"/>
+<text fill="#575757" font-size="16" x="630" y="124">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="112"/>
+<text fill="#575757" font-size="16" x="639" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="112"/>
+<text fill="#575757" font-size="16" x="648" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="112"/>
+<text fill="#575757" font-size="16" x="657" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="112"/>
+<text fill="#575757" font-size="16" x="666" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="112"/>
+<text fill="#575757" font-size="16" x="675" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="112"/>
+<text fill="#575757" font-size="16" x="684" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="112"/>
+<text fill="#575757" font-size="16" x="693" y="124">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="112"/>
+<text fill="#575757" font-size="16" x="702" y="124">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="128"/>
+<text fill="#ABABAB" font-size="16" x="0" y="140">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="128"/>
+<text fill="#ABABAB" font-size="16" x="9" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="128"/>
+<text fill="#ABABAB" font-size="16" x="18" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="128"/>
+<text fill="#ABABAB" font-size="16" x="27" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="128"/>
+<text fill="#ABABAB" font-size="16" x="36" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="128"/>
+<text fill="#ABABAB" font-size="16" x="45" y="140">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="128"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="128"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="128"/>
+<text fill="#ABABAB" font-size="16" x="72" y="140">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="128"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="128"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="128"/>
+<text fill="#ABABAB" font-size="16" x="171" y="140">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="128"/>
+<text fill="#FF5757" font-size="16" x="315" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="128"/>
+<text fill="#FF5757" font-size="16" x="324" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="128"/>
+<text fill="#AB0000" font-size="16" x="333" y="140">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="128"/>
+<text fill="#57FF57" font-size="16" x="414" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="128"/>
+<text fill="#57FF57" font-size="16" x="423" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="128"/>
+<text fill="#00AB00" font-size="16" x="432" y="140">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="128"/>
+<text fill="#5757FF" font-size="16" x="513" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="128"/>
+<text fill="#5757FF" font-size="16" x="522" y="140">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="128"/>
+<text fill="#0000AB" font-size="16" x="531" y="140">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="128"/>
+<text fill="#0000AB" font-size="16" x="540" y="140">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="128"/>
+<text fill="#ABABAB" font-size="16" x="549" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="128"/>
+<text fill="#ABABAB" font-size="16" x="558" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="128"/>
+<text fill="#ABABAB" font-size="16" x="567" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="128"/>
+<text fill="#ABABAB" font-size="16" x="576" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="128"/>
+<text fill="#575757" font-size="16" x="585" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="128"/>
+<text fill="#575757" font-size="16" x="594" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="128"/>
+<text fill="#575757" font-size="16" x="603" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="128"/>
+<text fill="#575757" font-size="16" x="612" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="128"/>
+<text fill="#575757" font-size="16" x="621" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="128"/>
+<text fill="#575757" font-size="16" x="630" y="140">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="128"/>
+<text fill="#575757" font-size="16" x="639" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="128"/>
+<text fill="#575757" font-size="16" x="648" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="128"/>
+<text fill="#575757" font-size="16" x="657" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="128"/>
+<text fill="#575757" font-size="16" x="666" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="128"/>
+<text fill="#575757" font-size="16" x="675" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="128"/>
+<text fill="#575757" font-size="16" x="684" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="128"/>
+<text fill="#575757" font-size="16" x="693" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="128"/>
+<text fill="#575757" font-size="16" x="702" y="140">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="144"/>
+<text fill="#ABABAB" font-size="16" x="0" y="156">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="144"/>
+<text fill="#ABABAB" font-size="16" x="9" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="144"/>
+<text fill="#ABABAB" font-size="16" x="18" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="144"/>
+<text fill="#ABABAB" font-size="16" x="27" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="144"/>
+<text fill="#ABABAB" font-size="16" x="36" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="144"/>
+<text fill="#ABABAB" font-size="16" x="45" y="156">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="144"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="144"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="144"/>
+<text fill="#ABABAB" font-size="16" x="72" y="156">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="144"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="144"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="144"/>
+<text fill="#ABABAB" font-size="16" x="171" y="156">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="144"/>
+<text fill="#FF5757" font-size="16" x="315" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="144"/>
+<text fill="#FF5757" font-size="16" x="324" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="144"/>
+<text fill="#AB0000" font-size="16" x="333" y="156">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="144"/>
+<text fill="#57FF57" font-size="16" x="414" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="144"/>
+<text fill="#57FF57" font-size="16" x="423" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="144"/>
+<text fill="#00AB00" font-size="16" x="432" y="156">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="144"/>
+<text fill="#5757FF" font-size="16" x="513" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="144"/>
+<text fill="#5757FF" font-size="16" x="522" y="156">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="144"/>
+<text fill="#0000AB" font-size="16" x="531" y="156">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="144"/>
+<text fill="#0000AB" font-size="16" x="540" y="156">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="144"/>
+<text fill="#ABABAB" font-size="16" x="549" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="144"/>
+<text fill="#ABABAB" font-size="16" x="558" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="144"/>
+<text fill="#ABABAB" font-size="16" x="567" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="144"/>
+<text fill="#ABABAB" font-size="16" x="576" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="144"/>
+<text fill="#575757" font-size="16" x="585" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="144"/>
+<text fill="#575757" font-size="16" x="594" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="144"/>
+<text fill="#575757" font-size="16" x="603" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="144"/>
+<text fill="#575757" font-size="16" x="612" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="144"/>
+<text fill="#575757" font-size="16" x="621" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="144"/>
+<text fill="#575757" font-size="16" x="630" y="156">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="144"/>
+<text fill="#575757" font-size="16" x="639" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="144"/>
+<text fill="#575757" font-size="16" x="648" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="144"/>
+<text fill="#575757" font-size="16" x="657" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="144"/>
+<text fill="#575757" font-size="16" x="666" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="144"/>
+<text fill="#575757" font-size="16" x="675" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="144"/>
+<text fill="#575757" font-size="16" x="684" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="144"/>
+<text fill="#575757" font-size="16" x="693" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="144"/>
+<text fill="#575757" font-size="16" x="702" y="156">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="160"/>
+<text fill="#ABABAB" font-size="16" x="0" y="172">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="160"/>
+<text fill="#ABABAB" font-size="16" x="9" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="160"/>
+<text fill="#ABABAB" font-size="16" x="18" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="160"/>
+<text fill="#ABABAB" font-size="16" x="27" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="160"/>
+<text fill="#ABABAB" font-size="16" x="36" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="160"/>
+<text fill="#ABABAB" font-size="16" x="45" y="172">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="160"/>
+<text fill="#FFFFFF" font-size="16" x="54" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="160"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="160"/>
+<text fill="#FFFFFF" font-size="16" x="72" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="160"/>
+<text fill="#ABABAB" font-size="16" x="81" y="172">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="160"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="160"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="160"/>
+<text fill="#ABABAB" font-size="16" x="171" y="172">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="160"/>
+<text fill="#FF5757" font-size="16" x="315" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="160"/>
+<text fill="#FF5757" font-size="16" x="324" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="160"/>
+<text fill="#AB0000" font-size="16" x="333" y="172">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="160"/>
+<text fill="#57FF57" font-size="16" x="414" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="160"/>
+<text fill="#57FF57" font-size="16" x="423" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="160"/>
+<text fill="#00AB00" font-size="16" x="432" y="172">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="160"/>
+<text fill="#5757FF" font-size="16" x="513" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="160"/>
+<text fill="#5757FF" font-size="16" x="522" y="172">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="160"/>
+<text fill="#0000AB" font-size="16" x="531" y="172">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="160"/>
+<text fill="#0000AB" font-size="16" x="540" y="172">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="160"/>
+<text fill="#ABABAB" font-size="16" x="549" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="160"/>
+<text fill="#ABABAB" font-size="16" x="558" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="160"/>
+<text fill="#ABABAB" font-size="16" x="567" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="160"/>
+<text fill="#ABABAB" font-size="16" x="576" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="160"/>
+<text fill="#575757" font-size="16" x="585" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="160"/>
+<text fill="#575757" font-size="16" x="594" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="160"/>
+<text fill="#575757" font-size="16" x="603" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="160"/>
+<text fill="#575757" font-size="16" x="612" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="160"/>
+<text fill="#575757" font-size="16" x="621" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="160"/>
+<text fill="#575757" font-size="16" x="630" y="172">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="160"/>
+<text fill="#575757" font-size="16" x="639" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="160"/>
+<text fill="#575757" font-size="16" x="648" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="160"/>
+<text fill="#575757" font-size="16" x="657" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="160"/>
+<text fill="#575757" font-size="16" x="666" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="160"/>
+<text fill="#575757" font-size="16" x="675" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="160"/>
+<text fill="#575757" font-size="16" x="684" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="160"/>
+<text fill="#575757" font-size="16" x="693" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="160"/>
+<text fill="#575757" font-size="16" x="702" y="172">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="176"/>
+<text fill="#ABABAB" font-size="16" x="0" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="176"/>
+<text fill="#ABABAB" font-size="16" x="9" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="176"/>
+<text fill="#ABABAB" font-size="16" x="18" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="176"/>
+<text fill="#ABABAB" font-size="16" x="27" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="176"/>
+<text fill="#ABABAB" font-size="16" x="36" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="176"/>
+<text fill="#ABABAB" font-size="16" x="45" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="176"/>
+<text fill="#ABABAB" font-size="16" x="54" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="63" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="72" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="81" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="90" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="90" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="99" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="99" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="108" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="108" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="117" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="117" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="126" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="176"/>
+<text fill="#ABABAB" font-size="16" x="135" y="188">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="176"/>
+<text fill="#575757" font-size="16" x="144" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="153" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="176"/>
+<text fill="#FFFFFF" font-size="16" x="162" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="176"/>
+<text fill="#ABABAB" font-size="16" x="171" y="188">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="176"/>
+<text fill="#FF5757" font-size="16" x="315" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="176"/>
+<text fill="#FF5757" font-size="16" x="324" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="176"/>
+<text fill="#AB0000" font-size="16" x="333" y="188">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="176"/>
+<text fill="#AB0000" font-size="16" x="342" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="176"/>
+<text fill="#57FF57" font-size="16" x="351" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="176"/>
+<text fill="#57FF57" font-size="16" x="360" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="176"/>
+<text fill="#57FF57" font-size="16" x="369" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="176"/>
+<text fill="#57FF57" font-size="16" x="378" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="176"/>
+<text fill="#57FF57" font-size="16" x="387" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="176"/>
+<text fill="#57FF57" font-size="16" x="396" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="176"/>
+<text fill="#57FF57" font-size="16" x="405" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="176"/>
+<text fill="#57FF57" font-size="16" x="414" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="176"/>
+<text fill="#00AB00" font-size="16" x="423" y="188">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="513" y="176"/>
+<text fill="#5757FF" font-size="16" x="513" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="522" y="176"/>
+<text fill="#5757FF" font-size="16" x="522" y="188">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="176"/>
+<text fill="#0000AB" font-size="16" x="531" y="188">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="176"/>
+<text fill="#0000AB" font-size="16" x="540" y="188">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="176"/>
+<text fill="#ABABAB" font-size="16" x="549" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="176"/>
+<text fill="#ABABAB" font-size="16" x="558" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="176"/>
+<text fill="#ABABAB" font-size="16" x="567" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="176"/>
+<text fill="#ABABAB" font-size="16" x="576" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="176"/>
+<text fill="#575757" font-size="16" x="585" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="176"/>
+<text fill="#575757" font-size="16" x="594" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="176"/>
+<text fill="#575757" font-size="16" x="603" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="176"/>
+<text fill="#575757" font-size="16" x="612" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="176"/>
+<text fill="#575757" font-size="16" x="621" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="176"/>
+<text fill="#575757" font-size="16" x="630" y="188">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="176"/>
+<text fill="#575757" font-size="16" x="639" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="176"/>
+<text fill="#575757" font-size="16" x="648" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="176"/>
+<text fill="#575757" font-size="16" x="657" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="176"/>
+<text fill="#575757" font-size="16" x="666" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="176"/>
+<text fill="#575757" font-size="16" x="675" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="176"/>
+<text fill="#575757" font-size="16" x="684" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="176"/>
+<text fill="#575757" font-size="16" x="693" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="176"/>
+<text fill="#575757" font-size="16" x="702" y="188">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="192"/>
+<text fill="#ABABAB" font-size="16" x="0" y="204">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="192"/>
+<text fill="#ABABAB" font-size="16" x="9" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="192"/>
+<text fill="#ABABAB" font-size="16" x="18" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="192"/>
+<text fill="#ABABAB" font-size="16" x="27" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="192"/>
+<text fill="#ABABAB" font-size="16" x="36" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="192"/>
+<text fill="#ABABAB" font-size="16" x="549" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="192"/>
+<text fill="#ABABAB" font-size="16" x="558" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="192"/>
+<text fill="#ABABAB" font-size="16" x="567" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="192"/>
+<text fill="#ABABAB" font-size="16" x="576" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="192"/>
+<text fill="#575757" font-size="16" x="585" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="192"/>
+<text fill="#575757" font-size="16" x="594" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="192"/>
+<text fill="#575757" font-size="16" x="603" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="192"/>
+<text fill="#575757" font-size="16" x="612" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="192"/>
+<text fill="#575757" font-size="16" x="621" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="192"/>
+<text fill="#575757" font-size="16" x="630" y="204">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="192"/>
+<text fill="#575757" font-size="16" x="639" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="192"/>
+<text fill="#575757" font-size="16" x="648" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="192"/>
+<text fill="#575757" font-size="16" x="657" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="192"/>
+<text fill="#575757" font-size="16" x="666" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="192"/>
+<text fill="#575757" font-size="16" x="675" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="192"/>
+<text fill="#575757" font-size="16" x="684" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="192"/>
+<text fill="#575757" font-size="16" x="693" y="204">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="192"/>
+<text fill="#575757" font-size="16" x="702" y="204">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="208"/>
+<text fill="#ABABAB" font-size="16" x="0" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="208"/>
+<text fill="#ABABAB" font-size="16" x="9" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="208"/>
+<text fill="#ABABAB" font-size="16" x="18" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="208"/>
+<text fill="#ABABAB" font-size="16" x="27" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="208"/>
+<text fill="#ABABAB" font-size="16" x="36" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="208"/>
+<text fill="#ABABAB" font-size="16" x="45" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="208"/>
+<text fill="#ABABAB" font-size="16" x="54" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="63" y="208"/>
+<text fill="#ABABAB" font-size="16" x="63" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="208"/>
+<text fill="#ABABAB" font-size="16" x="72" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="208"/>
+<text fill="#57FFFF" font-size="16" x="81" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="90" y="208"/>
+<text fill="#57FFFF" font-size="16" x="90" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="99" y="208"/>
+<text fill="#57FFFF" font-size="16" x="99" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="108" y="208"/>
+<text fill="#57FFFF" font-size="16" x="108" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="117" y="208"/>
+<text fill="#57FFFF" font-size="16" x="117" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="208"/>
+<text fill="#57FFFF" font-size="16" x="126" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="208"/>
+<text fill="#57FFFF" font-size="16" x="135" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="208"/>
+<text fill="#57FFFF" font-size="16" x="144" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="208"/>
+<text fill="#57FFFF" font-size="16" x="153" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="208"/>
+<text fill="#57FFFF" font-size="16" x="162" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="208"/>
+<text fill="#57FFFF" font-size="16" x="171" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="208"/>
+<text fill="#57FFFF" font-size="16" x="180" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="208"/>
+<text fill="#57FFFF" font-size="16" x="189" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="208"/>
+<text fill="#57FFFF" font-size="16" x="198" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="208"/>
+<text fill="#57FFFF" font-size="16" x="207" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="208"/>
+<text fill="#57FFFF" font-size="16" x="216" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="208"/>
+<text fill="#57FFFF" font-size="16" x="225" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="208"/>
+<text fill="#57FFFF" font-size="16" x="234" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="208"/>
+<text fill="#57FFFF" font-size="16" x="243" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="208"/>
+<text fill="#57FFFF" font-size="16" x="252" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="208"/>
+<text fill="#57FFFF" font-size="16" x="261" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="208"/>
+<text fill="#57FFFF" font-size="16" x="270" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="208"/>
+<text fill="#57FFFF" font-size="16" x="279" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="208"/>
+<text fill="#57FFFF" font-size="16" x="288" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="208"/>
+<text fill="#57FFFF" font-size="16" x="297" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="208"/>
+<text fill="#57FFFF" font-size="16" x="306" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="208"/>
+<text fill="#00ABAB" font-size="16" x="315" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="208"/>
+<text fill="#00ABAB" font-size="16" x="324" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="208"/>
+<text fill="#00ABAB" font-size="16" x="333" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="208"/>
+<text fill="#00ABAB" font-size="16" x="342" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="208"/>
+<text fill="#57FFFF" font-size="16" x="351" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="208"/>
+<text fill="#FF57FF" font-size="16" x="360" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="208"/>
+<text fill="#FF57FF" font-size="16" x="369" y="220">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="208"/>
+<text fill="#AB00AB" font-size="16" x="378" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="208"/>
+<text fill="#AB00AB" font-size="16" x="387" y="220">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="208"/>
+<text fill="#00ABAB" font-size="16" x="396" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="208"/>
+<text fill="#00ABAB" font-size="16" x="405" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="208"/>
+<text fill="#00ABAB" font-size="16" x="414" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="208"/>
+<text fill="#00ABAB" font-size="16" x="423" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="208"/>
+<text fill="#00ABAB" font-size="16" x="432" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="208"/>
+<text fill="#00ABAB" font-size="16" x="441" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="208"/>
+<text fill="#00ABAB" font-size="16" x="450" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="208"/>
+<text fill="#00ABAB" font-size="16" x="459" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="208"/>
+<text fill="#00ABAB" font-size="16" x="468" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="208"/>
+<text fill="#00ABAB" font-size="16" x="477" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="208"/>
+<text fill="#00ABAB" font-size="16" x="486" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="208"/>
+<text fill="#00ABAB" font-size="16" x="495" y="220">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="208"/>
+<text fill="#ABABAB" font-size="16" x="549" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="208"/>
+<text fill="#ABABAB" font-size="16" x="558" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="208"/>
+<text fill="#ABABAB" font-size="16" x="567" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="208"/>
+<text fill="#ABABAB" font-size="16" x="576" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="208"/>
+<text fill="#575757" font-size="16" x="585" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="208"/>
+<text fill="#575757" font-size="16" x="594" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="208"/>
+<text fill="#575757" font-size="16" x="603" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="208"/>
+<text fill="#575757" font-size="16" x="612" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="208"/>
+<text fill="#575757" font-size="16" x="621" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="208"/>
+<text fill="#575757" font-size="16" x="630" y="220">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="208"/>
+<text fill="#575757" font-size="16" x="639" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="208"/>
+<text fill="#575757" font-size="16" x="648" y="220">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="208"/>
+<text fill="#575757" font-size="16" x="657" y="220">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="208"/>
+<text fill="#575757" font-size="16" x="666" y="220">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="208"/>
+<text fill="#575757" font-size="16" x="675" y="220">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="208"/>
+<text fill="#575757" font-size="16" x="684" y="220">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="208"/>
+<text fill="#575757" font-size="16" x="693" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="208"/>
+<text fill="#575757" font-size="16" x="702" y="220">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="224"/>
+<text fill="#ABABAB" font-size="16" x="0" y="236">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="224"/>
+<text fill="#ABABAB" font-size="16" x="9" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="224"/>
+<text fill="#ABABAB" font-size="16" x="18" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="224"/>
+<text fill="#ABABAB" font-size="16" x="27" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="224"/>
+<text fill="#ABABAB" font-size="16" x="36" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="224"/>
+<text fill="#57FFFF" font-size="16" x="126" y="236">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="224"/>
+<text fill="#57FFFF" font-size="16" x="135" y="236">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="224"/>
+<text fill="#00ABAB" font-size="16" x="144" y="236">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="224"/>
+<text fill="#FF57FF" font-size="16" x="360" y="236">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="224"/>
+<text fill="#FF57FF" font-size="16" x="369" y="236">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="224"/>
+<text fill="#AB00AB" font-size="16" x="378" y="236">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="224"/>
+<text fill="#ABABAB" font-size="16" x="549" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="224"/>
+<text fill="#ABABAB" font-size="16" x="558" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="224"/>
+<text fill="#ABABAB" font-size="16" x="567" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="224"/>
+<text fill="#ABABAB" font-size="16" x="576" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="224"/>
+<text fill="#575757" font-size="16" x="585" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="224"/>
+<text fill="#575757" font-size="16" x="594" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="224"/>
+<text fill="#575757" font-size="16" x="603" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="224"/>
+<text fill="#575757" font-size="16" x="612" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="224"/>
+<text fill="#575757" font-size="16" x="621" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="224"/>
+<text fill="#575757" font-size="16" x="630" y="236">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="224"/>
+<text fill="#575757" font-size="16" x="639" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="224"/>
+<text fill="#575757" font-size="16" x="648" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="224"/>
+<text fill="#575757" font-size="16" x="657" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="224"/>
+<text fill="#575757" font-size="16" x="666" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="224"/>
+<text fill="#575757" font-size="16" x="675" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="224"/>
+<text fill="#575757" font-size="16" x="684" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="224"/>
+<text fill="#575757" font-size="16" x="693" y="236">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="224"/>
+<text fill="#575757" font-size="16" x="702" y="236">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="240"/>
+<text fill="#ABABAB" font-size="16" x="0" y="252">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="240"/>
+<text fill="#ABABAB" font-size="16" x="9" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="240"/>
+<text fill="#ABABAB" font-size="16" x="18" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="240"/>
+<text fill="#ABABAB" font-size="16" x="27" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="240"/>
+<text fill="#ABABAB" font-size="16" x="36" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="240"/>
+<text fill="#57FFFF" font-size="16" x="126" y="252">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="240"/>
+<text fill="#57FFFF" font-size="16" x="135" y="252">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="240"/>
+<text fill="#00ABAB" font-size="16" x="144" y="252">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="240"/>
+<text fill="#FF57FF" font-size="16" x="360" y="252">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="240"/>
+<text fill="#FF57FF" font-size="16" x="369" y="252">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="240"/>
+<text fill="#AB00AB" font-size="16" x="378" y="252">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="240"/>
+<text fill="#ABABAB" font-size="16" x="549" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="240"/>
+<text fill="#ABABAB" font-size="16" x="558" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="240"/>
+<text fill="#ABABAB" font-size="16" x="567" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="240"/>
+<text fill="#ABABAB" font-size="16" x="576" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="240"/>
+<text fill="#575757" font-size="16" x="585" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="240"/>
+<text fill="#575757" font-size="16" x="594" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="240"/>
+<text fill="#575757" font-size="16" x="603" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="240"/>
+<text fill="#575757" font-size="16" x="612" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="240"/>
+<text fill="#575757" font-size="16" x="621" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="240"/>
+<text fill="#575757" font-size="16" x="630" y="252">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="240"/>
+<text fill="#575757" font-size="16" x="639" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="240"/>
+<text fill="#575757" font-size="16" x="648" y="252">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="240"/>
+<text fill="#575757" font-size="16" x="657" y="252">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="240"/>
+<text fill="#575757" font-size="16" x="666" y="252">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="240"/>
+<text fill="#575757" font-size="16" x="675" y="252">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="240"/>
+<text fill="#575757" font-size="16" x="684" y="252">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="240"/>
+<text fill="#575757" font-size="16" x="693" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="240"/>
+<text fill="#575757" font-size="16" x="702" y="252">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="256"/>
+<text fill="#ABABAB" font-size="16" x="0" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="256"/>
+<text fill="#ABABAB" font-size="16" x="9" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="256"/>
+<text fill="#ABABAB" font-size="16" x="18" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="256"/>
+<text fill="#ABABAB" font-size="16" x="27" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="256"/>
+<text fill="#ABABAB" font-size="16" x="36" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="256"/>
+<text fill="#57FFFF" font-size="16" x="126" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="256"/>
+<text fill="#57FFFF" font-size="16" x="135" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="256"/>
+<text fill="#00ABAB" font-size="16" x="144" y="268">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="256"/>
+<text fill="#00ABAB" font-size="16" x="153" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="256"/>
+<text fill="#00ABAB" font-size="16" x="162" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="256"/>
+<text fill="#FF57FF" font-size="16" x="171" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="256"/>
+<text fill="#FF57FF" font-size="16" x="180" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="256"/>
+<text fill="#FF57FF" font-size="16" x="189" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="256"/>
+<text fill="#FF57FF" font-size="16" x="198" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="256"/>
+<text fill="#FF57FF" font-size="16" x="207" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="256"/>
+<text fill="#FF57FF" font-size="16" x="216" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="256"/>
+<text fill="#FF57FF" font-size="16" x="225" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="256"/>
+<text fill="#AB00AB" font-size="16" x="234" y="268">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="256"/>
+<text fill="#AB00AB" font-size="16" x="243" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="256"/>
+<text fill="#AB00AB" font-size="16" x="252" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="256"/>
+<text fill="#AB00AB" font-size="16" x="261" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="256"/>
+<text fill="#FF57FF" font-size="16" x="270" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="256"/>
+<text fill="#FF57FF" font-size="16" x="279" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="256"/>
+<text fill="#FF57FF" font-size="16" x="288" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="256"/>
+<text fill="#FF57FF" font-size="16" x="297" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="256"/>
+<text fill="#FF57FF" font-size="16" x="306" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="256"/>
+<text fill="#FF57FF" font-size="16" x="315" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="256"/>
+<text fill="#FF57FF" font-size="16" x="324" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="256"/>
+<text fill="#AB00AB" font-size="16" x="333" y="268">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="256"/>
+<text fill="#AB00AB" font-size="16" x="342" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="256"/>
+<text fill="#AB00AB" font-size="16" x="351" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="256"/>
+<text fill="#FF57FF" font-size="16" x="360" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="256"/>
+<text fill="#FF57FF" font-size="16" x="369" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="256"/>
+<text fill="#AB00AB" font-size="16" x="378" y="268">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="256"/>
+<text fill="#AB00AB" font-size="16" x="387" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="256"/>
+<text fill="#AB00AB" font-size="16" x="396" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="256"/>
+<text fill="#AB00AB" font-size="16" x="405" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="256"/>
+<text fill="#AB00AB" font-size="16" x="414" y="268">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="256"/>
+<text fill="#FF57FF" font-size="16" x="423" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="256"/>
+<text fill="#FF57FF" font-size="16" x="432" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="256"/>
+<text fill="#FF57FF" font-size="16" x="441" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="256"/>
+<text fill="#FF57FF" font-size="16" x="450" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="256"/>
+<text fill="#FF57FF" font-size="16" x="459" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="256"/>
+<text fill="#FF57FF" font-size="16" x="468" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="256"/>
+<text fill="#FF57FF" font-size="16" x="477" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="256"/>
+<text fill="#FF57FF" font-size="16" x="486" y="268">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="256"/>
+<text fill="#AB00AB" font-size="16" x="495" y="268">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="256"/>
+<text fill="#ABABAB" font-size="16" x="549" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="256"/>
+<text fill="#ABABAB" font-size="16" x="558" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="256"/>
+<text fill="#ABABAB" font-size="16" x="567" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="256"/>
+<text fill="#ABABAB" font-size="16" x="576" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="256"/>
+<text fill="#575757" font-size="16" x="585" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="256"/>
+<text fill="#575757" font-size="16" x="594" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="256"/>
+<text fill="#575757" font-size="16" x="603" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="256"/>
+<text fill="#575757" font-size="16" x="612" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="256"/>
+<text fill="#575757" font-size="16" x="621" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="256"/>
+<text fill="#575757" font-size="16" x="630" y="268">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="256"/>
+<text fill="#575757" font-size="16" x="639" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="256"/>
+<text fill="#575757" font-size="16" x="648" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="256"/>
+<text fill="#575757" font-size="16" x="657" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="256"/>
+<text fill="#575757" font-size="16" x="666" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="256"/>
+<text fill="#575757" font-size="16" x="675" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="256"/>
+<text fill="#575757" font-size="16" x="684" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="256"/>
+<text fill="#575757" font-size="16" x="693" y="268">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="256"/>
+<text fill="#575757" font-size="16" x="702" y="268">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="272"/>
+<text fill="#ABABAB" font-size="16" x="0" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="272"/>
+<text fill="#ABABAB" font-size="16" x="9" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="272"/>
+<text fill="#ABABAB" font-size="16" x="18" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="272"/>
+<text fill="#ABABAB" font-size="16" x="27" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="272"/>
+<text fill="#ABABAB" font-size="16" x="36" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="272"/>
+<text fill="#57FFFF" font-size="16" x="126" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="272"/>
+<text fill="#57FFFF" font-size="16" x="135" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="272"/>
+<text fill="#00ABAB" font-size="16" x="144" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="272"/>
+<text fill="#00ABAB" font-size="16" x="153" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="272"/>
+<text fill="#FF57FF" font-size="16" x="162" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="272"/>
+<text fill="#FF57FF" font-size="16" x="171" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="272"/>
+<text fill="#FF57FF" font-size="16" x="180" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="272"/>
+<text fill="#AB00AB" font-size="16" x="189" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="272"/>
+<text fill="#AB00AB" font-size="16" x="198" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="272"/>
+<text fill="#AB00AB" font-size="16" x="207" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="272"/>
+<text fill="#FF57FF" font-size="16" x="216" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="272"/>
+<text fill="#FF57FF" font-size="16" x="225" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="272"/>
+<text fill="#FF57FF" font-size="16" x="234" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="272"/>
+<text fill="#AB00AB" font-size="16" x="243" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="272"/>
+<text fill="#AB00AB" font-size="16" x="252" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="272"/>
+<text fill="#FF57FF" font-size="16" x="261" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="272"/>
+<text fill="#FF57FF" font-size="16" x="270" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="272"/>
+<text fill="#FF57FF" font-size="16" x="279" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="272"/>
+<text fill="#AB00AB" font-size="16" x="288" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="272"/>
+<text fill="#AB00AB" font-size="16" x="297" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="272"/>
+<text fill="#AB00AB" font-size="16" x="306" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="272"/>
+<text fill="#FF57FF" font-size="16" x="315" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="272"/>
+<text fill="#FF57FF" font-size="16" x="324" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="272"/>
+<text fill="#FF57FF" font-size="16" x="333" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="272"/>
+<text fill="#AB00AB" font-size="16" x="342" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="272"/>
+<text fill="#AB00AB" font-size="16" x="351" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="272"/>
+<text fill="#FF57FF" font-size="16" x="360" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="272"/>
+<text fill="#FF57FF" font-size="16" x="369" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="272"/>
+<text fill="#AB00AB" font-size="16" x="378" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="272"/>
+<text fill="#AB00AB" font-size="16" x="387" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="272"/>
+<text fill="#AB00AB" font-size="16" x="396" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="272"/>
+<text fill="#AB00AB" font-size="16" x="405" y="284">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="272"/>
+<text fill="#FF57FF" font-size="16" x="414" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="272"/>
+<text fill="#FF57FF" font-size="16" x="423" y="284">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="272"/>
+<text fill="#AB00AB" font-size="16" x="432" y="284">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="272"/>
+<text fill="#ABABAB" font-size="16" x="549" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="272"/>
+<text fill="#ABABAB" font-size="16" x="558" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="272"/>
+<text fill="#ABABAB" font-size="16" x="567" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="272"/>
+<text fill="#ABABAB" font-size="16" x="576" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="272"/>
+<text fill="#575757" font-size="16" x="585" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="272"/>
+<text fill="#575757" font-size="16" x="594" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="272"/>
+<text fill="#575757" font-size="16" x="603" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="272"/>
+<text fill="#575757" font-size="16" x="612" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="272"/>
+<text fill="#575757" font-size="16" x="621" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="272"/>
+<text fill="#575757" font-size="16" x="630" y="284">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="272"/>
+<text fill="#575757" font-size="16" x="639" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="272"/>
+<text fill="#575757" font-size="16" x="648" y="284">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="272"/>
+<text fill="#575757" font-size="16" x="657" y="284">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="272"/>
+<text fill="#575757" font-size="16" x="666" y="284">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="272"/>
+<text fill="#575757" font-size="16" x="675" y="284">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="272"/>
+<text fill="#575757" font-size="16" x="684" y="284">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="272"/>
+<text fill="#575757" font-size="16" x="693" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="272"/>
+<text fill="#575757" font-size="16" x="702" y="284">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="288"/>
+<text fill="#ABABAB" font-size="16" x="0" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="288"/>
+<text fill="#ABABAB" font-size="16" x="9" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="288"/>
+<text fill="#ABABAB" font-size="16" x="18" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="288"/>
+<text fill="#ABABAB" font-size="16" x="27" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="288"/>
+<text fill="#ABABAB" font-size="16" x="36" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="288"/>
+<text fill="#57FFFF" font-size="16" x="126" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="288"/>
+<text fill="#57FFFF" font-size="16" x="135" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="288"/>
+<text fill="#00ABAB" font-size="16" x="144" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="288"/>
+<text fill="#00ABAB" font-size="16" x="153" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="288"/>
+<text fill="#FF57FF" font-size="16" x="162" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="288"/>
+<text fill="#FF57FF" font-size="16" x="171" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="288"/>
+<text fill="#AB00AB" font-size="16" x="180" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="288"/>
+<text fill="#AB00AB" font-size="16" x="189" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="288"/>
+<text fill="#AB00AB" font-size="16" x="198" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="288"/>
+<text fill="#AB00AB" font-size="16" x="207" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="288"/>
+<text fill="#AB00AB" font-size="16" x="216" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="288"/>
+<text fill="#FF57FF" font-size="16" x="225" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="288"/>
+<text fill="#FF57FF" font-size="16" x="234" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="288"/>
+<text fill="#AB00AB" font-size="16" x="243" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="288"/>
+<text fill="#AB00AB" font-size="16" x="252" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="288"/>
+<text fill="#FF57FF" font-size="16" x="261" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="288"/>
+<text fill="#FF57FF" font-size="16" x="270" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="288"/>
+<text fill="#AB00AB" font-size="16" x="279" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="288"/>
+<text fill="#AB00AB" font-size="16" x="288" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="288"/>
+<text fill="#AB00AB" font-size="16" x="297" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="288"/>
+<text fill="#AB00AB" font-size="16" x="306" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="288"/>
+<text fill="#AB00AB" font-size="16" x="315" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="288"/>
+<text fill="#FF57FF" font-size="16" x="324" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="288"/>
+<text fill="#FF57FF" font-size="16" x="333" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="288"/>
+<text fill="#AB00AB" font-size="16" x="342" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="288"/>
+<text fill="#AB00AB" font-size="16" x="351" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="288"/>
+<text fill="#FF57FF" font-size="16" x="360" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="288"/>
+<text fill="#FF57FF" font-size="16" x="369" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="288"/>
+<text fill="#AB00AB" font-size="16" x="378" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="288"/>
+<text fill="#AB00AB" font-size="16" x="387" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="288"/>
+<text fill="#AB00AB" font-size="16" x="396" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="288"/>
+<text fill="#AB00AB" font-size="16" x="405" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="288"/>
+<text fill="#AB00AB" font-size="16" x="414" y="300">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="288"/>
+<text fill="#FF57FF" font-size="16" x="423" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="288"/>
+<text fill="#FF57FF" font-size="16" x="432" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="288"/>
+<text fill="#FF57FF" font-size="16" x="441" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="288"/>
+<text fill="#FF57FF" font-size="16" x="450" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="288"/>
+<text fill="#FF57FF" font-size="16" x="459" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="288"/>
+<text fill="#FF57FF" font-size="16" x="468" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="288"/>
+<text fill="#FF57FF" font-size="16" x="477" y="300">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="288"/>
+<text fill="#AB00AB" font-size="16" x="486" y="300">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="288"/>
+<text fill="#ABABAB" font-size="16" x="549" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="288"/>
+<text fill="#ABABAB" font-size="16" x="558" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="288"/>
+<text fill="#ABABAB" font-size="16" x="567" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="288"/>
+<text fill="#ABABAB" font-size="16" x="576" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="288"/>
+<text fill="#575757" font-size="16" x="585" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="288"/>
+<text fill="#575757" font-size="16" x="594" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="288"/>
+<text fill="#575757" font-size="16" x="603" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="288"/>
+<text fill="#575757" font-size="16" x="612" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="288"/>
+<text fill="#575757" font-size="16" x="621" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="288"/>
+<text fill="#575757" font-size="16" x="630" y="300">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="288"/>
+<text fill="#575757" font-size="16" x="639" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="288"/>
+<text fill="#575757" font-size="16" x="648" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="288"/>
+<text fill="#575757" font-size="16" x="657" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="288"/>
+<text fill="#575757" font-size="16" x="666" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="288"/>
+<text fill="#575757" font-size="16" x="675" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="288"/>
+<text fill="#575757" font-size="16" x="684" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="288"/>
+<text fill="#575757" font-size="16" x="693" y="300">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="288"/>
+<text fill="#575757" font-size="16" x="702" y="300">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="304"/>
+<text fill="#ABABAB" font-size="16" x="0" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="304"/>
+<text fill="#ABABAB" font-size="16" x="9" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="304"/>
+<text fill="#ABABAB" font-size="16" x="18" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="304"/>
+<text fill="#ABABAB" font-size="16" x="27" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="304"/>
+<text fill="#ABABAB" font-size="16" x="36" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="304"/>
+<text fill="#57FFFF" font-size="16" x="126" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="304"/>
+<text fill="#57FFFF" font-size="16" x="135" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="304"/>
+<text fill="#00ABAB" font-size="16" x="144" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="304"/>
+<text fill="#00ABAB" font-size="16" x="153" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="304"/>
+<text fill="#FF57FF" font-size="16" x="162" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="304"/>
+<text fill="#FF57FF" font-size="16" x="171" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="304"/>
+<text fill="#FF57FF" font-size="16" x="180" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="304"/>
+<text fill="#AB00AB" font-size="16" x="189" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="304"/>
+<text fill="#AB00AB" font-size="16" x="198" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="304"/>
+<text fill="#AB00AB" font-size="16" x="207" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="304"/>
+<text fill="#FF57FF" font-size="16" x="216" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="304"/>
+<text fill="#FF57FF" font-size="16" x="225" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="304"/>
+<text fill="#FF57FF" font-size="16" x="234" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="304"/>
+<text fill="#AB00AB" font-size="16" x="243" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="304"/>
+<text fill="#AB00AB" font-size="16" x="252" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="304"/>
+<text fill="#FF57FF" font-size="16" x="261" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="304"/>
+<text fill="#FF57FF" font-size="16" x="270" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="304"/>
+<text fill="#FF57FF" font-size="16" x="279" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="304"/>
+<text fill="#AB00AB" font-size="16" x="288" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="304"/>
+<text fill="#AB00AB" font-size="16" x="297" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="304"/>
+<text fill="#AB00AB" font-size="16" x="306" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="304"/>
+<text fill="#FF57FF" font-size="16" x="315" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="304"/>
+<text fill="#FF57FF" font-size="16" x="324" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="304"/>
+<text fill="#FF57FF" font-size="16" x="333" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="304"/>
+<text fill="#AB00AB" font-size="16" x="342" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="304"/>
+<text fill="#AB00AB" font-size="16" x="351" y="316">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="304"/>
+<text fill="#FF57FF" font-size="16" x="360" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="304"/>
+<text fill="#FF57FF" font-size="16" x="369" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="304"/>
+<text fill="#FF57FF" font-size="16" x="378" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="304"/>
+<text fill="#AB00AB" font-size="16" x="387" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="304"/>
+<text fill="#FF57FF" font-size="16" x="477" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="304"/>
+<text fill="#FF57FF" font-size="16" x="486" y="316">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="304"/>
+<text fill="#AB00AB" font-size="16" x="495" y="316">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="304"/>
+<text fill="#ABABAB" font-size="16" x="549" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="304"/>
+<text fill="#ABABAB" font-size="16" x="558" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="304"/>
+<text fill="#ABABAB" font-size="16" x="567" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="304"/>
+<text fill="#ABABAB" font-size="16" x="576" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="304"/>
+<text fill="#575757" font-size="16" x="585" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="304"/>
+<text fill="#575757" font-size="16" x="594" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="304"/>
+<text fill="#575757" font-size="16" x="603" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="304"/>
+<text fill="#575757" font-size="16" x="612" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="304"/>
+<text fill="#575757" font-size="16" x="621" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="304"/>
+<text fill="#575757" font-size="16" x="630" y="316">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="304"/>
+<text fill="#575757" font-size="16" x="639" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="304"/>
+<text fill="#575757" font-size="16" x="648" y="316">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="304"/>
+<text fill="#575757" font-size="16" x="657" y="316">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="304"/>
+<text fill="#575757" font-size="16" x="666" y="316">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="304"/>
+<text fill="#575757" font-size="16" x="675" y="316">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="304"/>
+<text fill="#575757" font-size="16" x="684" y="316">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="304"/>
+<text fill="#575757" font-size="16" x="693" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="304"/>
+<text fill="#575757" font-size="16" x="702" y="316">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="320"/>
+<text fill="#ABABAB" font-size="16" x="0" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="320"/>
+<text fill="#ABABAB" font-size="16" x="9" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="320"/>
+<text fill="#ABABAB" font-size="16" x="18" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="320"/>
+<text fill="#ABABAB" font-size="16" x="27" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="320"/>
+<text fill="#ABABAB" font-size="16" x="36" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="126" y="320"/>
+<text fill="#57FFFF" font-size="16" x="126" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="320"/>
+<text fill="#57FFFF" font-size="16" x="135" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="320"/>
+<text fill="#00ABAB" font-size="16" x="144" y="332">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="320"/>
+<text fill="#00ABAB" font-size="16" x="153" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="162" y="320"/>
+<text fill="#00ABAB" font-size="16" x="162" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="320"/>
+<text fill="#FF57FF" font-size="16" x="171" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="320"/>
+<text fill="#FF57FF" font-size="16" x="180" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="320"/>
+<text fill="#FF57FF" font-size="16" x="189" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="320"/>
+<text fill="#FF57FF" font-size="16" x="198" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="320"/>
+<text fill="#FF57FF" font-size="16" x="207" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="320"/>
+<text fill="#FF57FF" font-size="16" x="216" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="320"/>
+<text fill="#FF57FF" font-size="16" x="225" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="320"/>
+<text fill="#AB00AB" font-size="16" x="234" y="332">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="320"/>
+<text fill="#AB00AB" font-size="16" x="243" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="320"/>
+<text fill="#AB00AB" font-size="16" x="252" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="320"/>
+<text fill="#AB00AB" font-size="16" x="261" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="320"/>
+<text fill="#FF57FF" font-size="16" x="270" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="320"/>
+<text fill="#FF57FF" font-size="16" x="279" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="320"/>
+<text fill="#FF57FF" font-size="16" x="288" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="320"/>
+<text fill="#FF57FF" font-size="16" x="297" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="320"/>
+<text fill="#FF57FF" font-size="16" x="306" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="320"/>
+<text fill="#FF57FF" font-size="16" x="315" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="320"/>
+<text fill="#FF57FF" font-size="16" x="324" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="320"/>
+<text fill="#AB00AB" font-size="16" x="333" y="332">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="320"/>
+<text fill="#AB00AB" font-size="16" x="342" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="320"/>
+<text fill="#AB00AB" font-size="16" x="351" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="320"/>
+<text fill="#AB00AB" font-size="16" x="360" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="320"/>
+<text fill="#FF57FF" font-size="16" x="369" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="320"/>
+<text fill="#FF57FF" font-size="16" x="378" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="320"/>
+<text fill="#FF57FF" font-size="16" x="387" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="320"/>
+<text fill="#AB00AB" font-size="16" x="396" y="332">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="320"/>
+<text fill="#AB00AB" font-size="16" x="405" y="332">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="414" y="320"/>
+<text fill="#FF57FF" font-size="16" x="414" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="320"/>
+<text fill="#FF57FF" font-size="16" x="423" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="432" y="320"/>
+<text fill="#FF57FF" font-size="16" x="432" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="320"/>
+<text fill="#FF57FF" font-size="16" x="441" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="450" y="320"/>
+<text fill="#FF57FF" font-size="16" x="450" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="320"/>
+<text fill="#FF57FF" font-size="16" x="459" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="468" y="320"/>
+<text fill="#FF57FF" font-size="16" x="468" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="320"/>
+<text fill="#FF57FF" font-size="16" x="477" y="332">
+▒
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="320"/>
+<text fill="#AB00AB" font-size="16" x="486" y="332">
+░
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="320"/>
+<text fill="#ABABAB" font-size="16" x="549" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="320"/>
+<text fill="#ABABAB" font-size="16" x="558" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="320"/>
+<text fill="#ABABAB" font-size="16" x="567" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="320"/>
+<text fill="#ABABAB" font-size="16" x="576" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="320"/>
+<text fill="#575757" font-size="16" x="585" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="320"/>
+<text fill="#575757" font-size="16" x="594" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="320"/>
+<text fill="#575757" font-size="16" x="603" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="320"/>
+<text fill="#575757" font-size="16" x="612" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="320"/>
+<text fill="#575757" font-size="16" x="621" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="320"/>
+<text fill="#575757" font-size="16" x="630" y="332">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="320"/>
+<text fill="#575757" font-size="16" x="639" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="320"/>
+<text fill="#575757" font-size="16" x="648" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="320"/>
+<text fill="#575757" font-size="16" x="657" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="320"/>
+<text fill="#575757" font-size="16" x="666" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="320"/>
+<text fill="#575757" font-size="16" x="675" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="320"/>
+<text fill="#575757" font-size="16" x="684" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="320"/>
+<text fill="#575757" font-size="16" x="693" y="332">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="320"/>
+<text fill="#575757" font-size="16" x="702" y="332">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="336"/>
+<text fill="#ABABAB" font-size="16" x="0" y="348">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="336"/>
+<text fill="#ABABAB" font-size="16" x="9" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="336"/>
+<text fill="#ABABAB" font-size="16" x="18" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="336"/>
+<text fill="#ABABAB" font-size="16" x="27" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="336"/>
+<text fill="#ABABAB" font-size="16" x="36" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="45" y="336"/>
+<text fill="#ABABAB" font-size="16" x="45" y="348">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="336"/>
+<text fill="#ABABAB" font-size="16" x="540" y="348">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="336"/>
+<text fill="#ABABAB" font-size="16" x="549" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="336"/>
+<text fill="#ABABAB" font-size="16" x="558" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="336"/>
+<text fill="#ABABAB" font-size="16" x="567" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="336"/>
+<text fill="#ABABAB" font-size="16" x="576" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="336"/>
+<text fill="#575757" font-size="16" x="585" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="336"/>
+<text fill="#575757" font-size="16" x="594" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="336"/>
+<text fill="#575757" font-size="16" x="603" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="336"/>
+<text fill="#575757" font-size="16" x="612" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="336"/>
+<text fill="#575757" font-size="16" x="621" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="336"/>
+<text fill="#575757" font-size="16" x="630" y="348">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="336"/>
+<text fill="#575757" font-size="16" x="639" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="336"/>
+<text fill="#575757" font-size="16" x="648" y="348">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="336"/>
+<text fill="#575757" font-size="16" x="657" y="348">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="336"/>
+<text fill="#575757" font-size="16" x="666" y="348">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="336"/>
+<text fill="#575757" font-size="16" x="675" y="348">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="336"/>
+<text fill="#575757" font-size="16" x="684" y="348">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="336"/>
+<text fill="#575757" font-size="16" x="693" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="702" y="336"/>
+<text fill="#575757" font-size="16" x="702" y="348">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="352"/>
+<text fill="#ABABAB" font-size="16" x="0" y="364">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="352"/>
+<text fill="#ABABAB" font-size="16" x="9" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="352"/>
+<text fill="#ABABAB" font-size="16" x="18" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="352"/>
+<text fill="#ABABAB" font-size="16" x="27" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="352"/>
+<text fill="#ABABAB" font-size="16" x="36" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="45" y="352"/>
+<text fill="#575757" font-size="16" x="45" y="364">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="54" y="352"/>
+<text fill="#575757" font-size="16" x="54" y="364">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="63" y="352"/>
+<text fill="#575757" font-size="16" x="63" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="72" y="352"/>
+<text fill="#ABABAB" font-size="16" x="72" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="81" y="352"/>
+<text fill="#ABABAB" font-size="16" x="81" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="90" y="352"/>
+<text fill="#ABABAB" font-size="16" x="90" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="99" y="352"/>
+<text fill="#575757" font-size="16" x="99" y="364">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="108" y="352"/>
+<text fill="#575757" font-size="16" x="108" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="117" y="352"/>
+<text fill="#ABABAB" font-size="16" x="117" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="126" y="352"/>
+<text fill="#575757" font-size="16" x="126" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="352"/>
+<text fill="#ABABAB" font-size="16" x="135" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="144" y="352"/>
+<text fill="#575757" font-size="16" x="144" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="153" y="352"/>
+<text fill="#ABABAB" font-size="16" x="153" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="162" y="352"/>
+<text fill="#575757" font-size="16" x="162" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="352"/>
+<text fill="#ABABAB" font-size="16" x="171" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="352"/>
+<text fill="#ABABAB" font-size="16" x="180" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="352"/>
+<text fill="#ABABAB" font-size="16" x="189" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="352"/>
+<text fill="#ABABAB" font-size="16" x="198" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="352"/>
+<text fill="#ABABAB" font-size="16" x="207" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="352"/>
+<text fill="#ABABAB" font-size="16" x="216" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="352"/>
+<text fill="#ABABAB" font-size="16" x="225" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="352"/>
+<text fill="#ABABAB" font-size="16" x="234" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="352"/>
+<text fill="#ABABAB" font-size="16" x="243" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="352"/>
+<text fill="#ABABAB" font-size="16" x="252" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="352"/>
+<text fill="#ABABAB" font-size="16" x="261" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="352"/>
+<text fill="#ABABAB" font-size="16" x="270" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="352"/>
+<text fill="#ABABAB" font-size="16" x="279" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="352"/>
+<text fill="#ABABAB" font-size="16" x="288" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="352"/>
+<text fill="#ABABAB" font-size="16" x="297" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="352"/>
+<text fill="#ABABAB" font-size="16" x="306" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="352"/>
+<text fill="#ABABAB" font-size="16" x="315" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="352"/>
+<text fill="#ABABAB" font-size="16" x="324" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="352"/>
+<text fill="#ABABAB" font-size="16" x="333" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="352"/>
+<text fill="#ABABAB" font-size="16" x="342" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="352"/>
+<text fill="#ABABAB" font-size="16" x="351" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="352"/>
+<text fill="#ABABAB" font-size="16" x="360" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="352"/>
+<text fill="#ABABAB" font-size="16" x="369" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="352"/>
+<text fill="#ABABAB" font-size="16" x="378" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="352"/>
+<text fill="#ABABAB" font-size="16" x="387" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="352"/>
+<text fill="#ABABAB" font-size="16" x="396" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="352"/>
+<text fill="#ABABAB" font-size="16" x="405" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="414" y="352"/>
+<text fill="#575757" font-size="16" x="414" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="352"/>
+<text fill="#ABABAB" font-size="16" x="423" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="432" y="352"/>
+<text fill="#575757" font-size="16" x="432" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="352"/>
+<text fill="#ABABAB" font-size="16" x="441" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="450" y="352"/>
+<text fill="#575757" font-size="16" x="450" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="352"/>
+<text fill="#ABABAB" font-size="16" x="459" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="468" y="352"/>
+<text fill="#575757" font-size="16" x="468" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="352"/>
+<text fill="#ABABAB" font-size="16" x="477" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="352"/>
+<text fill="#ABABAB" font-size="16" x="486" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="352"/>
+<text fill="#ABABAB" font-size="16" x="495" y="364">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="504" y="352"/>
+<text fill="#575757" font-size="16" x="504" y="364">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="513" y="352"/>
+<text fill="#575757" font-size="16" x="513" y="364">
+▄
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="522" y="352"/>
+<text fill="#575757" font-size="16" x="522" y="364">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="352"/>
+<text fill="#ABABAB" font-size="16" x="531" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="540" y="352"/>
+<text fill="#ABABAB" font-size="16" x="540" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="352"/>
+<text fill="#ABABAB" font-size="16" x="549" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="352"/>
+<text fill="#ABABAB" font-size="16" x="558" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="352"/>
+<text fill="#ABABAB" font-size="16" x="567" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="576" y="352"/>
+<text fill="#ABABAB" font-size="16" x="576" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="352"/>
+<text fill="#575757" font-size="16" x="585" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="352"/>
+<text fill="#575757" font-size="16" x="594" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="352"/>
+<text fill="#575757" font-size="16" x="603" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="352"/>
+<text fill="#575757" font-size="16" x="612" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="621" y="352"/>
+<text fill="#575757" font-size="16" x="621" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="352"/>
+<text fill="#575757" font-size="16" x="630" y="364">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="352"/>
+<text fill="#575757" font-size="16" x="639" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="352"/>
+<text fill="#575757" font-size="16" x="648" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="352"/>
+<text fill="#575757" font-size="16" x="657" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="666" y="352"/>
+<text fill="#575757" font-size="16" x="666" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="675" y="352"/>
+<text fill="#575757" font-size="16" x="675" y="364">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="684" y="352"/>
+<text fill="#575757" font-size="16" x="684" y="364">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="693" y="352"/>
+<text fill="#575757" font-size="16" x="693" y="364">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="0" y="368"/>
+<text fill="#ABABAB" font-size="16" x="0" y="380">
+ 
+</text>
+<rect fill="#000000" height="16" width="9" x="9" y="368"/>
+<text fill="#ABABAB" font-size="16" x="9" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="18" y="368"/>
+<text fill="#ABABAB" font-size="16" x="18" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="27" y="368"/>
+<text fill="#ABABAB" font-size="16" x="27" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="36" y="368"/>
+<text fill="#ABABAB" font-size="16" x="36" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="45" y="368"/>
+<text fill="#575757" font-size="16" x="45" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="54" y="368"/>
+<text fill="#ABABAB" font-size="16" x="54" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="63" y="368"/>
+<text fill="#575757" font-size="16" x="63" y="380">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="72" y="368"/>
+<text fill="#575757" font-size="16" x="72" y="380">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="81" y="368"/>
+<text fill="#575757" font-size="16" x="81" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="90" y="368"/>
+<text fill="#ABABAB" font-size="16" x="90" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="99" y="368"/>
+<text fill="#ABABAB" font-size="16" x="99" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="108" y="368"/>
+<text fill="#575757" font-size="16" x="108" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="117" y="368"/>
+<text fill="#ABABAB" font-size="16" x="117" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="126" y="368"/>
+<text fill="#575757" font-size="16" x="126" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="135" y="368"/>
+<text fill="#ABABAB" font-size="16" x="135" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="144" y="368"/>
+<text fill="#ABABAB" font-size="16" x="144" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="153" y="368"/>
+<text fill="#575757" font-size="16" x="153" y="380">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="162" y="368"/>
+<text fill="#575757" font-size="16" x="162" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="171" y="368"/>
+<text fill="#ABABAB" font-size="16" x="171" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="180" y="368"/>
+<text fill="#ABABAB" font-size="16" x="180" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="189" y="368"/>
+<text fill="#ABABAB" font-size="16" x="189" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="198" y="368"/>
+<text fill="#ABABAB" font-size="16" x="198" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="207" y="368"/>
+<text fill="#ABABAB" font-size="16" x="207" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="216" y="368"/>
+<text fill="#ABABAB" font-size="16" x="216" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="225" y="368"/>
+<text fill="#ABABAB" font-size="16" x="225" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="234" y="368"/>
+<text fill="#ABABAB" font-size="16" x="234" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="243" y="368"/>
+<text fill="#ABABAB" font-size="16" x="243" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="252" y="368"/>
+<text fill="#ABABAB" font-size="16" x="252" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="261" y="368"/>
+<text fill="#ABABAB" font-size="16" x="261" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="270" y="368"/>
+<text fill="#ABABAB" font-size="16" x="270" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="279" y="368"/>
+<text fill="#ABABAB" font-size="16" x="279" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="288" y="368"/>
+<text fill="#ABABAB" font-size="16" x="288" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="297" y="368"/>
+<text fill="#ABABAB" font-size="16" x="297" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="306" y="368"/>
+<text fill="#ABABAB" font-size="16" x="306" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="315" y="368"/>
+<text fill="#ABABAB" font-size="16" x="315" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="324" y="368"/>
+<text fill="#ABABAB" font-size="16" x="324" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="333" y="368"/>
+<text fill="#ABABAB" font-size="16" x="333" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="342" y="368"/>
+<text fill="#ABABAB" font-size="16" x="342" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="351" y="368"/>
+<text fill="#ABABAB" font-size="16" x="351" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="360" y="368"/>
+<text fill="#ABABAB" font-size="16" x="360" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="369" y="368"/>
+<text fill="#ABABAB" font-size="16" x="369" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="378" y="368"/>
+<text fill="#ABABAB" font-size="16" x="378" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="387" y="368"/>
+<text fill="#ABABAB" font-size="16" x="387" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="396" y="368"/>
+<text fill="#ABABAB" font-size="16" x="396" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="405" y="368"/>
+<text fill="#ABABAB" font-size="16" x="405" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="414" y="368"/>
+<text fill="#575757" font-size="16" x="414" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="423" y="368"/>
+<text fill="#ABABAB" font-size="16" x="423" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="432" y="368"/>
+<text fill="#575757" font-size="16" x="432" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="441" y="368"/>
+<text fill="#ABABAB" font-size="16" x="441" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="450" y="368"/>
+<text fill="#575757" font-size="16" x="450" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="459" y="368"/>
+<text fill="#ABABAB" font-size="16" x="459" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="468" y="368"/>
+<text fill="#575757" font-size="16" x="468" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="477" y="368"/>
+<text fill="#ABABAB" font-size="16" x="477" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="486" y="368"/>
+<text fill="#ABABAB" font-size="16" x="486" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="495" y="368"/>
+<text fill="#ABABAB" font-size="16" x="495" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="504" y="368"/>
+<text fill="#575757" font-size="16" x="504" y="380">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="513" y="368"/>
+<text fill="#575757" font-size="16" x="513" y="380">
+▀
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="522" y="368"/>
+<text fill="#575757" font-size="16" x="522" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="531" y="368"/>
+<text fill="#ABABAB" font-size="16" x="531" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="540" y="368"/>
+<text fill="#AB0000" font-size="16" x="540" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="549" y="368"/>
+<text fill="#ABABAB" font-size="16" x="549" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="558" y="368"/>
+<text fill="#ABABAB" font-size="16" x="558" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="567" y="368"/>
+<text fill="#ABABAB" font-size="16" x="567" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="576" y="368"/>
+<text fill="#575757" font-size="16" x="576" y="380">
+▄
+</text>
+<rect fill="#000000" height="16" width="9" x="585" y="368"/>
+<text fill="#575757" font-size="16" x="585" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="594" y="368"/>
+<text fill="#575757" font-size="16" x="594" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="603" y="368"/>
+<text fill="#575757" font-size="16" x="603" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="612" y="368"/>
+<text fill="#575757" font-size="16" x="612" y="380">
+█
+</text>
+<rect fill="#ABABAB" height="16" width="9" x="621" y="368"/>
+<text fill="#575757" font-size="16" x="621" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="630" y="368"/>
+<text fill="#575757" font-size="16" x="630" y="380">
+▐
+</text>
+<rect fill="#000000" height="16" width="9" x="639" y="368"/>
+<text fill="#575757" font-size="16" x="639" y="380">
+█
+</text>
+<rect fill="#000000" height="16" width="9" x="648" y="368"/>
+<text fill="#575757" font-size="16" x="648" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="657" y="368"/>
+<text fill="#575757" font-size="16" x="657" y="380">
+▀
+</text>
+<rect fill="#000000" height="16" width="9" x="711" y="384"/>
+<text fill="#ABABAB" font-size="16" x="711" y="396">
+ 
+</text>
+</g>
+</svg>
