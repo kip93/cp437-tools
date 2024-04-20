@@ -83,7 +83,7 @@ dependencies = [
 
 [[package]]
 name = "cp437-tools"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "base64 0.22.0",
  "chrono",

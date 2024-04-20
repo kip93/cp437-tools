@@ -1,7 +1,6 @@
 //! Internal impl details
 
 #![doc(hidden)]
-#![cfg(feature = "binaries")]
 
 pub mod escape;
 pub mod exit;

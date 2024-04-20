@@ -104,4 +104,5 @@ mod public;
 pub use self::public::*;
 
 #[path = "libs/internal/mod.rs"]
+#[cfg(feature = "binaries")]
 pub mod internal;

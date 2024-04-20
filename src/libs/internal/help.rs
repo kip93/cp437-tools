@@ -1,7 +1,7 @@
 use rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]
-#[folder = "$CARGO_MANIFEST_DIR/target/man"]
+#[folder = "$OUT_DIR/man"]
 #[include = "*.txt"]
 struct ManPages;
 
