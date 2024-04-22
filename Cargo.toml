@@ -1,7 +1,7 @@
 [package]
 name = "cp437-tools"
 description = "Small collection of tools to handle CP437 files"
-version = "0.5.3"
+version = "0.5.4"
 repository = "https://github.com/kip93/cp437-tools"
 license = "GPL-3.0-or-later AND CC-BY-SA-4.0"
 authors = [ "kip93 <leandro@kip93.net>" ]
@@ -84,9 +84,9 @@ pretty_assertions = "1.0.0"
 tempfile = "3.1.0"
 
 [features]
-# TODO https://github.com/rust-lang/cargo/issues/1982
 default = ["binaries"]
-binaries = ["base64", "humansize", "png", "regex", "svg"]
+# TODO https://github.com/rust-lang/cargo/issues/1982
+binaries = ["dep:base64", "dep:humansize", "dep:png", "dep:regex", "dep:svg"]
 
 [lints.clippy]
 all = { level = "deny", priority = -1 }

@@ -34,6 +34,7 @@
     {
       devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; {
         # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
+        #      Also, latest nightly fails to parse coverage results ¯\_( ͡° ͜ʖ ͡°)_/¯
         # default = let rust = rust-bin.stable.${cargo_toml.package.rust-version}; in mkShell {
         default = let rust = rust-bin.nightly."2024-02-13"; in mkShell {
           nativeBuildInputs = [

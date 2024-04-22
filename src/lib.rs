@@ -10,6 +10,13 @@
 //!
 //! # Binaries
 //!
+//! <div class="warning">
+//!
+//! These require rust nightly, since they make use of the nightly feature
+//! [`try_trait_v2`](https://github.com/rust-lang/rust/issues/84277).
+//!
+//! </div>
+//!
 //! ## Meta handling
 //!
 //! * **cp437-check-meta**
