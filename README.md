@@ -6,27 +6,34 @@
   A small collection of tools to handle CP437 files.
 
   <!-- Badges -->
-  <a href="https://github.com/kip93/cp437-tools">
-    <img src="https://img.shields.io/github/languages/code-size/kip93/cp437-tools?style=flat&label=Size&color=067CC1&cacheSeconds=3600"
-         alt="Code size badge"/>
-  </a>
   <a href="https://github.com/kip93/cp437-tools/graphs/commit-activity">
-    <img src="https://img.shields.io/github/commit-activity/m/kip93/cp437-tools?style=flat&label=Commit%20activity&color=067CC1&cacheSeconds=300"
+    <img src="https://img.shields.io/github/commit-activity/m/kip93/cp437-tools.svg"
          alt="Commit activity badge"/>
   </a>
   <a href="https://github.com/kip93/cp437-tools/commits/main">
-    <img src="https://img.shields.io/github/last-commit/kip93/cp437-tools?style=flat&label=Last%20commit&color=067CC1&cacheSeconds=300"
+    <img src="https://img.shields.io/github/last-commit/kip93/cp437-tools.svg"
          alt="Last commit badge"/>
   </a>
   <br/>
-  <a href="https://lib.rs/cp437-tools">
-    <img src="https://img.shields.io/crates/v/cp437-tools.svg?style=flat&label=lib.rs&color=067CC1&cacheSeconds=3600"
-         alt="lib.rs badge"/>
+  <a href="https://crates.io/crates/cp437-tools">
+    <img src="https://img.shields.io/crates/v/cp437-tools.svg"
+         alt="crates.io badge"/>
+  </a>
+  <a href="https://docs.rs/cp437-tools">
+    <img src="https://img.shields.io/docsrs/cp437-tools.svg?label=docs.rs"
+         alt="docs.rs badge"/>
   </a>
   <a href="https://crates.io/crates/cp437-tools">
-    <img src="https://img.shields.io/crates/d/cp437-tools.svg?style=flat&label=Downloads&color=067CC1&cacheSeconds=3600"
+    <img src="https://img.shields.io/crates/d/cp437-tools.svg"
          alt="crates.io downloads badge"/>
   </a>
+<!-- If this ever makes it to more than just crates.io...
+  <br/><br/>
+  <a href="https://repology.org/project/rust:cp437-tools/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/rust:cp437-tools.svg"
+         alt="Packaging status"/>
+  </a>
+-->
 </div>
 
 
