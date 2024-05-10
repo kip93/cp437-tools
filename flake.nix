@@ -33,19 +33,14 @@
     in
     {
       devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; {
-        # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
-        #      Also, latest nightly fails to parse coverage results ¯\_( ͡° ͜ʖ ͡°)_/¯
-        # default = let rust = rust-bin.stable.${cargo_toml.package.rust-version}; in mkShell {
-        default = let rust = rust-bin.nightly."2024-02-13"; in mkShell {
+        default = let inherit (cp437-tools) rust; in mkShell {
+          inputsFrom = [ cp437-tools ];
           nativeBuildInputs = [
             gawk
             git
             grcov
-            groff
-            gzip
             imagemagick
             (python3.withPackages (pypkgs: with pypkgs; [ selenium ]))
-            rust.default
             rust.llvm-tools
           ];
           shellHook = ''
@@ -210,9 +205,12 @@
       overlays.default = final: _: with final; {
         cp437-tools =
           let
+            # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
+            # rust = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
+            rust = rust-bin.nightly."2024-05-10";
             rustPlatform = makeRustPlatform {
-              cargo = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
-              rustc = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
+              cargo = rust.default;
+              rustc = rust.default;
             };
 
           in
@@ -221,6 +219,28 @@
             inherit (cargo_toml.package) version;
             src = self;
             cargoLock.lockFile = self + "/Cargo.lock";
+
+            nativeBuildInputs = with buildPackages; [
+              groff
+              gzip
+            ];
+
+            preBuild = ''
+              cargo fmt --check
+              cargo clippy
+            '';
+
+            postInstall = ''
+              OUT_DIR="$(realpath -m ./target/${hostPlatform.rust.rustcTargetSpec}/release/build/cp437-tools-*/out)"
+
+              for manpage in $OUT_DIR/man/*.gz; do
+                target="$out/share/man/man$(basename "$manpage" .gz | tail -c 2 | head -c 1)"
+                mkdir -p "$target"
+                cp "$manpage" "$target"
+              done
+            '';
+
+            passthru = { inherit rust rustPlatform; };
 
             meta = with lib; {
               inherit (cargo_toml.package) description;
