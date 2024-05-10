@@ -146,6 +146,19 @@ where
     }
 }
 
+impl<E> From<ExitCode> for Result<(), E>
+where
+    E: From<ExitCode>,
+{
+    #[inline]
+    fn from(exit_code: ExitCode) -> Result<(), E> {
+        return match exit_code {
+            ExitCode::OK => Ok(()),
+            _ => Err(E::from(exit_code)),
+        };
+    }
+}
+
 // TODO https://github.com/rust-lang/rust/issues/84277
 
 impl<T> FromResidual<T> for ExitCode
