@@ -1,4 +1,4 @@
-//! Transpile CP437 to UTF-8 while also stripping metadata
+//! Transpile a file to UTF-8
 
 use std::{cmp::Ordering, env::args};
 

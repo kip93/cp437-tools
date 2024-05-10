@@ -1,4 +1,4 @@
-//! Add or change the metadata of a file
+//! Set one field of a file's metadata
 
 use std::{
     env::args,

@@ -1,4 +1,4 @@
-//! Purge the metadata of a file
+//! Remove a file's metadata
 
 use std::{
     cmp::Ordering,

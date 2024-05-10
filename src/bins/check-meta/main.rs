@@ -1,4 +1,4 @@
-//! Check the metadata of a file
+//! Check a file's metadata
 
 use std::{cmp::Ordering, env::args};
 

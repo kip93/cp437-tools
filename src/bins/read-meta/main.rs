@@ -1,4 +1,4 @@
-//! Show the metadata of a file
+//! Read a file's metadata
 
 use humansize::{format_size, BINARY};
 use std::{cmp::Ordering, env::args};

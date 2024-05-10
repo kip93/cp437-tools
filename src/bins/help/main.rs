@@ -1,4 +1,4 @@
-//! Print help text and exit
+//! Show a command's help text and exit
 
 use std::env::args;
 

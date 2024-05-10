@@ -1,4 +1,4 @@
-//! Render files as PNG
+//! Render a file as a PNG
 
 use png::{
     text_metadata::ITXtChunk, BitDepth, ColorType, Compression, Encoder, PixelDimensions, Unit,

@@ -1,4 +1,4 @@
-//! Render files as SVG
+//! Render a file as an SVG
 
 use base64::prelude::{Engine, BASE64_STANDARD};
 use std::{
