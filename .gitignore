@@ -2,6 +2,7 @@
 /target
 /result*
 /.cargo
+/.direnv
 
 # Test outputs
 /*.png

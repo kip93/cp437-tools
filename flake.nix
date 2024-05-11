@@ -50,6 +50,17 @@
             export CARGO_HOME="$FLAKE_ROOT/.cargo"
             export PATH="$PATH:$LLVM_TOOLS/bin"
 
+            printf ${lib.escapeShellArg ''
+              \x1B[0m
+                \x1B[1m,-------.      cp437-tools\x1B[0m dev shell
+                \x1B[1m| \x1B[0mCP\x1B[31m4\x1B[32m3\x1B[34m7\x1B[0;1m |\x1B[2m`.    \x1B[0;2;3m<- That right there? That's a real masterpiece!\x1B[0m
+                \x1B[1m| \x1B[0;36mT\x1B[35mools\x1B[0;1m |\x1B[2m;|    \x1B[0;3mA Whole lotta failed attempts at shell functions\x1B[0m
+                \x1B[1m`-------"\x1B[2m-'    \x1B[0mintended to simplify the development process.
+              \x1B[0m
+                \x1B[3mLoading environment ...\x1B[0m
+              \x1B[0m
+            ''}
+
             update() (
               set -eu
               cd "$FLAKE_ROOT"
