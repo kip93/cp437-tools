@@ -21,15 +21,15 @@ jobs:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v25
     - run: |
-        nix develop --command \
+        nix develop --accept-flake-config --command \
           cargo fmt --check
     - run: |
-        nix develop --command \
+        nix develop --accept-flake-config --command \
           cargo clippy
     - run: |
-        nix develop --command \
+        nix develop --accept-flake-config --command \
           cargo build --all-targets
     # TODO fix (stdout function returns errno 2)
     # - run: |
-    #     nix develop --command \
+    #     nix develop --accept-flake-config --command \
     #       cargo test
