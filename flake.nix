@@ -539,4 +539,13 @@
       });
     }
   ;
+
+  nixConfig = {
+    extra-substituters = [
+      "https://cp437-tools.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cp437-tools.cachix.org-1:1edoysGhERaj+swHGZK44RoqhfnX/V8gTLu9Rh7Ljb4="
+    ];
+  };
 }
