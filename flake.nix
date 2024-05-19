@@ -44,10 +44,10 @@
             rust.llvm-tools
           ];
           shellHook = ''
-            FLAKE_ROOT="$(git rev-parse --show-toplevel)"
+            export FLAKE_ROOT="$(git rev-parse --show-toplevel)"
 
-            export LLVM_TOOLS=${rust.llvm-tools}/lib/rustlib/${hostPlatform.config}
             export CARGO_HOME="$FLAKE_ROOT/.cargo"
+            export LLVM_TOOLS=${rust.llvm-tools}/lib/rustlib/${hostPlatform.config}
             export PATH="$PATH:$LLVM_TOOLS/bin"
 
             printf ${lib.escapeShellArg ''
@@ -55,160 +55,142 @@
                 \x1B[1m,-------.      cp437-tools\x1B[0m dev shell
                 \x1B[1m| \x1B[0mCP\x1B[31m4\x1B[32m3\x1B[34m7\x1B[0;1m |\x1B[2m`.    \x1B[0;2;3m<- That right there? That's a real masterpiece!\x1B[0m
                 \x1B[1m| \x1B[0;36mT\x1B[35mools\x1B[0;1m |\x1B[2m;|    \x1B[0;3mA Whole lotta failed attempts at shell functions\x1B[0m
-                \x1B[1m`-------"\x1B[2m-'    \x1B[0mintended to simplify the development process.
+                \x1B[1m`-------"\x1B[2m-'    \x1B[0;3mintended to simplify the development process.\x1B[0m
               \x1B[0m
                 \x1B[3mLoading environment ...\x1B[0m
               \x1B[0m
             ''}
 
-            update() (
-              set -eu
-              cd "$FLAKE_ROOT"
-              cargo update --verbose
-            )
-            fmt() (
-              set -eu
-              cd "$FLAKE_ROOT"
-              cargo fmt
-            )
-            lint() (
-              set -eu
-              cd "$FLAKE_ROOT"
-              cargo clippy
-            )
-            check() (
-              set -euo pipefail
+            export PATH=${buildEnv {
+              name = "cp437-tools-tools";
+              paths = [
+                (writeShellScriptBin "update" ''
+                  set -eu
+                  cd "$FLAKE_ROOT"
+                  cargo update --verbose
+                '')
+                (writeShellScriptBin "fmt" ''
+                  set -eu
+                  cd "$FLAKE_ROOT"
+                  cargo fmt
+                '')
+                (writeShellScriptBin "lint" ''
+                  set -eu
+                  cd "$FLAKE_ROOT"
+                  cargo fmt --check
+                  cargo clippy
+                '')
+                (writeShellScriptBin "check" ''
+                  set -euo pipefail
 
-              cd "$FLAKE_ROOT"
+                  cd "$FLAKE_ROOT"
 
-              export CARGO_INCREMENTAL=0
-              export LLVM_PROFILE_FILE="$FLAKE_ROOT/target/coverage/cargo-test-%p-%m.profraw"
-              export RUSTFLAGS='-C instrument-coverage'
+                  export CARGO_INCREMENTAL=0
+                  export LLVM_PROFILE_FILE="$FLAKE_ROOT/target/coverage/cargo-test-%p-%m.profraw"
+                  export RUSTFLAGS='-C instrument-coverage'
 
-              # Check
-              cargo fmt --check
-              cargo clippy
-              cargo build --all-targets --no-default-features
-              rm -rf "$FLAKE_ROOT/target/coverage" 2>/dev/null ||:
-              mkdir -p "$FLAKE_ROOT/target/coverage"
-              cargo test --no-fail-fast
+                  # Check
+                  cargo fmt --check
+                  cargo clippy
+                  cargo build --all-targets --no-default-features
+                  rm -rf "$FLAKE_ROOT/target/coverage" 2>/dev/null ||:
+                  mkdir -p "$FLAKE_ROOT/target/coverage"
+                  cargo test --no-fail-fast
 
-              # Coverage reports
-              grcov_wrapped() {
-                grcov "$FLAKE_ROOT" \
-                  --llvm --llvm-path "$LLVM_TOOLS/bin" \
-                  --binary-path "$FLAKE_ROOT/target/debug/deps" \
-                  --ignore-not-existing \
-                  --ignore '../*' \
-                  --ignore '/*' \
-                  --ignore '.cargo/registry/*' \
-                  --ignore 'src/main.rs' \
-                  --excl-line "#\[derive\(" \
-                  --excl-start='#\[cfg\(test\)\]|#\[allow\(dead_code\)\]' \
-                  --excl-stop='^\}' \
-                  --excl-br-line "#\[derive\(" \
-                  --excl-br-start='#\[cfg\(test\)\]|#\[allow\(dead_code\)\]' \
-                  --excl-br-stop='^\}' \
-                  --source-dir "$FLAKE_ROOT" \
-                  --branch \
-                  --no-demangle \
-                  "$@"
-              }
+                  # Coverage reports
+                  grcov_wrapped() {
+                    grcov "$FLAKE_ROOT" \
+                      --llvm --llvm-path "$LLVM_TOOLS/bin" \
+                      --binary-path "$FLAKE_ROOT/target/debug/deps" \
+                      --ignore-not-existing \
+                      --ignore '../*' \
+                      --ignore '/*' \
+                      --ignore '.cargo/registry/*' \
+                      --ignore 'src/main.rs' \
+                      --excl-line "#\[derive\(" \
+                      --excl-start='#\[cfg\(test\)\]|#\[allow\(dead_code\)\]' \
+                      --excl-stop='^\}' \
+                      --excl-br-line "#\[derive\(" \
+                      --excl-br-start='#\[cfg\(test\)\]|#\[allow\(dead_code\)\]' \
+                      --excl-br-stop='^\}' \
+                      --source-dir "$FLAKE_ROOT" \
+                      --branch \
+                      --no-demangle \
+                      "$@"
+                  }
 
-              ## IDE parsable report
-              grcov_wrapped -t lcov -o "$FLAKE_ROOT/target/coverage/lcov.info"
+                  ## IDE parsable report
+                  grcov_wrapped -t lcov -o "$FLAKE_ROOT/target/coverage/lcov.info"
 
-              ## Terminal report
-              grcov_wrapped -t markdown --precision 1 \
-              | awk '
-                NR < 3 {
-                  print $0
-                  next
-                } {
-                  print $0 | "sort -t\"|\" -nk1"
-                }
-              ' \
-              | awk -F '|' '
-                length {
-                  if ($3 ~ /%/) {
-                    match($3, /(\S+)%/, x)
-                    if (x[1] >= 90) {
-                      printf "\x1B[32m"
-                    } else if (x[1] >= 50) {
-                      printf "\x1B[33m"
-                    } else {
-                      printf "\x1B[31m"
+                  ## Terminal report
+                  grcov_wrapped -t markdown --precision 1 \
+                  | awk '
+                    NR < 3 {
+                      print $0
+                      next
+                    } {
+                      print $0 | "sort -t\"|\" -nk1"
                     }
-                  }
-                  print $3 "\x1B[0m" $2
-                } END {
-                  match($0, /(\S+)%/, x)
-                  if (x[1] >= 90) {
-                    print gensub(/(\S+%)/, "\x1B[32m\\1\x1B[0m", 1)
-                  } else if (x[1] >= 50) {
-                    print gensub(/(\S+%)/, "\x1B[33m\\1\x1B[0m", 1)
-                  } else {
-                    print gensub(/(\S+%)/, "\x1B[31m\\1\x1B[0m", 1)
-                  }
-                }
-              '
-            )
+                  ' \
+                  | awk -F '|' '
+                    length {
+                      if ($3 ~ /%/) {
+                        match($3, /(\S+)%/, x)
+                        if (x[1] >= 90) {
+                          printf "\x1B[32m"
+                        } else if (x[1] >= 50) {
+                          printf "\x1B[33m"
+                        } else {
+                          printf "\x1B[31m"
+                        }
+                      }
+                      print $3 "\x1B[0m" $2
+                    } END {
+                      match($0, /(\S+)%/, x)
+                      if (x[1] >= 90) {
+                        print gensub(/(\S+%)/, "\x1B[32m\\1\x1B[0m", 1)
+                      } else if (x[1] >= 50) {
+                        print gensub(/(\S+%)/, "\x1B[33m\\1\x1B[0m", 1)
+                      } else {
+                        print gensub(/(\S+%)/, "\x1B[31m\\1\x1B[0m", 1)
+                      }
+                    }
+                  '
+                '')
+                (writeShellScriptBin "build" ''
+                  set -eu
 
-            build() (
-              set -eu
+                  cd "$FLAKE_ROOT"
+                  cargo build --all-targets --keep-going --message-format human --release --no-default-features
+                  cargo build --all-targets --keep-going --message-format human --release
+                  rm -rf "$FLAKE_ROOT/target/doc" 2>/dev/null ||:
+                  cargo doc --message-format short --no-deps --release
+                '')
+                (writeShellScriptBin "run" ''
+                  set -eu
 
-              cd "$FLAKE_ROOT"
-              cargo build --all-targets --keep-going --message-format human --release --no-default-features
-              cargo build --all-targets --keep-going --message-format human --release
-              rm -rf "$FLAKE_ROOT/target/doc" 2>/dev/null ||:
-              cargo doc --message-format short --no-deps --release
-            )
-            build_debug() (
-              set -eu
+                  cd "$FLAKE_ROOT"
+                  RUSTFLAGS='--cap-lints warn' cargo run \
+                    --message-format short --bin ${lib.escapeShellArg cargo_toml.package.name} --release -- "$@"
+                '')
+                (writeShellScriptBin "debug" ''
+                  set -eu
 
-              cd "$FLAKE_ROOT"
-              cargo build --all-targets --keep-going --message-format human
-              rm -rf "$FLAKE_ROOT/target/doc" 2>/dev/null ||:
-              cargo doc --message-format short --no-deps
-            )
+                  cd "$FLAKE_ROOT"
+                  RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run \
+                    --message-format human --bin ${lib.escapeShellArg cargo_toml.package.name} -- "$@"
+                '')
+                (writeShellScriptBin "publish" ''
+                  set -eu
 
-            open_doc() {
-              firefox "file://$FLAKE_ROOT/target/doc"/${lib.escapeShellArg
-                (builtins.replaceStrings ["-"] ["_"] cargo_toml.package.name)
-              }/index.html
-            }
-
-            run() (
-              set -eu
-
-              cd "$FLAKE_ROOT"
-              RUSTFLAGS='--cap-lints warn' cargo run \
-                --message-format short --bin ${lib.escapeShellArg cargo_toml.package.name} --release -- "$@"
-            )
-            run_verbose() (
-              set -eu
-
-              cd "$FLAKE_ROOT"
-              RUSTFLAGS='--cap-lints warn' cargo run \
-                --message-format human --bin ${lib.escapeShellArg cargo_toml.package.name} --release -- "$@"
-            )
-            debug() (
-              set -eu
-
-              cd "$FLAKE_ROOT"
-              RUSTFLAGS='--cap-lints warn' RUST_BACKTRACE=1 cargo run \
-                --message-format human --bin ${lib.escapeShellArg cargo_toml.package.name} -- "$@"
-            )
-
-            publish() (
-              set -eu
-
-              cd "$FLAKE_ROOT"
-              cargo fmt --check
-              cargo clippy
-              cargo test
-              cargo publish --locked
-            )
+                  cd "$FLAKE_ROOT"
+                  cargo fmt --check
+                  cargo clippy
+                  cargo test
+                  cargo publish --locked
+                '')
+              ];
+            }}/bin:"$PATH"
           '';
         };
       });
