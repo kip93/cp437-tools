@@ -9,8 +9,15 @@ use std::{
 };
 
 fn main() -> Result<(), io::Error> {
+    let out_dir = Path::new(&env::var("OUT_DIR").unwrap()).canonicalize()?;
+    gen_manpages(&out_dir)?;
+
+    return Ok(());
+}
+
+fn gen_manpages(out_dir: &Path) -> Result<(), io::Error> {
     let man_dir = Path::new("res/man").canonicalize()?;
-    let out_dir = Path::new(&env::var("OUT_DIR").unwrap()).join("man");
+    let out_dir = out_dir.join("man");
     if out_dir.exists() {
         remove_dir_all(out_dir.clone())?;
     }
@@ -126,6 +133,8 @@ fn main() -> Result<(), io::Error> {
     }
 
     remove_dir_all(out_dir.join("tmp"))?;
+
+    println!("cargo::rerun-if-changed=res/man");
 
     return Ok(());
 }

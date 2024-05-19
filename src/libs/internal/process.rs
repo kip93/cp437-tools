@@ -238,3 +238,12 @@ pub fn process<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
 ) -> ExitCode {
     return callback(&mut Input::new(input)?, &mut Output::stdout()?);
 }
+
+#[inline]
+pub fn process_to_file<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
+    input: &String,
+    output: &String,
+    callback: F,
+) -> ExitCode {
+    return callback(&mut Input::new(input)?, &mut Output::file(output)?);
+}

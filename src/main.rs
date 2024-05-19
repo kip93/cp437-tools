@@ -14,6 +14,8 @@ mod cmd_read_meta;
 mod cmd_remove_meta;
 #[path = "bins/set-meta/main.rs"]
 mod cmd_set_meta;
+#[path = "bins/thumbnail/main.rs"]
+mod cmd_thumbnail;
 #[path = "bins/to-png/main.rs"]
 mod cmd_to_png;
 #[path = "bins/to-svg/main.rs"]
@@ -37,6 +39,7 @@ fn run(args: Vec<String>) -> ExitCode {
             "read-meta" => cmd_read_meta::run(without_command(args)),
             "remove-meta" => cmd_remove_meta::run(without_command(args)),
             "set-meta" => cmd_set_meta::run(without_command(args)),
+            "thumbnail" => cmd_thumbnail::run(without_command(args)),
             "to-png" => cmd_to_png::run(without_command(args)),
             "to-svg" => cmd_to_svg::run(without_command(args)),
             "to-txt" => cmd_to_txt::run(without_command(args)),
