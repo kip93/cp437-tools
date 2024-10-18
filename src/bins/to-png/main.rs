@@ -207,4 +207,9 @@ mod tests {
     fn logo() -> Result<(), String> {
         return test::file(draw, "res/logo/logo.ans", "res/logo/logo.png");
     }
+
+    #[test]
+    fn banner() -> Result<(), String> {
+        return test::file(draw, "res/banner/banner.ans", "res/banner/banner.png");
+    }
 }
