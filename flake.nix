@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/release-23.11";
+      url = "github:NixOS/nixpkgs/release-24.05";
     };
     rust = {
       url = "github:oxalica/rust-overlay";
@@ -200,7 +200,7 @@
           let
             # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
             # rust = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
-            rust = rust-bin.nightly."2024-05-10";
+            rust = rust-bin.nightly."2024-10-18";
             rustPlatform = makeRustPlatform {
               cargo = rust.default;
               rustc = rust.default;
