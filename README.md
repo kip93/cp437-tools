@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://git.k93.sh/kip/cp437-tools"><img src="res/logo/small.png" width="256" alt="logo"/></a>
+  <a href="https://git.k93.sh/kip/cp437-tools"><img src="https://git.k93.sh/kip/cp437-tools/raw/branch/main/res/logo/small.png" width="256" alt="logo"/></a>
 
   <b>CP437 tools</b>
 
