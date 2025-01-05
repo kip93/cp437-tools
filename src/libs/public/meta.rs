@@ -206,7 +206,7 @@ impl Meta {
     /// See [`flags` field](#structfield.flags)
     ///
     pub fn flags(&self) -> (u8, u8, u8) {
-        return (self.flags >> 3 & 3, self.flags >> 1 & 3, self.flags & 1);
+        return ((self.flags >> 3) & 3, (self.flags >> 1) & 3, self.flags & 1);
     }
 
     /// Fetch the font if `font != ""`, otherwise the default.

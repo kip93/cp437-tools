@@ -2,33 +2,36 @@
   "nodes": {
     "flake-compat": {
       "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-        "type": "github"
+        "lastModified": 1733328505,
+        "narHash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU=",
+        "ref": "master",
+        "rev": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/flake-compat.git"
       },
       "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
+        "ref": "master",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/flake-compat.git"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1729281789,
-        "narHash": "sha256-NMTAEpiF4E6ImYPDM5JA4f4GsC+yyK+U1j5hmIM9RtM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8fb49921b5484ede7564033a52a0a019600a654d",
-        "type": "github"
+        "lastModified": 1735922141,
+        "narHash": "sha256-vk0xwGZSlvZ/596yxOtsk4gxsIx2VemzdjiU8zhjgWw=",
+        "ref": "nixos-24.11",
+        "rev": "d29ab98cd4a70a387b8ceea3e930b3340d41ac5a",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/nixpkgs.git"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "release-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "ref": "nixos-24.11",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/nixpkgs.git"
       }
     },
     "root": {
@@ -46,32 +49,36 @@
         ]
       },
       "locked": {
-        "lastModified": 1729218602,
-        "narHash": "sha256-KDmYxpkFWa0Go0WnOpkgQOypVaQxbwgpEutET5ey1VQ=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "9051466c82b9b3a6ba9e06be99621ad25423ec94",
-        "type": "github"
+        "lastModified": 1736044260,
+        "narHash": "sha256-DTAr0mAd8AZwWgRtU9ZZFPz3DwNeoH/Oi/1QMSqc9YQ=",
+        "ref": "master",
+        "rev": "c8ed24cc104ebbc218d992e208131e9f024b69f0",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/rust-overlay.git"
       },
       "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
+        "ref": "master",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/rust-overlay.git"
       }
     },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
+        "ref": "main",
         "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/nix-systems-default.git"
       },
       "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "https://git.k93.sh/mirrors/nix-systems-default.git"
       }
     }
   },

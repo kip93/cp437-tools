@@ -1,19 +1,19 @@
 {
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/release-24.05";
+      url = "git+https://git.k93.sh/mirrors/nixpkgs.git?ref=nixos-24.11&shallow=1";
     };
     rust = {
-      url = "github:oxalica/rust-overlay";
+      url = "git+https://git.k93.sh/mirrors/rust-overlay.git?ref=master&shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-compat = {
-      url = "github:edolstra/flake-compat";
+      url = "git+https://git.k93.sh/mirrors/flake-compat.git?ref=master&shallow=1";
     };
     # See <https://github.com/nix-systems/nix-systems>.
     systems = {
-      url = "github:nix-systems/default";
+      url = "git+https://git.k93.sh/mirrors/nix-systems-default.git?ref=main&shallow=1";
     };
   };
 
@@ -200,7 +200,7 @@
           let
             # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
             # rust = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
-            rust = rust-bin.nightly."2024-10-18";
+            rust = rust-bin.nightly."2025-01-05";
             rustPlatform = makeRustPlatform {
               cargo = rust.default;
               rustc = rust.default;
