@@ -28,7 +28,7 @@ pub fn run(args: Vec<String>) -> ExitCode {
         ExitCode::USAGE(String::from("Missing value"))
     } else if args.len() > 5 {
         ExitCode::USAGE(String::from("Too many arguments"))
-    } else if args.len() == 4 && stdout().is_terminal() {
+    } else if stdout().is_terminal() {
         ExitCode::USAGE(String::from("Refusing to write to terminal"))
     } else {
         process(&args[1], |i, o| return print(i, o, &args[2], &args[3]))
@@ -198,7 +198,7 @@ mod tests {
             run(vec![
                 String::from("cp437-set-meta"),
                 String::from("a"),
-                String::from("b")
+                String::from("b"),
             ]),
             ExitCode::USAGE(String::from("Missing value"))
         );
@@ -213,7 +213,7 @@ mod tests {
                 String::from("b"),
                 String::from("c"),
                 String::from("d"),
-                String::from("e")
+                String::from("e"),
             ]),
             ExitCode::USAGE(String::from("Too many arguments"))
         );
@@ -226,7 +226,7 @@ mod tests {
                 String::from("cp437-set-meta"),
                 String::from("a"),
                 String::from("b"),
-                String::from("c")
+                String::from("c"),
             ]),
             ExitCode::USAGE(String::from("Refusing to write to terminal"))
         );

@@ -200,7 +200,7 @@
           let
             # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
             # rust = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
-            rust = rust-bin.nightly."2025-01-05";
+            rust = rust-bin.nightly."2025-01-31";
             rustPlatform = makeRustPlatform {
               cargo = rust.default;
               rustc = rust.default;

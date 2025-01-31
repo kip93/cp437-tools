@@ -3,7 +3,6 @@
 use base64::prelude::{Engine, BASE64_STANDARD};
 use std::{
     cell::Cell,
-    cmp::Ordering,
     env::args,
     io::{stdout, IsTerminal},
 };
@@ -27,23 +26,23 @@ pub fn main() -> ExitCode {
 
 #[inline]
 pub fn run(args: Vec<String>) -> ExitCode {
-    let exit_code = match args.len().cmp(&2) {
-        Ordering::Less => ExitCode::USAGE(String::from("Missing input file")),
-        Ordering::Greater => ExitCode::USAGE(String::from("Too many arguments")),
-        Ordering::Equal => {
-            if stdout().is_terminal() {
-                ExitCode::USAGE(String::from("Refusing to write to terminal"))
-            } else {
-                process(&args[1], draw)
-            }
-        }
+    let exit_code = if args.len() < 2 {
+        ExitCode::USAGE(String::from("Missing input file"))
+    } else if args.len() > 3 {
+        ExitCode::USAGE(String::from("Too many arguments"))
+    } else if stdout().is_terminal() {
+        ExitCode::USAGE(String::from("Refusing to write to terminal"))
+    } else {
+        process(&args[1], |i, o| {
+            return draw(i, o, args.get(2).unwrap_or(&String::from("CLASSIC")));
+        })
     };
 
     exit_code.print();
     return exit_code;
 }
 
-fn draw(input: &mut Input, output: &mut Output) -> ExitCode {
+fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
     let meta = input.meta.clone().unwrap_or(Meta {
         size: input.size,
         ..Default::default()
@@ -170,41 +169,44 @@ fn draw(input: &mut Input, output: &mut Output) -> ExitCode {
             ),
     );
 
-    input.read_by_bytes_full(|byte, (x, y), colour| {
-        drawing.set(
-            drawing
-                .take()
-                .add(
-                    Rectangle::new()
-                        .set("x", x as usize * font_width)
-                        .set("y", y as usize * font_height)
-                        .set("width", font_width)
-                        .set("height", font_height)
-                        .set(
-                            "fill",
-                            format!(
-                                "#{:02X}{:02X}{:02X}",
-                                colour[0][0], colour[0][1], colour[0][2]
+    input.read_by_bytes_full(
+        |byte, (x, y), colour| {
+            drawing.set(
+                drawing
+                    .take()
+                    .add(
+                        Rectangle::new()
+                            .set("x", x as usize * font_width)
+                            .set("y", y as usize * font_height)
+                            .set("width", font_width)
+                            .set("height", font_height)
+                            .set(
+                                "fill",
+                                format!(
+                                    "#{:02X}{:02X}{:02X}",
+                                    colour[0][0], colour[0][1], colour[0][2]
+                                ),
                             ),
-                        ),
-                )
-                .add(
-                    Text::new(CP437_TO_UTF8[if byte > 0 { byte as usize } else { 32 }])
-                        .set("x", x as usize * font_width)
-                        .set("y", (y + 1) as usize * font_height - font_height / 4)
-                        .set("font-size", font_height)
-                        .set(
-                            "fill",
-                            format!(
-                                "#{:02X}{:02X}{:02X}",
-                                colour[1][0], colour[1][1], colour[1][2]
+                    )
+                    .add(
+                        Text::new(CP437_TO_UTF8[if byte > 0 { byte as usize } else { 32 }])
+                            .set("x", x as usize * font_width)
+                            .set("y", (y + 1) as usize * font_height - font_height / 4)
+                            .set("font-size", font_height)
+                            .set(
+                                "fill",
+                                format!(
+                                    "#{:02X}{:02X}{:02X}",
+                                    colour[1][0], colour[1][1], colour[1][2]
+                                ),
                             ),
-                        ),
-                ),
-        );
+                    ),
+            );
 
-        return Ok(());
-    })?;
+            return Ok(());
+        },
+        scheme,
+    )?;
 
     document = document.add(drawing.take());
 
@@ -237,7 +239,8 @@ mod tests {
             run(vec![
                 String::from("cp437-to-svg"),
                 String::from("a"),
-                String::from("b")
+                String::from("b"),
+                String::from("c"),
             ]),
             ExitCode::USAGE(String::from("Too many arguments"))
         );
@@ -253,31 +256,55 @@ mod tests {
 
     #[test]
     fn simple() -> Result<(), String> {
-        return test::file(draw, "res/test/simple.ans", "res/test/simple.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/simple.ans",
+            "res/test/simple.svg",
+        );
     }
 
     #[test]
     fn meta() -> Result<(), String> {
-        return test::file(draw, "res/test/meta.ans", "res/test/meta.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/meta.ans",
+            "res/test/meta.svg",
+        );
     }
 
     #[test]
     fn notes() -> Result<(), String> {
-        return test::file(draw, "res/test/comments.ans", "res/test/comments.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/comments.ans",
+            "res/test/comments.svg",
+        );
     }
 
     #[test]
     fn background() -> Result<(), String> {
-        return test::file(draw, "res/test/background.ans", "res/test/background.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/background.ans",
+            "res/test/background.svg",
+        );
     }
 
     #[test]
     fn logo() -> Result<(), String> {
-        return test::file(draw, "res/logo/logo.ans", "res/logo/logo.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/logo/logo.ans",
+            "res/logo/logo.svg",
+        );
     }
 
     #[test]
     fn banner() -> Result<(), String> {
-        return test::file(draw, "res/banner/banner.ans", "res/banner/banner.svg");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/banner/banner.ans",
+            "res/banner/banner.svg",
+        );
     }
 }

@@ -89,10 +89,10 @@
 //! </div>
 //!
 #![cfg_attr(all(),
-  doc = ::embed_doc_image::embed_image!("logo", "res/logo/tiny.png"),
-  doc = ::embed_doc_image::embed_image!("png", "res/screenshots/png.png"),
-  doc = ::embed_doc_image::embed_image!("svg", "res/screenshots/svg.png"),
-  doc = ::embed_doc_image::embed_image!("txt", "res/screenshots/txt.png"),
+    doc = ::embed_doc_image::embed_image!("logo", "res/logo/tiny.png"),
+    doc = ::embed_doc_image::embed_image!("png", "res/screenshots/png.png"),
+    doc = ::embed_doc_image::embed_image!("svg", "res/screenshots/svg.png"),
+    doc = ::embed_doc_image::embed_image!("txt", "res/screenshots/txt.png"),
 )]
 #![deny(missing_docs)]
 #![cfg_attr(feature = "binaries", feature(try_trait_v2))] // TODO https://github.com/rust-lang/rust/issues/84277

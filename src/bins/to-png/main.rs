@@ -4,7 +4,6 @@ use png::{
     text_metadata::ITXtChunk, BitDepth, ColorType, Compression, Encoder, PixelDimensions, Unit,
 };
 use std::{
-    cmp::Ordering,
     env::args,
     io::{stdout, BufWriter, IsTerminal},
 };
@@ -21,23 +20,23 @@ pub fn main() -> ExitCode {
 
 #[inline]
 pub fn run(args: Vec<String>) -> ExitCode {
-    let exit_code = match args.len().cmp(&2) {
-        Ordering::Less => ExitCode::USAGE(String::from("Missing input file")),
-        Ordering::Greater => ExitCode::USAGE(String::from("Too many arguments")),
-        Ordering::Equal => {
-            if stdout().is_terminal() {
-                ExitCode::USAGE(String::from("Refusing to write to terminal"))
-            } else {
-                process(&args[1], draw)
-            }
-        }
+    let exit_code = if args.len() < 2 {
+        ExitCode::USAGE(String::from("Missing input file"))
+    } else if args.len() > 3 {
+        ExitCode::USAGE(String::from("Too many arguments"))
+    } else if stdout().is_terminal() {
+        ExitCode::USAGE(String::from("Refusing to write to terminal"))
+    } else {
+        process(&args[1], |i, o| {
+            return draw(i, o, args.get(2).unwrap_or(&String::from("CLASSIC")));
+        })
     };
 
     exit_code.print();
     return exit_code;
 }
 
-fn draw(input: &mut Input, output: &mut Output) -> ExitCode {
+fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
     let meta = input.meta.clone().unwrap_or(Meta {
         size: input.size,
         ..Default::default()
@@ -51,34 +50,37 @@ fn draw(input: &mut Input, output: &mut Output) -> ExitCode {
     let (ar_x, ar_y) = (ar_x as usize, ar_y as usize);
     let font_face = meta.font_face_otb();
     let mut canvas = vec![0; 3 * width * height * font_width * font_height * ar_x * ar_y];
-    input.read_by_bytes_full(|byte, (x, y), colour| {
-        let (x, y) = (x as usize, y as usize);
-        let bitmap = font_face
-            .glyph_raster_image(
-                font_face
-                    .glyph_index(CP437_TO_UTF8[byte as usize])
-                    .ok_or_else(|| format!("Glyph for 0x{:02X} is missing", byte))?,
-                font_height as u16,
-            )
-            .ok_or_else(|| format!("Glyph bitmap for 0x{:02X} is missing", byte))?;
+    input.read_by_bytes_full(
+        |byte, (x, y), colour| {
+            let (x, y) = (x as usize, y as usize);
+            let bitmap = font_face
+                .glyph_raster_image(
+                    font_face
+                        .glyph_index(CP437_TO_UTF8[byte as usize])
+                        .ok_or_else(|| format!("Glyph for 0x{:02X} is missing", byte))?,
+                    font_height as u16,
+                )
+                .ok_or_else(|| format!("Glyph bitmap for 0x{:02X} is missing", byte))?;
 
-        for i in 0..(font_width * ar_x) {
-            for j in 0..(font_height * ar_y) {
-                let offset = 3
-                    * ((y * font_height * ar_y + j) * font_width * ar_x * width
-                        + (x * font_width * ar_x + i));
-                let bitmap_offset = i / ar_x + j / ar_y * font_width;
-                canvas[offset..offset + 3].copy_from_slice(
-                    if (bitmap.data[bitmap_offset / 8] >> (7 - (bitmap_offset % 8))) & 1 == 0 {
-                        &colour[0]
-                    } else {
-                        &colour[1]
-                    },
-                );
+            for i in 0..(font_width * ar_x) {
+                for j in 0..(font_height * ar_y) {
+                    let offset = 3
+                        * ((y * font_height * ar_y + j) * font_width * ar_x * width
+                            + (x * font_width * ar_x + i));
+                    let bitmap_offset = i / ar_x + j / ar_y * font_width;
+                    canvas[offset..offset + 3].copy_from_slice(
+                        if (bitmap.data[bitmap_offset / 8] >> (7 - (bitmap_offset % 8))) & 1 == 0 {
+                            &colour[0]
+                        } else {
+                            &colour[1]
+                        },
+                    );
+                }
             }
-        }
-        return Ok(());
-    })?;
+            return Ok(());
+        },
+        scheme,
+    )?;
 
     return write(output, &canvas, meta);
 }
@@ -169,7 +171,8 @@ mod tests {
             run(vec![
                 String::from("cp437-to-png"),
                 String::from("a"),
-                String::from("b")
+                String::from("b"),
+                String::from("c"),
             ]),
             ExitCode::USAGE(String::from("Too many arguments"))
         );
@@ -185,31 +188,55 @@ mod tests {
 
     #[test]
     fn simple() -> Result<(), String> {
-        return test::file(draw, "res/test/simple.ans", "res/test/simple.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/simple.ans",
+            "res/test/simple.png",
+        );
     }
 
     #[test]
     fn meta() -> Result<(), String> {
-        return test::file(draw, "res/test/meta.ans", "res/test/meta.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/meta.ans",
+            "res/test/meta.png",
+        );
     }
 
     #[test]
     fn notes() -> Result<(), String> {
-        return test::file(draw, "res/test/comments.ans", "res/test/comments.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/comments.ans",
+            "res/test/comments.png",
+        );
     }
 
     #[test]
     fn background() -> Result<(), String> {
-        return test::file(draw, "res/test/background.ans", "res/test/background.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/test/background.ans",
+            "res/test/background.png",
+        );
     }
 
     #[test]
     fn logo() -> Result<(), String> {
-        return test::file(draw, "res/logo/logo.ans", "res/logo/logo.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/logo/logo.ans",
+            "res/logo/logo.png",
+        );
     }
 
     #[test]
     fn banner() -> Result<(), String> {
-        return test::file(draw, "res/banner/banner.ans", "res/banner/banner.png");
+        return test::file(
+            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            "res/banner/banner.ans",
+            "res/banner/banner.png",
+        );
     }
 }

@@ -58,7 +58,7 @@ mod tests {
             run(vec![
                 String::from("cp437-check-meta"),
                 String::from("a"),
-                String::from("b")
+                String::from("b"),
             ]),
             ExitCode::USAGE(String::from("Too many arguments"))
         );

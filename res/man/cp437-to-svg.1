@@ -10,6 +10,9 @@
 .SH SYNOPSIS
 .B cp437-to-svg
 .I FILE
+[
+.I SCHEME
+]
 ." -----------------------------------------------------------------------------
 .SH DESCRIPTION
 .B cp437-to-svg
@@ -21,4 +24,50 @@ It will also embed the file's metadata, if available.
 .I FILE
 .RS .5i
 The file to be rendered.
+.RE
+." -------------------------------------
+.PP
+.I SCHEME
+.RS .5i
+Render image using this colour scheme. Defaults to CLASSIC.
+.nf
+.fi
+See the
+.B SCHEMES
+section for valid values.
+.RE
+." -----------------------------------------------------------------------------
+.SH SCHEMES
+.I CLASSIC
+.RS .5i
+The classic scheme.
+.PP
+.nf
+#000000 #AB0000 #00AB00 #AB5700 #0000AB #AB00AB #00ABAB #ABABAB
+#575757 #FF5757 #57FF57 #FFFF57 #5757FF #FF57FF #57FFFF #FFFFFF
+.fi
+.RE
+." -------------------------------------
+.PP
+.I MODERN
+.RS .5i
+A modern looking scheme.
+.PP
+.nf
+#0A0A0A #994D4D #8C994D #CC9966 #4D6699 #B35986 #4D9999 #999999
+#4D4D4D #CC7A7A #BECC7A #FFCC99 #7A96CC #E68AB8 #7ACCCC #E6E6E6
+.fi
+.RE
+
+." -------------------------------------
+.PP
+.I CUSTOM(...)
+.RS .5i
+A configurable scheme. Takes a list of 16 comma separated hex colours.
+.PP
+.nf
+CUSTOM(#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,
+       #XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,#XXXXXX,
+       #XXXXXX,#XXXXXX)
+.fi
 .RE

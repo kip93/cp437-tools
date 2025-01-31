@@ -8,7 +8,7 @@ use crate::{
     internal::ExitCode,
     prelude::{
         meta::{self, Meta},
-        COLOURS,
+        ColourScheme,
     },
 };
 
@@ -77,6 +77,7 @@ impl Input {
     >(
         &mut self,
         mut callback: F,
+        scheme: &String,
     ) -> Result<(), ExitCode> {
         let meta = self.meta.clone().unwrap_or_else(|| {
             return Meta {
@@ -89,9 +90,10 @@ impl Input {
             fg: [u8; 3],
             bright: bool,
         }
+        let colours = ColourScheme::get(scheme)?.colours();
         let mut colour = Colour {
-            bg: COLOURS[0],
-            fg: COLOURS[15],
+            bg: colours[0],
+            fg: colours[15],
             bright: false,
         };
         let mut control: Vec<u8> = vec![];
@@ -111,30 +113,30 @@ impl Input {
                         let num = String::from_utf8(num.to_vec())?.parse::<usize>()?;
                         match num {
                             0 => {
-                                colour.bg = COLOURS[0];
-                                colour.fg = COLOURS[15];
+                                colour.bg = colours[0];
+                                colour.fg = colours[15];
                                 colour.bright = false;
                             }
                             1 => {
                                 colour.bright = true;
                             }
                             30..=37 => {
-                                colour.fg = COLOURS[num - 30 + (if colour.bright { 8 } else { 0 })];
+                                colour.fg = colours[num - 30 + (if colour.bright { 8 } else { 0 })];
                             }
                             39 => {
-                                colour.fg = COLOURS[15];
+                                colour.fg = colours[15];
                             }
                             40..=47 => {
-                                colour.bg = COLOURS[num - 40];
+                                colour.bg = colours[num - 40];
                             }
                             49 => {
-                                colour.bg = COLOURS[0];
+                                colour.bg = colours[0];
                             }
                             90..=97 => {
-                                colour.fg = COLOURS[num - 82];
+                                colour.fg = colours[num - 82];
                             }
                             100..=107 => {
-                                colour.bg = COLOURS[num - 92];
+                                colour.bg = colours[num - 92];
                             }
                             _ => {
                                 eprintln!("\x1B[33mWARN: Unknown SGR param: {}\x1B[0m", num);

@@ -19,10 +19,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1735922141,
-        "narHash": "sha256-vk0xwGZSlvZ/596yxOtsk4gxsIx2VemzdjiU8zhjgWw=",
+        "lastModified": 1738163270,
+        "narHash": "sha256-B/7Y1v4y+msFFBW1JAdFjNvVthvNdJKiN6EGRPnqfno=",
         "ref": "nixos-24.11",
-        "rev": "d29ab98cd4a70a387b8ceea3e930b3340d41ac5a",
+        "rev": "59e618d90c065f55ae48446f307e8c09565d5ab0",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/nixpkgs.git"
@@ -49,10 +49,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1736044260,
-        "narHash": "sha256-DTAr0mAd8AZwWgRtU9ZZFPz3DwNeoH/Oi/1QMSqc9YQ=",
+        "lastModified": 1738290352,
+        "narHash": "sha256-YKOHUmc0Clm4tMV8grnxYL4IIwtjTayoq/3nqk0QM7k=",
         "ref": "master",
-        "rev": "c8ed24cc104ebbc218d992e208131e9f024b69f0",
+        "rev": "b031b584125d33d23a0182f91ddbaf3ab4880236",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/rust-overlay.git"
