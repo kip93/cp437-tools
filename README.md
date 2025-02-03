@@ -30,21 +30,28 @@
 
 ## Documentation
 
-The documentation for the latest release is available @
-[docs.rs](https://docs.rs/cp437-tools)
+The documentation for the latest release is available @ [docs.rs]
+
+[docs.rs]: https://docs.rs/cp437-tools
 
 
 ## Development
 
-The repo comes with a [nix flake](./flake.nix), so simply type `nix develop` and
-you'll have a bash terminal with all tools needed for building this codebase.
+The repo comes with a [nix flake], so simply type `nix develop` and you'll have
+a bash terminal with all tools needed for building this codebase.
+
+[nix flake]: flake.nix
 
 
 ## Licenses
 
-This project's code is made freely available under the [GPLv3+](./LICENSE.md)
-license.
+The [fonts] used are provided by [VileR] and redistributed with the
+[CC BY-SA 4.0] license.
 
-The [fonts](./res/fonts) used are provided by
-[int10h.org](https://int10h.org/oldschool-pc-fonts) and redistributed with the
-[CC-BY-SA-4.0](./res/fonts/LICENSE) license.
+The rest of this project is made freely available under the [GPLv3+] license.
+
+[fonts]: res/fonts
+[VileR]: https://int10h.org/oldschool-pc-fonts
+
+[GPLv3+]: LICENSE.md
+[CC BY-SA 4.0]: res/fonts/LICENSE
