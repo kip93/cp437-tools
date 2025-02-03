@@ -69,6 +69,7 @@ mod tests {
         );
     }
 
+    #[ignore]
     #[test]
     fn stdout() {
         assert_eq!(
