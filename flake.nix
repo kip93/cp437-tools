@@ -4,22 +4,31 @@
       url = "git+https://git.k93.sh/mirrors/nixpkgs.git?ref=nixos-24.11&shallow=1";
     };
     rust = {
-      url = "git+https://git.k93.sh/mirrors/rust-overlay.git?ref=master&shallow=1";
+      url = "git+https://git.k93.sh/mirrors/rust-overlay.git?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-compat = {
-      url = "git+https://git.k93.sh/mirrors/flake-compat.git?ref=master&shallow=1";
-    };
-    # See <https://github.com/nix-systems/nix-systems>.
-    systems = {
-      url = "git+https://git.k93.sh/mirrors/nix-systems-default.git?ref=main&shallow=1";
+    schemas = {
+      url = "git+https://git.k93.sh/mirrors/flake-schemas.git?shallow=1";
     };
   };
 
-  outputs = { self, nixpkgs, rust, systems, ... }:
+  outputs = { self, nixpkgs, rust, schemas }:
     let
-      systems' = import systems;
+      inherit (nixpkgs) lib;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      crossArchs = rec {
+        x86_64 = [ "x86_64" ] ++ aarch64;
+        aarch64 = [ "aarch64" ] ++ armv7l;
+        armv7l = [ "armv7l" ] ++ riscv64;
+        riscv64 = [ "riscv64" ];
+      };
+
       pkgs_fun = system:
         import nixpkgs ({
           localSystem = system;
@@ -28,11 +37,11 @@
         } // (self.packages.${system} or { }))
       ;
 
-      cargo_toml = nixpkgs.lib.importTOML ./Cargo.toml;
+      cargo_toml = lib.importTOML ./Cargo.toml;
 
     in
     {
-      devShells = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; {
+      devShells = lib.genAttrs systems (system: with pkgs_fun system; {
         default = let inherit (cp437-tools) rust; in mkShell {
           inputsFrom = [ cp437-tools ];
           nativeBuildInputs = [
@@ -218,8 +227,8 @@
         cp437-tools =
           let
             # TODO switch back to stable (https://github.com/rust-lang/rust/issues/84277)
-            # rust = rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
-            rust = rust-bin.nightly."2025-01-31";
+            # rust = buildPackages.rust-bin.stable.${cargo_toml.package.rust-version}.minimal;
+            rust = buildPackages.rust-bin.nightly."2025-02-10";
             rustPlatform = makeRustPlatform {
               cargo = rust.default;
               rustc = rust.default;
@@ -265,7 +274,7 @@
         ;
       };
 
-      packages = nixpkgs.lib.genAttrs systems' (system: with pkgs_fun system; rec {
+      packages = lib.genAttrs systems (system: with pkgs_fun system; rec {
         default = cp437-tools;
         inherit (pkgs) cp437-tools;
 
@@ -549,6 +558,42 @@
           ''
         ;
       });
+
+      hydraJobs = builtins.listToAttrs (builtins.map
+        ({ localSystem, crossSystem }: rec {
+          name = "${localSystem}${lib.optionalString (localSystem != crossSystem) "_${crossSystem}"}";
+          value = (import nixpkgs {
+            inherit localSystem crossSystem;
+            overlays = [ rust.overlays.default self.overlays.default ];
+          }).cp437-tools;
+        })
+        (builtins.filter
+          ({ localSystem, crossSystem }:
+            builtins.elem
+              (builtins.head (builtins.match "(.*)-.*" crossSystem))
+              crossArchs.${builtins.head (builtins.match "(.*)-.*" localSystem)}
+            && builtins.head (builtins.match ".*-(.*)" localSystem)
+            == builtins.head (builtins.match ".*-(.*)" crossSystem)
+          )
+          (lib.flatten (builtins.map
+            (localSystem: builtins.map
+              (crossSystem: { inherit localSystem crossSystem; })
+              systems
+            )
+            systems
+          ))
+        )
+      );
+
+      schemas = {
+        inherit (schemas.schemas)
+          devShells
+          hydraJobs
+          overlays
+          packages
+          schemas
+          ;
+      };
     }
   ;
 
