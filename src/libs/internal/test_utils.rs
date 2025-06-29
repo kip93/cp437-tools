@@ -16,17 +16,9 @@ pub fn ok<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
     output: &str,
 ) -> Result<(), String> {
     let tmp_dir = tempdir().map_err(|err| return err.to_string())?;
-    let target = tmp_dir
-        .path()
-        .join("output.txt")
-        .to_string_lossy()
-        .to_string();
+    let target = tmp_dir.path().join("output.txt").to_string_lossy().to_string();
 
-    assert!(callback(
-        &mut Input::new(&String::from(input))?,
-        &mut Output::file(&target)?,
-    )
-    .is_ok());
+    assert!(callback(&mut Input::new(&String::from(input))?, &mut Output::file(&target)?).is_ok());
     assert!(tmp_dir.path().join("output.txt").exists());
     let mut buffer = String::new();
     File::open(tmp_dir.path().join("output.txt"))
@@ -46,16 +38,9 @@ pub fn err<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
     output: &str,
 ) -> Result<(), String> {
     let tmp_dir = tempdir().map_err(|err| return err.to_string())?;
-    let target = tmp_dir
-        .path()
-        .join("output.txt")
-        .to_string_lossy()
-        .to_string();
+    let target = tmp_dir.path().join("output.txt").to_string_lossy().to_string();
 
-    let result = callback(
-        &mut Input::new(&String::from(input))?,
-        &mut Output::file(&target)?,
-    );
+    let result = callback(&mut Input::new(&String::from(input))?, &mut Output::file(&target)?);
     assert!(result.is_err());
     assert_eq!(String::from(result), output);
 
@@ -70,17 +55,9 @@ pub fn file<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
     output: &str,
 ) -> Result<(), String> {
     let tmp_dir = tempdir().map_err(|err| return err.to_string())?;
-    let target = tmp_dir
-        .path()
-        .join("output.txt")
-        .to_string_lossy()
-        .to_string();
+    let target = tmp_dir.path().join("output.txt").to_string_lossy().to_string();
 
-    assert!(callback(
-        &mut Input::new(&String::from(input))?,
-        &mut Output::file(&target)?,
-    )
-    .is_ok());
+    assert!(callback(&mut Input::new(&String::from(input))?, &mut Output::file(&target)?).is_ok());
     assert!(tmp_dir.path().join("output.txt").exists());
     assert!(diff(&target, output));
 
@@ -95,17 +72,9 @@ pub fn file_meta<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
     output: Option<Meta>,
 ) -> Result<(), String> {
     let tmp_dir = tempdir().map_err(|err| return err.to_string())?;
-    let target = tmp_dir
-        .path()
-        .join("output.txt")
-        .to_string_lossy()
-        .to_string();
+    let target = tmp_dir.path().join("output.txt").to_string_lossy().to_string();
 
-    assert!(callback(
-        &mut Input::new(&String::from(input))?,
-        &mut Output::file(&target)?,
-    )
-    .is_ok());
+    assert!(callback(&mut Input::new(&String::from(input))?, &mut Output::file(&target)?).is_ok());
     assert!(tmp_dir.path().join("output.txt").exists());
     assert_eq!(meta::get(&target)?, output);
 
@@ -120,17 +89,9 @@ pub fn file_err<F: for<'a> FnOnce(&'a mut Input, &'a mut Output) -> ExitCode>(
     output: &str,
 ) -> Result<(), String> {
     let tmp_dir = tempdir().map_err(|err| return err.to_string())?;
-    let target = tmp_dir
-        .path()
-        .join("output.txt")
-        .to_string_lossy()
-        .to_string();
+    let target = tmp_dir.path().join("output.txt").to_string_lossy().to_string();
 
-    assert!(callback(
-        &mut Input::new(&String::from(input))?,
-        &mut Output::file(&target)?,
-    )
-    .is_err());
+    assert!(callback(&mut Input::new(&String::from(input))?, &mut Output::file(&target)?).is_err());
     assert!(tmp_dir.path().join("output.txt").exists());
     let mut buffer = String::new();
     File::open(tmp_dir.path().join("output.txt"))

@@ -1,4 +1,4 @@
-//! Check a file's metadata
+//! Check a file's metadata.
 
 use std::{cmp::Ordering, env::args};
 
@@ -8,25 +8,33 @@ use cp437_tools::{
 };
 
 #[allow(dead_code)]
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
 pub fn main() -> ExitCode {
-    return run(args().collect());
+    return exec(&args().collect::<Vec<String>>());
 }
 
 #[inline]
-pub fn run(args: Vec<String>) -> ExitCode {
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn exec(args: &[String]) -> ExitCode {
     let exit_code = match args.len().cmp(&2) {
         Ordering::Less => ExitCode::USAGE(String::from("Missing input file")),
         Ordering::Greater => ExitCode::USAGE(String::from("Too many arguments")),
-        Ordering::Equal => process(&args[1], check),
+        Ordering::Equal => process(&args[1], run),
     };
 
     exit_code.print();
     return exit_code;
 }
 
-fn check(input: &mut Input, output: &mut Output) -> ExitCode {
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn run(input: &mut Input, output: &mut Output) -> ExitCode {
     if let Err(msg) = meta::check(input.meta.as_ref()) {
-        output.write(format!("\x1B[3;31m{}\x1B[0m\n", msg).as_bytes())?;
+        output.write(format!("\x1B[3;31m{msg}\x1B[0m\n").as_bytes())?;
         return ExitCode::FAIL(msg);
     }
 
@@ -46,38 +54,31 @@ mod tests {
 
     #[test]
     fn no_input() {
-        assert_eq!(
-            run(vec![String::from("cp437-check-meta")]),
-            ExitCode::USAGE(String::from("Missing input file"))
-        );
+        assert_eq!(exec(&[String::from("cp437-check-meta")]), ExitCode::USAGE(String::from("Missing input file")));
     }
 
     #[test]
     fn too_many_args() {
         assert_eq!(
-            run(vec![
-                String::from("cp437-check-meta"),
-                String::from("a"),
-                String::from("b"),
-            ]),
-            ExitCode::USAGE(String::from("Too many arguments"))
+            exec(&[String::from("cp437-check-meta"), String::from("a"), String::from("b")]),
+            ExitCode::USAGE(String::from("Too many arguments")),
         );
     }
 
     #[test]
     fn ok() -> Result<(), String> {
-        return test::ok(check, "res/test/meta.ans", indoc! {""});
+        return test::ok(run, "res/test/meta.ans", indoc! {""});
     }
 
     #[test]
     fn no_meta() -> Result<(), String> {
-        return test::ok(check, "res/test/simple.ans", indoc! {""});
+        return test::ok(run, "res/test/simple.ans", indoc! {""});
     }
 
     #[test]
     fn title() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_title.ans",
             indoc! {"
                 \x1B[3;31mTitle contains illegal characters (0x00 is a control character)\x1B[0m
@@ -88,7 +89,7 @@ mod tests {
     #[test]
     fn author() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_author.ans",
             indoc! {"
                 \x1B[3;31mAuthor contains illegal characters (0x00 is a control character)\x1B[0m
@@ -99,7 +100,7 @@ mod tests {
     #[test]
     fn group() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_group.ans",
             indoc! {"
                 \x1B[3;31mGroup contains illegal characters (0x00 is a control character)\x1B[0m
@@ -110,7 +111,7 @@ mod tests {
     #[test]
     fn date() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_date.ans",
             indoc! {"
                 \x1B[3;31mDate format is wrong (input contains invalid characters)\x1B[0m
@@ -121,7 +122,7 @@ mod tests {
     #[test]
     fn r#type() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_type.ans",
             indoc! {"
                 \x1B[3;31mType is unsupported (Unknown 255/Unknown 255)\x1B[0m
@@ -132,7 +133,7 @@ mod tests {
     #[test]
     fn flags() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_flags.ans",
             indoc! {"
                 \x1B[3;31mInvalid letter spacing\x1B[0m
@@ -143,7 +144,7 @@ mod tests {
     #[test]
     fn font() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_font.ans",
             indoc! {"
                 \x1B[3;31mFont is unsupported (IBM FOO)\x1B[0m
@@ -154,7 +155,7 @@ mod tests {
     #[test]
     fn notes() -> Result<(), String> {
         return test::file_err(
-            check,
+            run,
             "res/test/bad_comment.ans",
             indoc! {"
                 \x1B[3;31mNotes[0] contains illegal characters (0x00 is a control character)\x1B[0m

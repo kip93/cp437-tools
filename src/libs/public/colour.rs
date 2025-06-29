@@ -1,12 +1,15 @@
 //! ANSI colour schemes.
 
 use regex::Regex;
+#[cfg(feature = "_gen")]
+use strum_macros::EnumIter;
 
 /// A collection of colour schemes.
 ///
 /// Each entry is a list of 16 RGB values corresponding to the 4-bit colours
-/// used by CP437 files
+/// used by CP437 files.
 #[derive(Clone, Debug, Eq, PartialEq)]
+#[cfg_attr(feature = "_gen", derive(EnumIter))]
 pub enum ColourScheme {
     /// The classic scheme.
     ///
@@ -22,29 +25,75 @@ pub enum ColourScheme {
         doc = ::embed_doc_image::embed_image!("scheme", "res/schemes/MODERN.png"),
     )]
     MODERN,
+    /// A [catppuccin](https://catppuccin.com/palette/)-based colour scheme.
+    ///
+    /// ![CATPPUCCIN scheme][scheme]
+    #[cfg_attr(all(),
+        doc = ::embed_doc_image::embed_image!("scheme", "res/schemes/CATPPUCCIN.png"),
+    )]
+    CATPPUCCIN,
+    /// A [dracula](https://draculatheme.com/contribute#color-palette)-based colour scheme.
+    ///
+    /// ![DRACULA scheme][scheme]
+    #[cfg_attr(all(),
+        doc = ::embed_doc_image::embed_image!("scheme", "res/schemes/DRACULA.png"),
+    )]
+    DRACULA,
+    /// A [rosé-pine](https://rosepinetheme.com/palette/)-based colour scheme.
+    ///
+    /// ![ROSEPINE scheme][scheme]
+    #[cfg_attr(all(),
+        doc = ::embed_doc_image::embed_image!("scheme", "res/schemes/ROSEPINE.png"),
+    )]
+    ROSEPINE,
     /// A configurable scheme.
     CUSTOM([[u8; 3]; 16]),
 }
 
 impl ColourScheme {
+    /// Get the string representation of a scheme.
+    #[must_use]
+    pub fn name(&self) -> String {
+        return match self {
+            ColourScheme::CLASSIC => String::from("CLASSIC"),
+            ColourScheme::MODERN => String::from("MODERN"),
+            ColourScheme::CATPPUCCIN => String::from("CATPPUCCIN"),
+            ColourScheme::DRACULA => String::from("DRACULA"),
+            ColourScheme::ROSEPINE => String::from("ROSEPINE"),
+            ColourScheme::CUSTOM(colours) => {
+                let codes = colours
+                    .iter()
+                    .map(|colour| {
+                        return format!("#{:02x}{:02x}{:02x}", colour[0], colour[1], colour[2]);
+                    })
+                    .fold(String::new(), |acc, x| return if acc.is_empty() { x } else { format!("{acc},{x}") });
+                format!("CUSTOM({codes})")
+            },
+        };
+    }
+
     /// Get a colour scheme from a string.
+    ///
+    /// # Errors
+    ///
+    /// Fails when the theme is invalid.
+    ///
+    #[expect(clippy::too_many_lines, reason = "Not much that can be done")]
     pub fn get(name: &String) -> Result<ColourScheme, String> {
         let uppercase_name = name.to_uppercase();
         return match uppercase_name.as_str() {
             "CLASSIC" => Ok(ColourScheme::CLASSIC),
             "MODERN" => Ok(ColourScheme::MODERN),
+            "CATPPUCCIN" => Ok(ColourScheme::CATPPUCCIN),
+            "DRACULA" => Ok(ColourScheme::DRACULA),
+            "ROSEPINE" => Ok(ColourScheme::ROSEPINE),
             _ => {
                 if uppercase_name.starts_with("CUSTOM(") {
                     if let Some(c) = Regex::new(r"^CUSTOM\(((?:#[0-9A-F]{6},){15}#[0-9A-F]{6})\)$")
-                        .unwrap()
+                        .expect("Valid regex")
                         .captures(&uppercase_name)
                     {
                         let c = &c[1];
-                        #[inline]
-                        fn parse_hex(hex: &str) -> Result<u8, String> {
-                            return u8::from_str_radix(hex, 16)
-                                .map_err(|err| return err.to_string());
-                        }
 
                         Ok(ColourScheme::CUSTOM([
                             // DARK
@@ -147,16 +196,17 @@ impl ColourScheme {
                             ],
                         ]))
                     } else {
-                        Err(format!("Unparseable colour scheme: {}", name))
+                        Err(format!("Unparseable colour scheme: {name}"))
                     }
                 } else {
-                    Err(format!("Unknown scheme: {}", name))
+                    Err(format!("Unknown scheme: {name}"))
                 }
-            }
+            },
         };
     }
 
     /// Get this scheme's colours.
+    #[must_use]
     pub fn colours(&self) -> [[u8; 3]; 16] {
         return match self {
             ColourScheme::CLASSIC => [
@@ -199,15 +249,81 @@ impl ColourScheme {
                 [0x7A, 0xCC, 0xCC], // CYAN
                 [0xE6, 0xE6, 0xE6], // WHITE
             ],
+            ColourScheme::CATPPUCCIN => [
+                // DARK
+                [0x23, 0x26, 0x34], // BLACK
+                [0xDB, 0x63, 0x63], // RED
+                [0x82, 0xBD, 0x64], // GREEN
+                [0xD4, 0xAA, 0x68], // YELLOW
+                [0x6C, 0x8A, 0xE6], // BLUE
+                [0xE6, 0x93, 0xCD], // MAGENTA
+                [0x4E, 0xB5, 0xAB], // CYAN
+                [0xA5, 0xAD, 0xCE], // WHITE
+                // BRIGHT
+                [0x51, 0x57, 0x6D], // BLACK
+                [0xE7, 0x82, 0x84], // RED
+                [0xA6, 0xD1, 0x89], // GREEN
+                [0xE5, 0xC8, 0x90], // YELLOW
+                [0x8C, 0xAA, 0xEE], // BLUE
+                [0xF4, 0xB8, 0xE4], // MAGENTA
+                [0x81, 0xC8, 0xBE], // CYAN
+                [0xC6, 0xD0, 0xF5], // WHITE
+            ],
+            ColourScheme::DRACULA => [
+                // DARK
+                [0x21, 0x22, 0x2C], // BLACK
+                [0xFF, 0x55, 0x55], // RED
+                [0x50, 0xFA, 0x7B], // GREEN
+                [0xF1, 0xFA, 0x8C], // YELLOW
+                [0xBD, 0x93, 0xF9], // BLUE
+                [0xFF, 0x79, 0xC6], // MAGENTA
+                [0x8B, 0xE9, 0xFD], // CYAN
+                [0xF8, 0xF8, 0xF2], // WHITE
+                // BRIGHT
+                [0x62, 0x72, 0xA4], // BLACK
+                [0xFF, 0x6E, 0x6E], // RED
+                [0x69, 0xFF, 0x94], // GREEN
+                [0xFF, 0xFF, 0xA5], // YELLOW
+                [0xD6, 0xAC, 0xFF], // BLUE
+                [0xFF, 0x92, 0xDF], // MAGENTA
+                [0xA4, 0xFF, 0xFF], // CYAN
+                [0xFF, 0xFF, 0xFF], // WHITE
+            ],
+            ColourScheme::ROSEPINE => [
+                // DARK
+                [0x19, 0x17, 0x24], // BLACK
+                [0xB4, 0x52, 0x6E], // RED
+                [0x8B, 0x95, 0x4D], // GREEN
+                [0xC4, 0x96, 0x56], // YELLOW
+                [0x31, 0x74, 0x8F], // BLUE
+                [0x90, 0x7A, 0xA9], // MAGENTA
+                [0x56, 0x94, 0x9F], // CYAN
+                [0x90, 0x8C, 0xAA], // WHITE
+                // BRIGHT
+                [0x40, 0x3D, 0x52], // BLACK
+                [0xEB, 0x6F, 0x92], // RED
+                [0xB7, 0xC4, 0x6A], // GREEN
+                [0xF6, 0xC1, 0x77], // YELLOW
+                [0x3E, 0x8F, 0xB0], // BLUE
+                [0xC4, 0xA7, 0xE7], // MAGENTA
+                [0x9C, 0xCF, 0xD8], // CYAN
+                [0xE0, 0xDE, 0xF4], // WHITE
+            ],
             ColourScheme::CUSTOM(scheme) => *scheme,
         };
     }
 
     /// Get a single colour from this scheme.
     #[inline]
+    #[must_use]
     pub fn colour(&self, index: u8) -> [u8; 3] {
         return self.colours()[index as usize];
     }
+}
+
+#[inline]
+fn parse_hex(hex: &str) -> Result<u8, String> {
+    return u8::from_str_radix(hex, 16).map_err(|err| return err.to_string());
 }
 
 #[cfg(test)]
@@ -219,31 +335,31 @@ mod tests {
 
     #[test]
     fn classic() -> Result<(), String> {
-        assert_eq!(
-            ColourScheme::get(&String::from("ClAsSiC"))?,
-            ColourScheme::CLASSIC
-        );
+        assert_eq!(ColourScheme::get(&String::from("ClAsSiC"))?, ColourScheme::CLASSIC);
         for i in 0..16 {
-            assert_eq!(
-                ColourScheme::CLASSIC.colours()[i],
-                ColourScheme::CLASSIC.colour(i as u8)
-            );
+            assert_eq!(ColourScheme::CLASSIC.colours()[i], ColourScheme::CLASSIC.colour(i as u8));
         }
+
         return Ok(());
     }
 
     #[test]
     fn modern() -> Result<(), String> {
-        assert_eq!(
-            ColourScheme::get(&String::from("MoDeRn"))?,
-            ColourScheme::MODERN
-        );
+        assert_eq!(ColourScheme::get(&String::from("MoDeRn"))?, ColourScheme::MODERN);
         for i in 0..16 {
-            assert_eq!(
-                ColourScheme::MODERN.colours()[i],
-                ColourScheme::MODERN.colour(i as u8)
-            );
+            assert_eq!(ColourScheme::MODERN.colours()[i], ColourScheme::MODERN.colour(i as u8));
         }
+
+        return Ok(());
+    }
+
+    #[test]
+    fn dracula() -> Result<(), String> {
+        assert_eq!(ColourScheme::get(&String::from("DrAcUlA"))?, ColourScheme::DRACULA);
+        for i in 0..16 {
+            assert_eq!(ColourScheme::DRACULA.colours()[i], ColourScheme::DRACULA.colour(i as u8));
+        }
+
         return Ok(());
     }
 
@@ -272,18 +388,11 @@ mod tests {
             .map(|colour| {
                 return format!("#{:02x}{:02x}{:02x}", colour[0], colour[1], colour[2]);
             })
-            .fold(String::new(), |acc, x| {
-                if &acc == "" {
-                    x
-                } else {
-                    format!("{},{}", acc, x)
-                }
-            });
-        assert_eq!(
-            ColourScheme::get(&format!("CuStOm({})", codes))?,
-            ColourScheme::CUSTOM(colours)
-        );
+            .fold(String::new(), |acc, x| if &acc == "" { x } else { format!("{},{}", acc, x) });
+        assert_eq!(ColourScheme::get(&format!("CuStOm({})", codes))?, ColourScheme::CUSTOM(colours));
+        assert_eq!(ColourScheme::get(&format!("CuStOm({})", codes))?.name(), format!("CUSTOM({})", codes));
         assert_eq!(ColourScheme::CUSTOM(colours).colours(), colours);
+
         return Ok(());
     }
 

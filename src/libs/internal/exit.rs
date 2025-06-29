@@ -2,10 +2,15 @@ use std::{
     fmt::{self, Display, Formatter},
     io,
     num::ParseIntError,
+    num::TryFromIntError,
     ops::{ControlFlow, FromResidual, Try},
     process::{ExitCode as StdExitCode, Termination},
+    ptr,
     string::FromUtf8Error,
 };
+
+#[cfg(feature = "binaries")]
+use png::EncodingError;
 
 use crate::internal::help;
 
@@ -20,29 +25,29 @@ pub enum ExitCode {
 
 impl ExitCode {
     #[inline]
+    #[must_use]
     pub fn is_ok(&self) -> bool {
         return self == &ExitCode::OK;
     }
 
     #[inline]
+    #[must_use]
     pub fn is_err(&self) -> bool {
         return !self.is_ok();
     }
 
     pub fn print(&self) {
-        match self {
-            ExitCode::OK => {}
-            _ => {
-                if self.as_str() != "" {
-                    eprintln!("\x1B[31mERROR: {}\x1B[0m", self);
-                }
-                if let ExitCode::USAGE(_) = self {
-                    help::print(String::from("cp437-tools"))
-                }
+        if self != &ExitCode::OK {
+            if self.as_str() != "" {
+                eprintln!("\x1B[31mERROR: {self}\x1B[0m");
+            }
+            if let ExitCode::USAGE(_) = self {
+                help::print("cp437-tools").expect("Valid command");
             }
         }
     }
 
+    #[must_use]
     pub fn as_str(&self) -> &str {
         return match self {
             ExitCode::OK => "",
@@ -50,6 +55,7 @@ impl ExitCode {
         };
     }
 
+    #[must_use]
     pub fn as_string(&self) -> String {
         return match self {
             ExitCode::OK => String::default(),
@@ -57,9 +63,10 @@ impl ExitCode {
         };
     }
 
+    #[must_use]
     pub fn as_u8(&self) -> u8 {
         // https://doc.rust-lang.org/reference/items/enumerations.html#pointer-casting
-        return unsafe { *(self as *const Self as *const u8) };
+        return unsafe { *ptr::from_ref::<Self>(self).cast::<u8>() };
     }
 }
 
@@ -119,6 +126,13 @@ impl From<FromUtf8Error> for ExitCode {
     }
 }
 
+impl From<TryFromIntError> for ExitCode {
+    #[inline]
+    fn from(err: TryFromIntError) -> ExitCode {
+        return ExitCode::ERROR(err.to_string());
+    }
+}
+
 impl From<io::Error> for ExitCode {
     #[inline]
     fn from(err: io::Error) -> ExitCode {
@@ -129,6 +143,14 @@ impl From<io::Error> for ExitCode {
 impl From<ParseIntError> for ExitCode {
     #[inline]
     fn from(err: ParseIntError) -> ExitCode {
+        return ExitCode::ERROR(err.to_string());
+    }
+}
+
+#[cfg(feature = "binaries")]
+impl From<EncodingError> for ExitCode {
+    #[inline]
+    fn from(err: EncodingError) -> ExitCode {
         return ExitCode::ERROR(err.to_string());
     }
 }
@@ -308,10 +330,7 @@ mod tests {
 
     #[test]
     fn from_residual_result_string() {
-        assert_eq!(
-            ExitCode::from_residual(Err::<(), String>(String::from(MSG))),
-            fail()
-        );
+        assert_eq!(ExitCode::from_residual(Err::<(), String>(String::from(MSG))), fail());
     }
 
     #[test]
@@ -321,10 +340,7 @@ mod tests {
 
     #[test]
     fn from_residual_result_io_error() {
-        assert_eq!(
-            ExitCode::from_residual(Err::<(), io::Error>(io_err())),
-            err()
-        );
+        assert_eq!(ExitCode::from_residual(Err::<(), io::Error>(io_err())), err());
     }
 
     #[test]

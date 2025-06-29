@@ -1,17 +1,17 @@
-//! Render a file as an SVG
+//! Render a file as an SVG.
 
-use base64::prelude::{Engine, BASE64_STANDARD};
+use base64::prelude::{Engine as _, BASE64_STANDARD};
 use std::{
     cell::Cell,
     env::args,
-    io::{stdout, IsTerminal},
+    io::{stdout, IsTerminal as _},
 };
 use svg::{
     node::{
-        element::{Element, Group, Rectangle, Style, Text, Title},
+        element::{Element, Group, Rectangle, Style, Text, Title, SVG},
         Comment, Text as TextNode,
     },
-    Document, Node,
+    Document, Node as _,
 };
 
 use cp437_tools::{
@@ -20,12 +20,18 @@ use cp437_tools::{
 };
 
 #[allow(dead_code)]
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
 pub fn main() -> ExitCode {
-    return run(args().collect());
+    return exec(&args().collect::<Vec<String>>());
 }
 
 #[inline]
-pub fn run(args: Vec<String>) -> ExitCode {
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn exec(args: &[String]) -> ExitCode {
     let exit_code = if args.len() < 2 {
         ExitCode::USAGE(String::from("Missing input file"))
     } else if args.len() > 3 {
@@ -34,7 +40,7 @@ pub fn run(args: Vec<String>) -> ExitCode {
         ExitCode::USAGE(String::from("Refusing to write to terminal"))
     } else {
         process(&args[1], |i, o| {
-            return draw(i, o, args.get(2).unwrap_or(&String::from("CLASSIC")));
+            return run(i, o, args.get(2).unwrap_or(&String::from("CLASSIC")));
         })
     };
 
@@ -42,11 +48,10 @@ pub fn run(args: Vec<String>) -> ExitCode {
     return exit_code;
 }
 
-fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
-    let meta = input.meta.clone().unwrap_or(Meta {
-        size: input.size,
-        ..Default::default()
-    });
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn run(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
+    let meta = input.meta.clone().unwrap_or(Meta { size: input.size, ..Default::default() });
 
     let (width, height) = meta.dimensions();
     let (width, height) = (width as usize, height as usize);
@@ -56,6 +61,63 @@ fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
     let (ar_x, ar_y) = (ar_x as usize, ar_y as usize);
     let font_face = meta.font_face_woff();
 
+    let mut document = prepare(input, (width, height), (font_width, font_height), (ar_x, ar_y), font_face);
+
+    document = document.add(Comment::new("Drawing"));
+    let drawing = Cell::new(
+        Group::new().set("font-family", "IBM VGA").set("transform", format!("scale({ar_x}, {ar_y})")).add(
+            Rectangle::new()
+                .set("x", 0)
+                .set("y", 0)
+                .set("width", width * font_width)
+                .set("height", height * font_height)
+                .set("fill", "#000"),
+        ),
+    );
+
+    input.read_by_bytes_full(
+        |byte, (x, y), colour| {
+            drawing.set(
+                drawing
+                    .take()
+                    .add(
+                        Rectangle::new()
+                            .set("x", x as usize * font_width)
+                            .set("y", y as usize * font_height)
+                            .set("width", font_width)
+                            .set("height", font_height)
+                            .set("fill", format!("#{:02X}{:02X}{:02X}", colour[0][0], colour[0][1], colour[0][2])),
+                    )
+                    .add(
+                        #[expect(clippy::integer_division, reason = "Intentional")]
+                        Text::new(CP437_TO_UTF8[if byte > 0 { byte as usize } else { 32 }])
+                            .set("x", x as usize * font_width)
+                            .set("y", (y + 1) as usize * font_height - font_height / 4)
+                            .set("font-size", font_height)
+                            .set("fill", format!("#{:02X}{:02X}{:02X}", colour[1][0], colour[1][1], colour[1][2])),
+                    ),
+            );
+
+            return Ok(());
+        },
+        scheme,
+    )?;
+
+    document = document.add(drawing.take());
+
+    svg::write(output, &document)?;
+
+    return ExitCode::OK;
+}
+
+/// Prepare the SVG with all corresponding metadata.
+fn prepare(
+    input: &mut Input,
+    (width, height): (usize, usize),
+    (font_width, font_height): (usize, usize),
+    (ar_x, ar_y): (usize, usize),
+    font_face: &[u8],
+) -> SVG {
     let mut document = Document::new()
         .set(
             "viewBox",
@@ -67,10 +129,10 @@ fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
         .add(Comment::new("https://int10h.org/oldschool-pc-fonts"))
         .add(Style::new(format!(
             "@font-face {{ font-family: \"IBM VGA\"; src: url(\"data:application/font-woff;charset=utf-8;base64,{}\"); }}",
-            BASE64_STANDARD.encode(font_face)
+            BASE64_STANDARD.encode(font_face),
         )));
 
-    if input.meta.is_some() {
+    if let Some(meta) = &input.meta {
         document = document.add(Comment::new("Metadata"));
         if let Some(title) = meta.title() {
             document = document.add(Title::new(title));
@@ -107,12 +169,7 @@ fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
 
         if let Some(date) = meta.date() {
             let mut date_elem = Element::new("dc:date");
-            date_elem.append(TextNode::new(format!(
-                "{}-{}-{}",
-                &date[0..4],
-                &date[4..6],
-                &date[6..8]
-            )));
+            date_elem.append(TextNode::new(format!("{}-{}-{}", &date[0..4], &date[4..6], &date[6..8])));
             description.append(date_elem);
         }
 
@@ -154,65 +211,7 @@ fn draw(input: &mut Input, output: &mut Output, scheme: &String) -> ExitCode {
         document = document.add(metadata);
     }
 
-    document = document.add(Comment::new("Drawing"));
-    let drawing = Cell::new(
-        Group::new()
-            .set("font-family", "IBM VGA")
-            .set("transform", format!("scale({}, {})", ar_x, ar_y))
-            .add(
-                Rectangle::new()
-                    .set("x", 0)
-                    .set("y", 0)
-                    .set("width", width * font_width)
-                    .set("height", height * font_height)
-                    .set("fill", "#000"),
-            ),
-    );
-
-    input.read_by_bytes_full(
-        |byte, (x, y), colour| {
-            drawing.set(
-                drawing
-                    .take()
-                    .add(
-                        Rectangle::new()
-                            .set("x", x as usize * font_width)
-                            .set("y", y as usize * font_height)
-                            .set("width", font_width)
-                            .set("height", font_height)
-                            .set(
-                                "fill",
-                                format!(
-                                    "#{:02X}{:02X}{:02X}",
-                                    colour[0][0], colour[0][1], colour[0][2]
-                                ),
-                            ),
-                    )
-                    .add(
-                        Text::new(CP437_TO_UTF8[if byte > 0 { byte as usize } else { 32 }])
-                            .set("x", x as usize * font_width)
-                            .set("y", (y + 1) as usize * font_height - font_height / 4)
-                            .set("font-size", font_height)
-                            .set(
-                                "fill",
-                                format!(
-                                    "#{:02X}{:02X}{:02X}",
-                                    colour[1][0], colour[1][1], colour[1][2]
-                                ),
-                            ),
-                    ),
-            );
-
-            return Ok(());
-        },
-        scheme,
-    )?;
-
-    document = document.add(drawing.take());
-
-    svg::write(output, &document)?;
-
-    return ExitCode::OK;
+    return document;
 }
 
 #[path = "."]
@@ -227,22 +226,14 @@ mod tests {
 
     #[test]
     fn no_input() {
-        assert_eq!(
-            run(vec![String::from("cp437-to-svg")]),
-            ExitCode::USAGE(String::from("Missing input file"))
-        );
+        assert_eq!(exec(&[String::from("cp437-to-svg")]), ExitCode::USAGE(String::from("Missing input file")));
     }
 
     #[test]
     fn too_many_args() {
         assert_eq!(
-            run(vec![
-                String::from("cp437-to-svg"),
-                String::from("a"),
-                String::from("b"),
-                String::from("c"),
-            ]),
-            ExitCode::USAGE(String::from("Too many arguments"))
+            exec(&[String::from("cp437-to-svg"), String::from("a"), String::from("b"), String::from("c")]),
+            ExitCode::USAGE(String::from("Too many arguments")),
         );
     }
 
@@ -250,15 +241,15 @@ mod tests {
     #[test]
     fn stdout() {
         assert_eq!(
-            run(vec![String::from("cp437-to-svg"), String::from("a")]),
-            ExitCode::USAGE(String::from("Refusing to write to terminal"))
+            exec(&[String::from("cp437-to-svg"), String::from("a")]),
+            ExitCode::USAGE(String::from("Refusing to write to terminal")),
         );
     }
 
     #[test]
     fn simple() -> Result<(), String> {
         return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            |i, o| return run(i, o, &String::from("CLASSIC")),
             "res/test/simple.ans",
             "res/test/simple.svg",
         );
@@ -266,17 +257,13 @@ mod tests {
 
     #[test]
     fn meta() -> Result<(), String> {
-        return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
-            "res/test/meta.ans",
-            "res/test/meta.svg",
-        );
+        return test::file(|i, o| return run(i, o, &String::from("CLASSIC")), "res/test/meta.ans", "res/test/meta.svg");
     }
 
     #[test]
     fn notes() -> Result<(), String> {
         return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            |i, o| return run(i, o, &String::from("CLASSIC")),
             "res/test/comments.ans",
             "res/test/comments.svg",
         );
@@ -285,7 +272,7 @@ mod tests {
     #[test]
     fn background() -> Result<(), String> {
         return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            |i, o| return run(i, o, &String::from("CLASSIC")),
             "res/test/background.ans",
             "res/test/background.svg",
         );
@@ -293,17 +280,13 @@ mod tests {
 
     #[test]
     fn logo() -> Result<(), String> {
-        return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
-            "res/logo/logo.ans",
-            "res/logo/logo.svg",
-        );
+        return test::file(|i, o| return run(i, o, &String::from("CLASSIC")), "res/logo/logo.ans", "res/logo/logo.svg");
     }
 
     #[test]
     fn banner() -> Result<(), String> {
         return test::file(
-            |i, o| return draw(i, o, &String::from("CLASSIC")),
+            |i, o| return run(i, o, &String::from("CLASSIC")),
             "res/banner/banner.ans",
             "res/banner/banner.svg",
         );

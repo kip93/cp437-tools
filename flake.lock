@@ -2,16 +2,16 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1739055578,
-        "narHash": "sha256-2MhC2Bgd06uI1A0vkdNUyDYsMD0SLNGKtD8600mZ69A=",
-        "ref": "nixos-24.11",
-        "rev": "a45fa362d887f4d4a7157d95c28ca9ce2899b70e",
+        "lastModified": 1750969886,
+        "narHash": "sha256-zW/OFnotiz/ndPFdebpo3X0CrbVNf22n4DjN2vxlb58=",
+        "ref": "nixos-25.05",
+        "rev": "a676066377a2fe7457369dd37c31fd2263b662f4",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/nixpkgs.git"
       },
       "original": {
-        "ref": "nixos-24.11",
+        "ref": "nixos-25.05",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/nixpkgs.git"
@@ -31,10 +31,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1739154531,
-        "narHash": "sha256-QGeN6e0nMJlNLzm3Y2A7P6riXhQXMeCXLZ7yajZYFQM=",
+        "lastModified": 1751078221,
+        "narHash": "sha256-/SRmXIPxL7ixFLZgcDdgZDuIwt8eWQAamMYer0ODwbM=",
         "ref": "refs/heads/master",
-        "rev": "035dac86ab7ce5c1e8a4d59dfe85e6911a3526ea",
+        "rev": "1712a6d3430ca75353d366b7ddd1c79d6b243efc",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/rust-overlay.git"
@@ -47,10 +47,10 @@
     },
     "schemas": {
       "locked": {
-        "lastModified": 1739197601,
-        "narHash": "sha256-9SHIOIDv/JZhE/OaBQ35v86ggQ93SUVA/9tEl0WmGGA=",
+        "lastModified": 1747430042,
+        "narHash": "sha256-FXBkQaQ2wptf06JpD9d8FsQcyj1wmSttq7eZIXxqiz4=",
         "ref": "refs/heads/main",
-        "rev": "b960fc9779e9b29b01bcb4db81b236387ad7e5c8",
+        "rev": "d0e74ee9a30eda4cc153b7f1e347043680834180",
         "shallow": true,
         "type": "git",
         "url": "https://git.k93.sh/mirrors/flake-schemas.git"

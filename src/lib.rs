@@ -94,7 +94,6 @@
     doc = ::embed_doc_image::embed_image!("svg", "res/screenshots/svg.png"),
     doc = ::embed_doc_image::embed_image!("txt", "res/screenshots/txt.png"),
 )]
-#![deny(missing_docs)]
 #![cfg_attr(feature = "binaries", feature(try_trait_v2))] // TODO https://github.com/rust-lang/rust/issues/84277
 
 /// A list of things likely to be required by most dependents.
@@ -106,6 +105,7 @@ pub mod prelude {
     };
 }
 
+#[expect(clippy::missing_docs_in_private_items, reason = "Just an implementation detail")]
 #[path = "libs/public/mod.rs"]
 mod public;
 pub use self::public::*;

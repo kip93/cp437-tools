@@ -1,8 +1,8 @@
-//! Set one field of a file's metadata
+//! Set one field of a file's metadata.
 
 use std::{
     env::args,
-    io::{stdout, IsTerminal},
+    io::{stdout, IsTerminal as _},
 };
 
 use cp437_tools::{
@@ -14,12 +14,18 @@ use cp437_tools::{
 };
 
 #[allow(dead_code)]
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
 pub fn main() -> ExitCode {
-    return run(args().collect());
+    return exec(&args().collect::<Vec<String>>());
 }
 
 #[inline]
-pub fn run(args: Vec<String>) -> ExitCode {
+#[must_use]
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn exec(args: &[String]) -> ExitCode {
     let exit_code = if args.len() < 2 {
         ExitCode::USAGE(String::from("Missing input file"))
     } else if args.len() < 3 {
@@ -31,137 +37,130 @@ pub fn run(args: Vec<String>) -> ExitCode {
     } else if stdout().is_terminal() {
         ExitCode::USAGE(String::from("Refusing to write to terminal"))
     } else {
-        process(&args[1], |i, o| return print(i, o, &args[2], &args[3]))
+        process(&args[1], |i, o| return run(i, o, &args[2], &args[3]))
     };
 
     exit_code.print();
     return exit_code;
 }
 
-fn print(input: &mut Input, output: &mut Output, key: &String, value: &String) -> ExitCode {
-    let mut meta = input.meta.clone().unwrap_or(Meta {
-        size: input.size,
-        ..Default::default()
-    });
+#[allow(missing_docs, reason = "Just an entry point")]
+#[allow(clippy::missing_docs_in_private_items, reason = "Just an entry point")]
+pub fn run(input: &mut Input, output: &mut Output, key: &str, value: &str) -> ExitCode {
+    let mut meta = input.meta.clone().unwrap_or(Meta { size: input.size, ..Default::default() });
 
-    set_meta(&mut meta, key.to_string(), escape(value.to_string()))?;
+    set_meta(&mut meta, key, &escape(value)?)?;
     meta::check(Some(&meta))?;
 
     input.read_by_chunks(|chunk| {
         return output.write(chunk);
     })?;
 
-    return write_meta(output, meta);
+    return write_meta(output, &meta);
 }
 
+/// Modify a single meta field.
 #[inline]
-fn set_meta(meta: &mut Meta, key: String, value: String) -> ExitCode {
-    match key.as_str() {
+fn set_meta(meta: &mut Meta, key: &str, value: &str) -> ExitCode {
+    match key {
         "title" => {
             meta.title = value.trim().to_string();
-        }
+        },
         "author" => {
             meta.author = value.trim().to_string();
-        }
+        },
         "group" => {
             meta.group = value.trim().to_string();
-        }
+        },
         "date" => {
             meta.date = value.trim().to_string();
-        }
+        },
         "size" => {
             return ExitCode::USAGE(String::from("Size can't be changed"));
-        }
+        },
         "type" => match value.to_lowercase().as_str() {
             "none" => {
                 meta.r#type = (0, 0);
-            }
+            },
             "character/ascii" => {
                 meta.r#type = (1, 0);
-            }
+            },
             "character/ansi" => {
                 meta.r#type = (1, 1);
-            }
+            },
             _ => {
-                return ExitCode::USAGE(format!("Type is unsupported ({})", value));
-            }
+                return ExitCode::USAGE(format!("Type is unsupported ({value})"));
+            },
         },
         "width" => {
-            meta.width = value
-                .parse::<u16>()
-                .map_err(|err| return ExitCode::USAGE(format!("Invalid width ({})", err)))?;
-        }
+            meta.width =
+                value.parse::<u16>().map_err(|err| return ExitCode::USAGE(format!("Invalid width ({err})")))?;
+        },
         "height" => {
-            meta.height = value
-                .parse::<u16>()
-                .map_err(|err| return ExitCode::USAGE(format!("Invalid height ({})", err)))?;
-        }
+            meta.height =
+                value.parse::<u16>().map_err(|err| return ExitCode::USAGE(format!("Invalid height ({err})")))?;
+        },
         "flags" => {
             meta.flags = (if let Some(hex) = value.strip_prefix("0x") {
-                u8::from_str_radix(&hex, 16)
+                u8::from_str_radix(hex, 16)
             } else if let Some(bin) = value.strip_prefix("0b") {
-                u8::from_str_radix(&bin, 2)
+                u8::from_str_radix(bin, 2)
             } else {
                 value.parse::<u8>()
             })
-            .map_err(|err| return ExitCode::USAGE(format!("Invalid flags ({})", err)))?;
-        }
-        "font" => match value.as_str() {
-            "" => {
+            .map_err(|err| return ExitCode::USAGE(format!("Invalid flags ({err})")))?;
+        },
+        "font" => match value {
+            "" | "IBM VGA" | "IBM VGA 437" => {
                 meta.font = value.trim().to_string();
-            }
-            "IBM VGA" => {
-                meta.font = value.trim().to_string();
-            }
-            "IBM VGA 437" => {
-                meta.font = value.trim().to_string();
-            }
+            },
             _ => {
-                return ExitCode::USAGE(format!("Font is unsupported ({})", value));
-            }
+                return ExitCode::USAGE(format!("Font is unsupported ({value})"));
+            },
         },
         "notes" => {
-            if !value.is_empty() {
+            if value.is_empty() {
+                meta.notes = vec![];
+            } else {
                 meta.notes = value
                     .split('\n')
                     .map(|note| return note.trim().to_string())
                     .filter(|note| return !note.is_empty())
                     .collect();
-            } else {
-                meta.notes = vec![];
             }
-        }
+        },
         _ => {
-            return ExitCode::USAGE(format!("Unknown key: {}", key));
-        }
+            return ExitCode::USAGE(format!("Unknown key: {key}"));
+        },
     }
 
     return ExitCode::OK;
 }
 
+/// Write the metadata part of the file.
 #[inline]
-fn write_meta(output: &mut Output, meta: Meta) -> ExitCode {
+fn write_meta(output: &mut Output, meta: &Meta) -> ExitCode {
     output.write(b"\x1A")?;
     if !meta.notes().is_empty() {
         output.write(b"COMNT")?;
         for note in meta.notes() {
-            output.write(&to_cp437(format!("{:<64}", note))?)?;
+            output.write(&to_cp437(&format!("{note:<64}"))?)?;
         }
     }
 
     output.write(b"SAUCE00")?;
-    output.write(&to_cp437(format!("{:<35}", meta.title))?)?;
-    output.write(&to_cp437(format!("{:<20}", meta.author))?)?;
-    output.write(&to_cp437(format!("{:<20}", meta.group))?)?;
-    output.write(&to_cp437(format!("{:<8}", meta.date))?)?;
+    output.write(&to_cp437(&format!("{:<35}", meta.title))?)?;
+    output.write(&to_cp437(&format!("{:<20}", meta.author))?)?;
+    output.write(&to_cp437(&format!("{:<20}", meta.group))?)?;
+    output.write(&to_cp437(&format!("{:<8}", meta.date))?)?;
     output.write(&meta.size.to_le_bytes())?;
     output.write(&[meta.r#type.0, meta.r#type.1])?;
     output.write(&meta.width.to_le_bytes())?;
     output.write(&meta.height.to_le_bytes())?;
-    output.write(&0u32.to_le_bytes())?;
-    output.write(&[meta.notes().len() as u8])?;
+    output.write(&0_u32.to_le_bytes())?;
+    output.write(&[u8::try_from(meta.notes().len())?])?;
     output.write(&[meta.flags])?;
-    output.write(&to_cp437(format!("{:\0<22}", meta.font))?)?;
+    output.write(&to_cp437(&format!("{:\0<22}", meta.font))?)?;
 
     return ExitCode::OK;
 }
@@ -178,36 +177,29 @@ mod tests {
 
     #[test]
     fn no_input() {
-        assert_eq!(
-            run(vec![String::from("cp437-set-meta")]),
-            ExitCode::USAGE(String::from("Missing input file"))
-        );
+        assert_eq!(exec(&[String::from("cp437-set-meta")]), ExitCode::USAGE(String::from("Missing input file")));
     }
 
     #[test]
     fn no_key() {
         assert_eq!(
-            run(vec![String::from("cp437-set-meta"), String::from("a")]),
-            ExitCode::USAGE(String::from("Missing key"))
+            exec(&[String::from("cp437-set-meta"), String::from("a")]),
+            ExitCode::USAGE(String::from("Missing key")),
         );
     }
 
     #[test]
     fn no_value() {
         assert_eq!(
-            run(vec![
-                String::from("cp437-set-meta"),
-                String::from("a"),
-                String::from("b"),
-            ]),
-            ExitCode::USAGE(String::from("Missing value"))
+            exec(&[String::from("cp437-set-meta"), String::from("a"), String::from("b")]),
+            ExitCode::USAGE(String::from("Missing value")),
         );
     }
 
     #[test]
     fn too_many_args() {
         assert_eq!(
-            run(vec![
+            exec(&[
                 String::from("cp437-set-meta"),
                 String::from("a"),
                 String::from("b"),
@@ -215,7 +207,7 @@ mod tests {
                 String::from("d"),
                 String::from("e"),
             ]),
-            ExitCode::USAGE(String::from("Too many arguments"))
+            ExitCode::USAGE(String::from("Too many arguments")),
         );
     }
 
@@ -223,20 +215,15 @@ mod tests {
     #[test]
     fn stdout() {
         assert_eq!(
-            run(vec![
-                String::from("cp437-set-meta"),
-                String::from("a"),
-                String::from("b"),
-                String::from("c"),
-            ]),
-            ExitCode::USAGE(String::from("Refusing to write to terminal"))
+            exec(&[String::from("cp437-set-meta"), String::from("a"), String::from("b"), String::from("c")]),
+            ExitCode::USAGE(String::from("Refusing to write to terminal")),
         );
     }
 
     #[test]
     fn unknown_key() -> Result<(), String> {
         return test::err(
-            |i, o| return print(i, o, &String::from("foo"), &String::from("bar")),
+            |i, o| return run(i, o, &String::from("foo"), &String::from("bar")),
             "res/test/simple.ans",
             "Unknown key: foo",
         );
@@ -245,7 +232,7 @@ mod tests {
     #[test]
     fn illegal() -> Result<(), String> {
         return test::err(
-            |i, o| return print(i, o, &String::from("title"), &String::from("🚫")),
+            |i, o| return run(i, o, &String::from("title"), &String::from("🚫")),
             "res/test/simple.ans",
             "Title contains illegal characters (🚫 (U+1F6AB) is not a valid CP437 character)",
         );
@@ -254,78 +241,54 @@ mod tests {
     #[test]
     fn hex() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("title"), &String::from("\\x40")),
+            |i, o| return run(i, o, &String::from("title"), &String::from("\\x40")),
             "res/test/simple.ans",
-            Some(Meta {
-                title: String::from("@"),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { title: String::from("@"), size: 416, ..Default::default() }),
         );
     }
 
     #[test]
     fn unicode() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("title"), &String::from("\\u3B1")),
+            |i, o| return run(i, o, &String::from("title"), &String::from("\\u3B1")),
             "res/test/simple.ans",
-            Some(Meta {
-                title: String::from("α"),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { title: String::from("α"), size: 416, ..Default::default() }),
         );
     }
 
     #[test]
     fn lf() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("title"), &String::from("\\n")),
+            |i, o| return run(i, o, &String::from("title"), &String::from("\\n")),
             "res/test/simple.ans",
-            Some(Meta {
-                title: String::from(""),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { title: String::from(""), size: 416, ..Default::default() }),
         );
     }
 
     #[test]
     fn title() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("title"), &String::from("TITLE")),
+            |i, o| return run(i, o, &String::from("title"), &String::from("TITLE")),
             "res/test/simple.ans",
-            Some(Meta {
-                title: String::from("TITLE"),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { title: String::from("TITLE"), size: 416, ..Default::default() }),
         );
     }
 
     #[test]
     fn author() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("author"), &String::from("AUTHOR")),
+            |i, o| return run(i, o, &String::from("author"), &String::from("AUTHOR")),
             "res/test/simple.ans",
-            Some(Meta {
-                author: String::from("AUTHOR"),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { author: String::from("AUTHOR"), size: 416, ..Default::default() }),
         );
     }
 
     #[test]
     fn group() -> Result<(), String> {
         return test::file_meta(
-            |i, o| return print(i, o, &String::from("group"), &String::from("GROUP")),
+            |i, o| return run(i, o, &String::from("group"), &String::from("GROUP")),
             "res/test/simple.ans",
-            Some(Meta {
-                group: String::from("GROUP"),
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { group: String::from("GROUP"), size: 416, ..Default::default() }),
         );
     }
 
@@ -335,20 +298,16 @@ mod tests {
         #[test]
         fn valid() -> Result<(), String> {
             return test::file_meta(
-                |i, o| return print(i, o, &String::from("date"), &String::from("19700101")),
+                |i, o| return run(i, o, &String::from("date"), &String::from("19700101")),
                 "res/test/simple.ans",
-                Some(Meta {
-                    date: String::from("19700101"),
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { date: String::from("19700101"), size: 416, ..Default::default() }),
             );
         }
 
         #[test]
         fn invalid() -> Result<(), String> {
             return test::err(
-                |i, o| return print(i, o, &String::from("date"), &String::from("YYYYMMDD")),
+                |i, o| return run(i, o, &String::from("date"), &String::from("YYYYMMDD")),
                 "res/test/simple.ans",
                 "Date format is wrong (input contains invalid characters)",
             );
@@ -358,7 +317,7 @@ mod tests {
     #[test]
     fn size() -> Result<(), String> {
         return test::err(
-            |i, o| return print(i, o, &String::from("size"), &String::from("1")),
+            |i, o| return run(i, o, &String::from("size"), &String::from("1")),
             "res/test/simple.ans",
             "Size can't be changed",
         );
@@ -370,13 +329,9 @@ mod tests {
         #[test]
         fn none() -> Result<(), String> {
             return test::file_meta(
-                |i, o| return print(i, o, &String::from("type"), &String::from("None")),
+                |i, o| return run(i, o, &String::from("type"), &String::from("None")),
                 "res/test/simple.ans",
-                Some(Meta {
-                    r#type: (0, 0),
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { r#type: (0, 0), size: 416, ..Default::default() }),
             );
         }
 
@@ -384,19 +339,10 @@ mod tests {
         fn ascii() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(
-                        i,
-                        o,
-                        &String::from("type"),
-                        &String::from("Character/ASCII"),
-                    );
+                    return run(i, o, &String::from("type"), &String::from("Character/ASCII"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    r#type: (1, 0),
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { r#type: (1, 0), size: 416, ..Default::default() }),
             );
         }
 
@@ -404,21 +350,17 @@ mod tests {
         fn ansi() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("type"), &String::from("Character/ANSI"));
+                    return run(i, o, &String::from("type"), &String::from("Character/ANSI"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    r#type: (1, 1),
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { r#type: (1, 1), size: 416, ..Default::default() }),
             );
         }
 
         #[test]
         fn unsupported() -> Result<(), String> {
             return test::err(
-                |i, o| return print(i, o, &String::from("type"), &String::from("foo")),
+                |i, o| return run(i, o, &String::from("type"), &String::from("foo")),
                 "res/test/simple.ans",
                 "Type is unsupported (foo)",
             );
@@ -429,14 +371,10 @@ mod tests {
     fn width() -> Result<(), String> {
         return test::file_meta(
             |i, o| {
-                return print(i, o, &String::from("width"), &String::from("1"));
+                return run(i, o, &String::from("width"), &String::from("1"));
             },
             "res/test/simple.ans",
-            Some(Meta {
-                width: 1,
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { width: 1, size: 416, ..Default::default() }),
         );
     }
 
@@ -444,14 +382,10 @@ mod tests {
     fn height() -> Result<(), String> {
         return test::file_meta(
             |i, o| {
-                return print(i, o, &String::from("height"), &String::from("1"));
+                return run(i, o, &String::from("height"), &String::from("1"));
             },
             "res/test/simple.ans",
-            Some(Meta {
-                height: 1,
-                size: 416,
-                ..Default::default()
-            }),
+            Some(Meta { height: 1, size: 416, ..Default::default() }),
         );
     }
 
@@ -462,14 +396,10 @@ mod tests {
         fn valid() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("flags"), &String::from("0x01"));
+                    return run(i, o, &String::from("flags"), &String::from("0x01"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    flags: 0x01,
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { flags: 0x01, size: 416, ..Default::default() }),
             );
         }
 
@@ -477,14 +407,10 @@ mod tests {
         fn binary() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("flags"), &String::from("0b00011"));
+                    return run(i, o, &String::from("flags"), &String::from("0b00011"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    flags: 0x03,
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { flags: 0x03, size: 416, ..Default::default() }),
             );
         }
 
@@ -492,14 +418,10 @@ mod tests {
         fn hex() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("flags"), &String::from("0x03"));
+                    return run(i, o, &String::from("flags"), &String::from("0x03"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    flags: 0x03,
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { flags: 0x03, size: 416, ..Default::default() }),
             );
         }
 
@@ -507,21 +429,17 @@ mod tests {
         fn decimal() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("flags"), &String::from("3"));
+                    return run(i, o, &String::from("flags"), &String::from("3"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    flags: 0x03,
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { flags: 0x03, size: 416, ..Default::default() }),
             );
         }
 
         #[test]
         fn unsupported() -> Result<(), String> {
             return test::err(
-                |i, o| return print(i, o, &String::from("flags"), &String::from("0x00")),
+                |i, o| return run(i, o, &String::from("flags"), &String::from("0x00")),
                 "res/test/simple.ans",
                 "Blink mode is unsupported",
             );
@@ -530,7 +448,7 @@ mod tests {
         #[test]
         fn illegal() -> Result<(), String> {
             return test::err(
-                |i, o| return print(i, o, &String::from("flags"), &String::from("x")),
+                |i, o| return run(i, o, &String::from("flags"), &String::from("x")),
                 "res/test/simple.ans",
                 "Invalid flags (invalid digit found in string)",
             );
@@ -544,21 +462,17 @@ mod tests {
         fn valid() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("font"), &String::from("IBM VGA 437"));
+                    return run(i, o, &String::from("font"), &String::from("IBM VGA 437"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    font: String::from("IBM VGA 437"),
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { font: String::from("IBM VGA 437"), size: 416, ..Default::default() }),
             );
         }
 
         #[test]
         fn unsupported() -> Result<(), String> {
             return test::err(
-                |i, o| return print(i, o, &String::from("font"), &String::from("foo")),
+                |i, o| return run(i, o, &String::from("font"), &String::from("foo")),
                 "res/test/simple.ans",
                 "Font is unsupported (foo)",
             );
@@ -572,14 +486,10 @@ mod tests {
         fn empty() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("notes"), &String::from(""));
+                    return run(i, o, &String::from("notes"), &String::from(""));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    notes: vec![],
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { notes: vec![], size: 416, ..Default::default() }),
             );
         }
 
@@ -587,14 +497,10 @@ mod tests {
         fn single() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("notes"), &String::from("foo"));
+                    return run(i, o, &String::from("notes"), &String::from("foo"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    notes: vec![String::from("foo")],
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { notes: vec![String::from("foo")], size: 416, ..Default::default() }),
             );
         }
 
@@ -602,14 +508,10 @@ mod tests {
         fn multiple() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("notes"), &String::from("foo\\nbar"));
+                    return run(i, o, &String::from("notes"), &String::from("foo\\nbar"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    notes: vec![String::from("foo"), String::from("bar")],
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { notes: vec![String::from("foo"), String::from("bar")], size: 416, ..Default::default() }),
             );
         }
 
@@ -617,14 +519,10 @@ mod tests {
         fn trailing() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("notes"), &String::from("foo\\n"));
+                    return run(i, o, &String::from("notes"), &String::from("foo\\n"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    notes: vec![String::from("foo")],
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { notes: vec![String::from("foo")], size: 416, ..Default::default() }),
             );
         }
 
@@ -632,14 +530,10 @@ mod tests {
         fn infix_empty() -> Result<(), String> {
             return test::file_meta(
                 |i, o| {
-                    return print(i, o, &String::from("notes"), &String::from("foo\\n\\nbar"));
+                    return run(i, o, &String::from("notes"), &String::from("foo\\n\\nbar"));
                 },
                 "res/test/simple.ans",
-                Some(Meta {
-                    notes: vec![String::from("foo"), String::from("bar")],
-                    size: 416,
-                    ..Default::default()
-                }),
+                Some(Meta { notes: vec![String::from("foo"), String::from("bar")], size: 416, ..Default::default() }),
             );
         }
     }

@@ -1,12 +1,13 @@
 //! Handling of file's metadata
 //!
-//! See <https://www.acid.org/info/sauce/sauce.htm>
+//! See <https://web.archive.org/web/20250427042053id_/https://www.acid.org/info/sauce/sauce.htm>
 //!
 
 use chrono::NaiveDate;
 use std::{
+    array::TryFromSliceError,
     fs::File,
-    io::{Read, Seek, SeekFrom},
+    io::{Read as _, Seek as _, SeekFrom},
     str,
 };
 use ttf_parser::Face;
@@ -16,38 +17,38 @@ use crate::{
     prelude::{to_utf8, CP437_TO_UTF8},
 };
 
-/// A structure representing a file's metadata
+/// A structure representing a file's metadata.
 #[doc(alias = "Sauce")]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Meta {
-    /// The image's title
+    /// The image's title.
     pub title: String,
-    /// The image's author
+    /// The image's author.
     pub author: String,
-    /// The image author's team or group
+    /// The image author's team or group.
     #[doc(alias = "team")]
     pub group: String,
-    /// The image creation date, in the YYYYMMDD format
+    /// The image creation date, in the YYYYMMDD format.
     pub date: String,
-    /// The size of the file, sans this metadata
+    /// The size of the file, sans this metadata.
     pub size: u32,
-    /// The type of this file
+    /// The type of this file.
     ///
-    /// Only supported values are
+    /// Only supported values are:
     /// * `(0, 0)` → `None` (effectively, `Character/ANSI`)
     /// * `(1, 0)` → `Character/ASCII`
     /// * `(1, 1)` → `Character/ANSI`
     ///
-    /// See <https://www.acid.org/info/sauce/sauce.htm#FileType>
+    /// See <https://web.archive.org/web/20250427042053id_/https://www.acid.org/info/sauce/sauce.htm#FileType>
     ///
     pub r#type: (u8, u8),
-    /// Width of the image
+    /// Width of the image.
     pub width: u16,
-    /// Height of the image
+    /// Height of the image.
     pub height: u16,
-    /// A bitfield of flags that define how to process an image
+    /// A bitfield of flags that define how to process an image.
     ///
-    /// See <https://www.acid.org/info/sauce/sauce.htm#ANSiFlags>
+    /// See <https://web.archive.org/web/20250427042053id_/https://www.acid.org/info/sauce/sauce.htm#ANSiFlags>
     ///
     #[doc(alias = "AR")]
     #[doc(alias = "aspect ratio")]
@@ -57,28 +58,28 @@ pub struct Meta {
     #[doc(alias = "iCE colour")]
     #[doc(alias = "non-blink mode")]
     pub flags: u8,
-    /// The name of the font this image uses
+    /// The name of the font this image uses.
     ///
     /// Only IBM VGA is supported.
     ///
     pub font: String,
-    /// A list of comments on this image
+    /// A list of comments on this image.
     #[doc(alias = "comments")]
     pub notes: Vec<String>,
 }
 
-/// A minimal meta
+/// A minimal meta.
 ///
-/// Sets all defaults as interpreted when undefined
+/// Sets all defaults as interpreted when undefined.
 ///
 impl Default for Meta {
-    /// Get default meta values
+    /// Get default meta values.
     fn default() -> Meta {
         return Meta {
-            title: String::from(""),
-            author: String::from(""),
-            group: String::from(""),
-            date: String::from(""),
+            title: String::new(),
+            author: String::new(),
+            group: String::new(),
+            date: String::new(),
             size: 0,
             r#type: (1, 1),
             width: 80,
@@ -95,48 +96,36 @@ impl Meta {
     ///
     /// See [`title` field](#structfield.title)
     ///
+    #[must_use]
     pub fn title(&self) -> Option<&String> {
-        return if !self.title.is_empty() {
-            Some(&self.title)
-        } else {
-            None
-        };
+        return if self.title.is_empty() { None } else { Some(&self.title) };
     }
 
     /// Wrap the author in an [`Option`].
     ///
     /// See [`author` field](#structfield.author)
     ///
+    #[must_use]
     pub fn author(&self) -> Option<&String> {
-        return if !self.author.is_empty() {
-            Some(&self.author)
-        } else {
-            None
-        };
+        return if self.author.is_empty() { None } else { Some(&self.author) };
     }
 
     /// Wrap the group in an [`Option`].
     ///
     /// See [`group` field](#structfield.group)
     ///
+    #[must_use]
     pub fn group(&self) -> Option<&String> {
-        return if !self.group.is_empty() {
-            Some(&self.group)
-        } else {
-            None
-        };
+        return if self.group.is_empty() { None } else { Some(&self.group) };
     }
 
     /// Wrap the date in an [`Option`].
     ///
     /// See [`date` field](#structfield.date)
     ///
+    #[must_use]
     pub fn date(&self) -> Option<&String> {
-        return if !self.date.is_empty() {
-            Some(&self.date)
-        } else {
-            None
-        };
+        return if self.date.is_empty() { None } else { Some(&self.date) };
     }
 
     /// Fetch the size.
@@ -144,6 +133,7 @@ impl Meta {
     /// See [`size` field](#structfield.size)
     ///
     #[inline]
+    #[must_use]
     pub fn size(&self) -> u32 {
         return self.size;
     }
@@ -154,12 +144,9 @@ impl Meta {
     ///
     /// See [`Meta::default`]
     ///
+    #[must_use]
     pub fn r#type(&self) -> (u8, u8) {
-        return if self.r#type != (0, 0) {
-            self.r#type
-        } else {
-            Meta::default().r#type
-        };
+        return if self.r#type == (0, 0) { Meta::default().r#type } else { self.r#type };
     }
 
     /// Fetch the width if `width > 0`, otherwise the default.
@@ -168,12 +155,9 @@ impl Meta {
     ///
     /// See [`Meta::default`]
     ///
+    #[must_use]
     pub fn width(&self) -> u16 {
-        return if self.width > 0 {
-            self.width
-        } else {
-            Meta::default().width
-        };
+        return if self.width > 0 { self.width } else { Meta::default().width };
     }
 
     /// Fetch the height if `height > 0`, otherwise the default.
@@ -182,12 +166,9 @@ impl Meta {
     ///
     /// See [`Meta::default`]
     ///
+    #[must_use]
     pub fn height(&self) -> u16 {
-        return if self.height > 0 {
-            self.height
-        } else {
-            Meta::default().height
-        };
+        return if self.height > 0 { self.height } else { Meta::default().height };
     }
 
     /// Get both the width and the height.
@@ -197,6 +178,7 @@ impl Meta {
     /// See [`height` method](#method.height)
     ///
     #[inline]
+    #[must_use]
     pub fn dimensions(&self) -> (u16, u16) {
         return (self.width(), self.height());
     }
@@ -205,6 +187,7 @@ impl Meta {
     ///
     /// See [`flags` field](#structfield.flags)
     ///
+    #[must_use]
     pub fn flags(&self) -> (u8, u8, u8) {
         return ((self.flags >> 3) & 3, (self.flags >> 1) & 3, self.flags & 1);
     }
@@ -213,36 +196,27 @@ impl Meta {
     ///
     /// See [`font` field](#structfield.font)
     ///
+    #[must_use]
     pub fn font(&self) -> Option<&String> {
-        return if !self.font.is_empty() {
-            Some(&self.font)
-        } else {
-            None
-        };
+        return if self.font.is_empty() { None } else { Some(&self.font) };
     }
 
     /// Font face, in OTB format.
     ///
     /// See [`font` field](#structfield.font)
     ///
-    pub fn font_face_otb(&self) -> &Face {
-        return if self.font_width() == 8 {
-            &fonts::VGA_8X16 as &Face
-        } else {
-            &fonts::VGA_9X16 as &Face
-        };
+    #[must_use]
+    pub fn font_face_otb(&self) -> &Face<'_> {
+        return if self.font_width() == 8 { &fonts::VGA_8X16 as &Face } else { &fonts::VGA_9X16 as &Face };
     }
 
     /// Font face, in WOFF format.
     ///
     /// See [`font` field](#structfield.font)
     ///
+    #[must_use]
     pub fn font_face_woff(&self) -> &[u8] {
-        return if self.font_width() == 8 {
-            &fonts::VGA_8X16_WOFF
-        } else {
-            &fonts::VGA_9X16_WOFF
-        };
+        return if self.font_width() == 8 { &fonts::VGA_8X16_WOFF } else { &fonts::VGA_9X16_WOFF };
     }
 
     /// Fetch the notes.
@@ -250,6 +224,7 @@ impl Meta {
     /// See [`notes` field](#structfield.notes)
     ///
     #[inline]
+    #[must_use]
     pub fn notes(&self) -> &Vec<String> {
         return &self.notes;
     }
@@ -259,15 +234,17 @@ impl Meta {
     /// See [`aspect_ratio` method](#method.aspect_ratio)
     ///
     #[inline]
+    #[must_use]
     pub fn stretch(&self) -> f64 {
         let ar = self.aspect_ratio();
-        return ar.1 as f64 / ar.0 as f64;
+        return f64::from(ar.1) / f64::from(ar.0);
     }
 
     /// Compute the aspect ratio.
     ///
     /// See [`flags` field](#structfield.flags)
     ///
+    #[must_use]
     pub fn aspect_ratio(&self) -> (u8, u8) {
         return if self.flags().0 == 0b10 {
             (1, 1)
@@ -282,12 +259,14 @@ impl Meta {
     ///
     /// See [`flags` field](#structfield.flags)
     ///
+    #[must_use]
     pub fn font_width(&self) -> u8 {
         return if self.flags().1 == 0b01 { 8 } else { 9 };
     }
 
     /// Font height.
     #[inline]
+    #[must_use]
     pub fn font_height(&self) -> u8 {
         return 16;
     }
@@ -299,69 +278,84 @@ impl Meta {
     /// See [`font_height` method](#method.font_height)
     ///
     #[inline]
+    #[must_use]
     pub fn font_size(&self) -> (u8, u8) {
         return (self.font_width(), self.font_height());
     }
 }
 
-/// Get a file's metadata via its path
+/// Get a file's metadata via its path.
 ///
-/// Arguments:
+/// # Arguments
+///
 /// * `path`: Path pointing to file. Can be relative to cwd.
+///
+/// # Errors
+///
+/// Fails when there's problems reading the file.
 ///
 #[inline]
 pub fn get(path: &str) -> Result<Option<Meta>, String> {
     return read(&mut File::open(path).map_err(|err| return err.to_string())?);
 }
 
-/// Get a file's metadata via a file reference
+/// Get a file's metadata via a file reference.
 ///
-/// Arguments:
-/// * `file`: File to read
+/// # Arguments
+///
+/// * `file`: File to read.
+///
+/// # Errors
+///
+/// Fails when there's problems reading the file.
 ///
 pub fn read(file: &mut File) -> Result<Option<Meta>, String> {
     return read_raw(file).map(|maybe_raw| {
-        return maybe_raw.map(|raw| {
-            return Meta {
-                title: to_utf8((&raw[raw.len() - 121..raw.len() - 86]).to_vec())
-                    .trim_matches('\x20')
-                    .to_string(),
-                author: to_utf8((&raw[raw.len() - 86..raw.len() - 66]).to_vec())
-                    .trim_matches('\x20')
-                    .to_string(),
-                group: to_utf8((&raw[raw.len() - 66..raw.len() - 46]).to_vec())
-                    .trim_matches('\x20')
-                    .to_string(),
-                date: to_utf8((&raw[raw.len() - 46..raw.len() - 38]).to_vec())
-                    .trim_matches('\x20')
-                    .to_string(),
-                size: u32::from_le_bytes(raw[raw.len() - 38..raw.len() - 34].try_into().unwrap()),
-                r#type: (raw[raw.len() - 34], raw[raw.len() - 33]),
-                width: u16::from_le_bytes(raw[raw.len() - 32..raw.len() - 30].try_into().unwrap()),
-                height: u16::from_le_bytes(raw[raw.len() - 30..raw.len() - 28].try_into().unwrap()),
-                flags: raw[raw.len() - 23],
-                font: to_utf8((&raw[raw.len() - 22..]).to_vec())
-                    .trim_matches('\x00')
-                    .to_string(),
-                notes: (0..raw[raw.len() - 24] as usize)
-                    .rev()
-                    .map(|i| {
-                        let offset = raw.len() - (i + 3) * 64;
-                        return to_utf8((&raw[offset..offset + 64]).to_vec())
-                            .trim_matches('\x20')
-                            .to_string();
-                    })
-                    .collect(),
-            };
-        });
-    });
+        return maybe_raw
+            .map(|raw| {
+                return Ok(Meta {
+                    title: to_utf8(&(raw[raw.len() - 121..raw.len() - 86])).trim_matches('\x20').to_string(),
+                    author: to_utf8(&(raw[raw.len() - 86..raw.len() - 66])).trim_matches('\x20').to_string(),
+                    group: to_utf8(&(raw[raw.len() - 66..raw.len() - 46])).trim_matches('\x20').to_string(),
+                    date: to_utf8(&(raw[raw.len() - 46..raw.len() - 38])).trim_matches('\x20').to_string(),
+                    size: u32::from_le_bytes(
+                        raw[raw.len() - 38..raw.len() - 34]
+                            .try_into()
+                            .map_err(|err: TryFromSliceError| return err.to_string())?,
+                    ),
+                    r#type: (raw[raw.len() - 34], raw[raw.len() - 33]),
+                    width: u16::from_le_bytes(
+                        raw[raw.len() - 32..raw.len() - 30]
+                            .try_into()
+                            .map_err(|err: TryFromSliceError| return err.to_string())?,
+                    ),
+                    height: u16::from_le_bytes(
+                        raw[raw.len() - 30..raw.len() - 28]
+                            .try_into()
+                            .map_err(|err: TryFromSliceError| return err.to_string())?,
+                    ),
+                    flags: raw[raw.len() - 23],
+                    font: to_utf8(&(raw[raw.len() - 22..])).trim_matches('\x00').to_string(),
+                    notes: (0..raw[raw.len() - 24] as usize)
+                        .rev()
+                        .map(|i| {
+                            let offset = raw.len() - (i + 3) * 64;
+                            return to_utf8(&(raw[offset..offset + 64])).trim_matches('\x20').to_string();
+                        })
+                        .collect(),
+                });
+            })
+            .transpose();
+    })?;
 }
 
-/// Get a human readable type name
+/// Get a human readable type name.
 ///
-/// Arguments:
-/// * `type`: The type to get the name for
+/// # Arguments
 ///
+/// * `type`: The type to get the name for.
+///
+#[must_use]
 pub fn type_name(r#type: (u8, u8)) -> String {
     return match r#type {
         (0, _) => String::from("None"),
@@ -386,11 +380,13 @@ pub fn type_name(r#type: (u8, u8)) -> String {
     };
 }
 
-/// Check that a given file's metadata is valid and supported
+/// Check that a given file's metadata is valid and supported.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check(meta: Option<&Meta>) -> Result<(), String> {
     check_title(meta)?;
     check_author(meta)?;
@@ -404,57 +400,53 @@ pub fn check(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that the title is valid
+/// Check that the title is valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_title(meta: Option<&Meta>) -> Result<(), String> {
-    return meta
-        .as_ref()
-        .map(|m| return check_str(&m.title, "Title", 35))
-        .unwrap_or(Ok(()));
+    return meta.as_ref().map_or(Ok(()), |m| return check_str(&m.title, "Title", 35));
 }
 
-/// Check that the author is valid
+/// Check that the author is valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_author(meta: Option<&Meta>) -> Result<(), String> {
-    return meta
-        .as_ref()
-        .map(|m| return check_str(&m.author, "Author", 20))
-        .unwrap_or(Ok(()));
+    return meta.as_ref().map_or(Ok(()), |m| return check_str(&m.author, "Author", 20));
 }
 
-/// Check that the group is valid
+/// Check that the group is valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_group(meta: Option<&Meta>) -> Result<(), String> {
-    return meta
-        .as_ref()
-        .map(|m| return check_str(&m.group, "Group", 20))
-        .unwrap_or(Ok(()));
+    return meta.as_ref().map_or(Ok(()), |m| return check_str(&m.group, "Group", 20));
 }
 
-/// Check that the date is valid
+/// Check that the date is valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_date(meta: Option<&Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if !m.date.is_empty() {
             if m.date.len() != 8 {
-                return Err(format!(
-                    "Date length is wrong (expected =8, got {})",
-                    m.date.len()
-                ));
+                return Err(format!("Date length is wrong (expected =8, got {})", m.date.len()));
             } else if let Err(err) = NaiveDate::parse_from_str(&m.date, "%Y%m%d") {
-                return Err(format!("Date format is wrong ({})", err));
+                return Err(format!("Date format is wrong ({err})"));
             }
         }
     }
@@ -462,11 +454,13 @@ pub fn check_date(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that the type is valid and supported
+/// Check that the type is valid and supported.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_type(meta: Option<&Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if ![0, 1].contains(&m.r#type.0) || ![0, 1].contains(&m.r#type.1) {
@@ -477,11 +471,13 @@ pub fn check_type(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that the flags are valid
+/// Check that the flags are valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_flags(meta: Option<&Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if m.flags & 0x01 == 0x00 {
@@ -499,11 +495,13 @@ pub fn check_flags(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that the font is valid and supported
+/// Check that the font is valid and supported.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_font(meta: Option<&Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if !["IBM VGA", "IBM VGA 437", ""].contains(&m.font.as_str()) {
@@ -516,18 +514,17 @@ pub fn check_font(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that the notes are valid
+/// Check that the notes are valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+///
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_notes(meta: Option<&Meta>) -> Result<(), String> {
     if let Some(m) = meta {
         if m.notes.len() > 255 {
-            return Err(format!(
-                "Too many notes (expected <= 255, got {})",
-                m.notes.len()
-            ));
+            return Err(format!("Too many notes (expected <= 255, got {})", m.notes.len()));
         }
 
         for i in 0..m.notes.len() {
@@ -538,21 +535,22 @@ pub fn check_notes(meta: Option<&Meta>) -> Result<(), String> {
     return Ok(());
 }
 
-/// Check that a single note is valid
+/// Check that a single note is valid.
 ///
-/// Arguments:
-/// * `meta`: The metadata to check
-/// * `i`: The index of the note
+/// # Arguments
 ///
+/// * `meta`: The metadata to check.
+/// * `i`: The index of the note.
+///
+#[expect(clippy::cast_possible_truncation, reason = "Range is [0,3]")]
+#[expect(clippy::cast_sign_loss, reason = "Range is [0,3]")]
+#[expect(clippy::cast_precision_loss, reason = "Range is [0,3]")]
+#[expect(clippy::missing_errors_doc, reason = "That's like the whole purpose of this function")]
 pub fn check_note(meta: Option<&Meta>, i: usize) -> Result<(), String> {
     if let Some(m) = meta {
         check_str(
             &m.notes[i],
-            &format!(
-                "Notes[{:0width$}]",
-                i,
-                width = (m.notes.len() as f32).log10().ceil() as usize
-            ),
+            &format!("Notes[{:0width$}]", i, width = (m.notes.len() as f32).log10().ceil() as usize),
             64,
         )?;
     }
@@ -560,19 +558,13 @@ pub fn check_note(meta: Option<&Meta>, i: usize) -> Result<(), String> {
     return Ok(());
 }
 
-fn check_str(string: &String, name: &str, max_length: usize) -> Result<(), String> {
+fn check_str(string: &str, name: &str, max_length: usize) -> Result<(), String> {
     if string.len() > max_length {
-        return Err(format!(
-            "{} is too long (expected <={}, got {})",
-            name,
-            max_length,
-            string.len()
-        ));
+        return Err(format!("{} is too long (expected <={}, got {})", name, max_length, string.len()));
     }
 
     return string.chars().try_for_each(|r#char| {
-        return check_char(r#char)
-            .map_err(|msg| return format!("{} contains illegal characters ({})", name, msg));
+        return check_char(r#char).map_err(|msg| return format!("{name} contains illegal characters ({msg})"));
     });
 }
 
@@ -580,10 +572,7 @@ fn check_char(r#char: char) -> Result<(), String> {
     if ['\x00', '\x0A', '\x0D', '\x1A', '\x1B'].contains(&r#char) {
         return Err(format!("0x{:02X} is a control character", r#char as u8));
     } else if !CP437_TO_UTF8.contains(&r#char) {
-        return Err(format!(
-            "{} (U+{:X}) is not a valid CP437 character",
-            r#char, r#char as u32
-        ));
+        return Err(format!("{} (U+{:X}) is not a valid CP437 character", r#char, r#char as u32));
     }
 
     return Ok(());
@@ -595,25 +584,23 @@ fn read_raw(file: &mut File) -> Result<Option<Vec<u8>>, String> {
     }
 
     let mut sauce = vec![0; 128];
-    file.seek(SeekFrom::End(-128))
-        .map_err(|err| return err.to_string())?;
-    file.read_exact(&mut sauce)
-        .map_err(|err| return err.to_string())?;
+    file.seek(SeekFrom::End(-128)).map_err(|err| return err.to_string())?;
+    file.read_exact(&mut sauce).map_err(|err| return err.to_string())?;
 
     if &sauce[..7] != "SAUCE00".as_bytes() {
         return Ok(None);
-    } else {
-        let offset = sauce[104] as usize * 64 + (if sauce[104] > 0 { 134 } else { 129 });
-        file.seek(SeekFrom::End(-(offset as i64)))
-            .map_err(|err| return err.to_string())?;
-        let mut raw = vec![0; offset];
-        file.read_exact(&mut raw)
-            .map_err(|err| return err.to_string())?;
-        if raw[0] != 0x1A || (offset > 129 && &raw[1..6] != "COMNT".as_bytes()) {
-            return Ok(None);
-        }
-        return Ok(Some(raw));
     }
+
+    let offset = sauce[104] as usize * 64 + (if sauce[104] > 0 { 134 } else { 129 });
+    #[expect(clippy::cast_possible_wrap, reason = "Range is [0,16454]")]
+    file.seek(SeekFrom::End(-(offset as i64))).map_err(|err| return err.to_string())?;
+    let mut raw = vec![0; offset];
+    file.read_exact(&mut raw).map_err(|err| return err.to_string())?;
+    if raw[0] != 0x1A || (offset > 129 && &raw[1..6] != "COMNT".as_bytes()) {
+        return Ok(None);
+    }
+
+    return Ok(Some(raw));
 }
 
 #[cfg(test)]
@@ -678,10 +665,7 @@ mod tests {
         assert_eq!(meta.dimensions(), (32, 8));
         assert_eq!(meta.flags(), (0, 0, 1));
         assert_eq!(meta.font(), Some(&String::from("IBM VGA")));
-        assert_eq!(
-            meta.notes(),
-            &vec!["Lorem", "ipsum", "dolor", "sit", "amet",]
-        );
+        assert_eq!(meta.notes(), &vec!["Lorem", "ipsum", "dolor", "sit", "amet"]);
 
         return Ok(());
     }
@@ -719,9 +703,7 @@ mod tests {
 
         #[test]
         fn none() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/simple.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/simple.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_none());
 
             return Ok(());
@@ -729,9 +711,7 @@ mod tests {
 
         #[test]
         fn some() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/meta.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/meta.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_some());
             assert_eq!(
                 meta.unwrap(),
@@ -758,9 +738,7 @@ mod tests {
 
         #[test]
         fn notes() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/comments.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/comments.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_some());
             assert_eq!(
                 meta.unwrap(),
@@ -793,9 +771,7 @@ mod tests {
 
         #[test]
         fn empty() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/empty.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/empty.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_none());
 
             return Ok(());
@@ -803,9 +779,7 @@ mod tests {
 
         #[test]
         fn no_data() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/no_data.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/no_data.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_some());
             assert_eq!(
                 meta.unwrap(),
@@ -832,9 +806,7 @@ mod tests {
 
         #[test]
         fn one_hundred_twenty_eight_bytes() -> Result<(), String> {
-            let meta = read_raw(
-                &mut File::open("res/test/128_bytes.ans").map_err(|err| return err.to_string())?,
-            )?;
+            let meta = read_raw(&mut File::open("res/test/128_bytes.ans").map_err(|err| return err.to_string())?)?;
             assert!(meta.is_none());
 
             return Ok(());
@@ -863,28 +835,17 @@ mod tests {
 
             #[test]
             fn valid() -> Result<(), String> {
-                return check_date(Some(&Meta {
-                    date: String::from("19700101"),
-                    ..Default::default()
-                }));
+                return check_date(Some(&Meta { date: String::from("19700101"), ..Default::default() }));
             }
 
             #[test]
             fn invalid() {
-                assert!(check_date(Some(&Meta {
-                    date: String::from("X"),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_date(Some(&Meta { date: String::from("X"), ..Default::default() })).is_err());
             }
 
             #[test]
             fn illegal() {
-                assert!(check_date(Some(&Meta {
-                    date: String::from("19700230"),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_date(Some(&Meta { date: String::from("19700230"), ..Default::default() })).is_err());
             }
         }
 
@@ -895,146 +856,77 @@ mod tests {
 
             #[test]
             fn b_0() {
-                assert!(check_flags(Some(&Meta {
-                    flags: 0x00,
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_flags(Some(&Meta { flags: 0x00, ..Default::default() })).is_err());
             }
 
             #[test]
             fn ls_00() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x01,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x01, ..Default::default() }));
             }
 
             #[test]
             fn ls_01() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x03,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x03, ..Default::default() }));
             }
 
             #[test]
             fn ls_10() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x05,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x05, ..Default::default() }));
             }
 
             #[test]
             fn ls_11() {
-                assert!(check_flags(Some(&Meta {
-                    flags: 0x07,
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_flags(Some(&Meta { flags: 0x07, ..Default::default() })).is_err());
             }
 
             #[test]
             fn ar_00() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x01,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x01, ..Default::default() }));
             }
 
             #[test]
             fn ar_01() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x09,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x09, ..Default::default() }));
             }
 
             #[test]
             fn ar_10() -> Result<(), String> {
-                return check_flags(Some(&Meta {
-                    flags: 0x11,
-                    ..Default::default()
-                }));
+                return check_flags(Some(&Meta { flags: 0x11, ..Default::default() }));
             }
 
             #[test]
             fn ar_11() {
-                assert!(check_flags(Some(&Meta {
-                    flags: 0x19,
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_flags(Some(&Meta { flags: 0x19, ..Default::default() })).is_err());
             }
 
             #[test]
             fn invalid() {
-                assert!(check_flags(Some(&Meta {
-                    flags: 0x21,
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_flags(Some(&Meta { flags: 0x21, ..Default::default() })).is_err());
             }
 
             #[test]
             fn ratio_1_00() {
-                assert_eq!(
-                    (Meta {
-                        flags: 0x11,
-                        ..Default::default()
-                    })
-                    .stretch(),
-                    1.00
-                );
+                assert_eq!((Meta { flags: 0x11, ..Default::default() }).stretch(), 1.00);
             }
 
             #[test]
             fn ratio_1_20() {
-                assert_eq!(
-                    (Meta {
-                        flags: 0x03,
-                        ..Default::default()
-                    })
-                    .stretch(),
-                    1.20
-                );
+                assert_eq!((Meta { flags: 0x03, ..Default::default() }).stretch(), 1.20);
             }
 
             #[test]
             fn ratio_1_35() {
-                assert_eq!(
-                    (Meta {
-                        flags: 0x01,
-                        ..Default::default()
-                    })
-                    .stretch(),
-                    1.35
-                );
+                assert_eq!((Meta { flags: 0x01, ..Default::default() }).stretch(), 1.35);
             }
 
             #[test]
             fn font_size_8x16() {
-                assert_eq!(
-                    (Meta {
-                        flags: 0x03,
-                        ..Default::default()
-                    })
-                    .font_size(),
-                    (8, 16)
-                );
+                assert_eq!((Meta { flags: 0x03, ..Default::default() }).font_size(), (8, 16));
             }
 
             #[test]
             fn font_size_9x16() {
-                assert_eq!(
-                    (Meta {
-                        flags: 0x01,
-                        ..Default::default()
-                    })
-                    .font_size(),
-                    (9, 16)
-                );
+                assert_eq!((Meta { flags: 0x01, ..Default::default() }).font_size(), (9, 16));
             }
         }
 
@@ -1045,46 +937,27 @@ mod tests {
 
             #[test]
             fn valid() -> Result<(), String> {
-                return check_font(Some(&Meta {
-                    font: String::from("IBM VGA"),
-                    ..Default::default()
-                }));
+                return check_font(Some(&Meta { font: String::from("IBM VGA"), ..Default::default() }));
             }
 
             #[test]
             fn invalid() {
-                assert!(check_font(Some(&Meta {
-                    font: String::from("X"),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_font(Some(&Meta { font: String::from("X"), ..Default::default() })).is_err());
             }
 
             #[test]
             fn font_face_8x16() {
                 assert_eq!(
-                    (Meta {
-                        flags: 0x03,
-                        ..Default::default()
-                    })
-                    .font_face_otb()
-                    .raw_face()
-                    .data,
-                    fonts::VGA_8X16.raw_face().data
+                    (Meta { flags: 0x03, ..Default::default() }).font_face_otb().raw_face().data,
+                    fonts::VGA_8X16.raw_face().data,
                 );
             }
 
             #[test]
             fn font_face_9x16() {
                 assert_eq!(
-                    (Meta {
-                        flags: 0x01,
-                        ..Default::default()
-                    })
-                    .font_face_otb()
-                    .raw_face()
-                    .data,
-                    fonts::VGA_9X16.raw_face().data
+                    (Meta { flags: 0x01, ..Default::default() }).font_face_otb().raw_face().data,
+                    fonts::VGA_9X16.raw_face().data,
                 );
             }
         }
@@ -1094,27 +967,17 @@ mod tests {
 
             #[test]
             fn empty() -> Result<(), String> {
-                return check_notes(Some(&Meta {
-                    notes: vec![],
-                    ..Default::default()
-                }));
+                return check_notes(Some(&Meta { notes: vec![], ..Default::default() }));
             }
 
             #[test]
             fn not_empty() -> Result<(), String> {
-                return check_notes(Some(&Meta {
-                    notes: vec![String::from("")],
-                    ..Default::default()
-                }));
+                return check_notes(Some(&Meta { notes: vec![String::new()], ..Default::default() }));
             }
 
             #[test]
             fn too_many() {
-                assert!(check_notes(Some(&Meta {
-                    notes: vec![String::from(""); 256],
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_notes(Some(&Meta { notes: vec![String::new(); 256], ..Default::default() })).is_err());
             }
         }
 
@@ -1137,20 +1000,14 @@ mod tests {
             fn long() {
                 let result = check_str(&String::from("string"), "name", 0);
                 assert!(result.is_err());
-                assert_eq!(
-                    result.unwrap_err(),
-                    "name is too long (expected <=0, got 6)"
-                );
+                assert_eq!(result.unwrap_err(), "name is too long (expected <=0, got 6)");
             }
 
             #[test]
             fn control() {
                 let result = check_str(&String::from("\0"), "name", 99);
                 assert!(result.is_err());
-                assert_eq!(
-                    result.unwrap_err(),
-                    "name contains illegal characters (0x00 is a control character)"
-                );
+                assert_eq!(result.unwrap_err(), "name contains illegal characters (0x00 is a control character)");
             }
 
             #[test]
@@ -1159,7 +1016,7 @@ mod tests {
                 assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
-                    "name contains illegal characters (🚫 (U+1F6AB) is not a valid CP437 character)"
+                    "name contains illegal characters (🚫 (U+1F6AB) is not a valid CP437 character)",
                 );
             }
         }
@@ -1169,152 +1026,87 @@ mod tests {
 
             #[test]
             fn none() -> Result<(), String> {
-                return check_type(Some(&Meta {
-                    r#type: (0, 0),
-                    ..Default::default()
-                }));
+                return check_type(Some(&Meta { r#type: (0, 0), ..Default::default() }));
             }
 
             #[test]
             fn ascii() -> Result<(), String> {
-                return check_type(Some(&Meta {
-                    r#type: (1, 0),
-                    ..Default::default()
-                }));
+                return check_type(Some(&Meta { r#type: (1, 0), ..Default::default() }));
             }
 
             #[test]
             fn ansi() -> Result<(), String> {
-                return check_type(Some(&Meta {
-                    r#type: (1, 1),
-                    ..Default::default()
-                }));
+                return check_type(Some(&Meta { r#type: (1, 1), ..Default::default() }));
             }
 
             #[test]
             fn bitmap() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (2, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (2, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn vector() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (3, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (3, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn audio() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (4, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (4, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn binary_test() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (5, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (5, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn xbin() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (6, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (6, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn archive() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (7, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (7, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn executable() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (8, 0),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (8, 0), ..Default::default() })).is_err());
             }
 
             #[test]
             fn ansimation() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 2),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 2), ..Default::default() })).is_err());
             }
 
             #[test]
             fn rip_script() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 3),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 3), ..Default::default() })).is_err());
             }
 
             #[test]
             fn pcboard() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 4),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 4), ..Default::default() })).is_err());
             }
 
             #[test]
             fn avatar() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 5),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 5), ..Default::default() })).is_err());
             }
 
             #[test]
             fn html() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 6),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 6), ..Default::default() })).is_err());
             }
 
             #[test]
             fn source() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 7),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 7), ..Default::default() })).is_err());
             }
 
             #[test]
             fn tundra_draw() {
-                assert!(check_type(Some(&Meta {
-                    r#type: (1, 8),
-                    ..Default::default()
-                }))
-                .is_err());
+                assert!(check_type(Some(&Meta { r#type: (1, 8), ..Default::default() })).is_err());
             }
         }
     }

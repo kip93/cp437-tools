@@ -1,4 +1,4 @@
-//! Internal impl details
+//! Internal impl details.
 
 #![doc(hidden)]
 

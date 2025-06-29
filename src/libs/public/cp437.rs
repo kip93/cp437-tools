@@ -1,10 +1,10 @@
-//! CP437 to/from UTF-8
+//! CP437 to/from UTF-8.
 
 use indexmap::IndexMap;
 use lazy_static::lazy_static;
 
 lazy_static! {
-    /// An array of 256 elements, mapping most of the CP437 values to UTF-8 characters
+    /// An array of 256 elements, mapping most of the CP437 values to UTF-8 characters.
     ///
     /// Mostly follows CP437, except for:
     ///  * 0x0A & 0x0D are kept for use as line endings.
@@ -37,41 +37,36 @@ lazy_static! {
         /* FX */ '≡',  '±', '≥', '≤', '⌠', '⌡', '÷', '≈',  '°', '∙', '·',  '√', 'ⁿ',  '²',  '■', ' ',
     ];
 
-    /// A dictionary of 256 elements, mapping selected UTF-8 characters to corresponding CP437
+    /// A dictionary of 256 elements, mapping selected UTF-8 characters to corresponding CP437.
     ///
-    /// Effectively the inverse of [`CP437_TO_UTF8`]
+    /// Effectively the inverse of [`CP437_TO_UTF8`].
     ///
     pub static ref UTF8_TO_CP437: IndexMap<char, u8> =
-        IndexMap::from_iter(
-            CP437_TO_UTF8
-                .iter()
-                .enumerate()
-                .map(|(a, b)| return (*b, a as u8))
-        );
+        CP437_TO_UTF8
+            .iter()
+            .enumerate()
+            .map(|(a, b)| return (*b, u8::try_from(a).expect("Spec only has 256 values"))).collect::<IndexMap<_, _>>();
 }
 
-/// Apply [`struct@CP437_TO_UTF8`] to the given bytes
-pub fn to_utf8(cp437: Vec<u8>) -> String {
-    return cp437
-        .iter()
-        .map(|byte| return CP437_TO_UTF8[*byte as usize])
-        .collect();
+/// Apply [`struct@CP437_TO_UTF8`] to the given bytes.
+#[must_use]
+pub fn to_utf8(cp437: &[u8]) -> String {
+    return cp437.iter().map(|byte| return CP437_TO_UTF8[*byte as usize]).collect();
 }
 
-/// Apply [`struct@UTF8_TO_CP437`] to the given string
-pub fn to_cp437(utf8: String) -> Result<Vec<u8>, String> {
+/// Apply [`struct@UTF8_TO_CP437`] to the given string.
+///
+/// # Errors
+///
+/// Fails when there's no equivalent UTF-8 -> CP437 character.
+///
+pub fn to_cp437(utf8: &str) -> Result<Vec<u8>, String> {
     return utf8
         .chars()
         .map(|r#char| {
-            return UTF8_TO_CP437
-                .get(&r#char)
-                .map(|byte| return *byte)
-                .ok_or_else(|| {
-                    return format!(
-                        "{} (U+{:X}) is not a valid CP437 character",
-                        r#char, r#char as u32
-                    );
-                });
+            return UTF8_TO_CP437.get(&r#char).map(|byte| return *byte).ok_or_else(|| {
+                return format!("{} (U+{:X}) is not a valid CP437 character", r#char, r#char as u32);
+            });
         })
         .collect::<Result<Vec<u8>, String>>();
 }
@@ -98,23 +93,20 @@ mod tests {
 
     #[test]
     fn vec_to_utf8() {
-        assert_eq!(to_utf8(vec![0x01]), "☺");
+        assert_eq!(to_utf8(&[0x01]), "☺");
     }
 
     #[test]
     fn str_to_cp437_ok() {
-        let result = to_cp437(String::from("☺"));
+        let result = to_cp437("☺");
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), vec![0x01]);
     }
 
     #[test]
     fn str_to_cp437_err() {
-        let result = to_cp437(String::from("🚫"));
+        let result = to_cp437("🚫");
         assert!(result.is_err());
-        assert_eq!(
-            result.unwrap_err(),
-            "🚫 (U+1F6AB) is not a valid CP437 character"
-        );
+        assert_eq!(result.unwrap_err(), "🚫 (U+1F6AB) is not a valid CP437 character");
     }
 }
